@@ -26,11 +26,6 @@ PAGE TODO :
 
 AIRTABLE :
 
-url rest api : https://api.airtable.com/v0/app0eW1nhas9Zfidx/
-User key : key5uC0KsuwUX6mVx
-base key : app0eW1nhas9Zfidx
-table name : depends of name of table given
-
 - créer un fichier 'service/config.dart'
 - créer un fichier 'model/airtable_data.dart'
     - AirtabeDataProfil()

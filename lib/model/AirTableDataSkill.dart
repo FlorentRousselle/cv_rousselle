@@ -4,12 +4,12 @@ class AirtableDataSkill {
   String id;
   String createdTime;
   String category;
-  List<Image> logos;
+  List<Image> skillImages;
 
   AirtableDataSkill({
     required this.id,
     required this.createdTime,
     required this.category,
-    required this.logos
+    required this.skillImages
   });
 }

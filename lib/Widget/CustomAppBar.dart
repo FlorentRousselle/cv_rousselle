@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
   return iconVisible
       ? AppBar(
-          title: Text(title, style: Theme.of(context).textTheme.headline3),
+          title: Text(title, style: Theme.of(context).textTheme.headline1),
           actions: [
             GestureDetector(
                 child: SvgPicture.asset(FACEBOOK_SVG,
@@ -25,12 +25,12 @@ AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
                 onTap: () => launch(
                     "https://www.linkedin.com/in/florent-rousselle-bb843915b/")),
             const SizedBox(width: 10),
-            Icon(Icons.menu),
-            SizedBox(width: 15)
+            Icon(Icons.menu, color: Theme.of(context).iconTheme.color),
+            const SizedBox(width: 15)
           ],
         )
       : AppBar(
           title: Center(
-              child: Text(title, style: Theme.of(context).textTheme.headline3)),
-          actions: [Icon(Icons.menu), SizedBox(width: 15)]);
+              child: Text(title, style: Theme.of(context).textTheme.headline1)),
+          actions: [Icon(Icons.menu, color: Theme.of(context).iconTheme.color), const SizedBox(width: 15)]);
 }

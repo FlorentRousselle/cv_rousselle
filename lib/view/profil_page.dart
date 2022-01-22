@@ -70,7 +70,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                 child: ListView(
                                     children: values!
                                         .map(
-                                          (AirtableDataProfil value) =>
+                                          (value) =>
                                               ListTile(
                                             leading: Text(
                                               value.icon,
@@ -78,6 +78,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                                   fontFamily: 'MaterialIcons'),
                                             ),
                                             title: Text(value.content),
+                                                onTap: () => Launcher(value),
                                           ),
                                         )
                                         .toList()));
@@ -88,5 +89,19 @@ class _ProfilPageState extends State<ProfilPage> {
                         }))))
       ],
     );
+  }
+
+  Future<bool> Launcher(AirtableDataProfil value) {
+    switch (value.type) {
+      case "mail":
+        return launch("mailto:"+value.content);
+      case "tel":
+        return launch("tel:"+value.content);
+      case "gps":
+        return launch('https://www.google.com/maps/search/?api=1&query=${value.content}');
+      default:
+        return Future<bool>.value(false);
+    }
+
   }
 }

@@ -20,19 +20,35 @@ class _ExperiencePageState extends State<ExperiencePage> {
           AsyncSnapshot<List<AirtableDataExperience>> snapshot) {
         if (snapshot.hasData) {
           List<AirtableDataExperience>? values = snapshot.data;
-          return ListView(
-            children: values!
-                .map(
-                  (AirtableDataExperience value) => ListTile(
-                    title: Text(value.title),
-                    subtitle: Container(
-                      child: value.logo,
-                      height: 100,
-                      width: 100,
-                    ),
-                  ),
-                )
-                .toList(),
+          return ListView.builder(
+            itemCount: values!.length,
+            itemBuilder: (context, index) => Container(
+                color: index % 2 == 0 ? Theme.of(context).scaffoldBackgroundColor : Theme.of(context).colorScheme.secondary,
+                child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(children: [
+                      Expanded(
+                          flex: 2,
+                          child: Container(
+                            child: values[index].logoImage,
+                            height: 150,
+                          )),
+                      const SizedBox(width: 30),
+                      Expanded(
+                          flex: 8,
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(values[index].title),
+                                Text(
+                                    "${values[index].function} (${values[index].period})",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2),
+                                Text(values[index].detail,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1)
+                              ]))
+                    ]))),
           );
         } else {
           return const Center(child: CircularProgressIndicator());

@@ -7,7 +7,7 @@ class AirtableDataExperience {
   String function;
   String period;
   String detail;
-  Image logo;
+  Image logoImage;
 
   AirtableDataExperience({
     required this.id,
@@ -16,6 +16,6 @@ class AirtableDataExperience {
     required this.function,
     required this.detail,
     required this.period,
-    required this.logo
+    required this.logoImage
   });
 }

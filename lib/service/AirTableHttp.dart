@@ -57,6 +57,7 @@ class AirTableHttp {
               createdTime: value['createdTime'],
               content: value['fields']['content'],
               icon: value['fields']['icon'],
+              type: value['fields']['type']
             ),
           )
         },
@@ -96,7 +97,7 @@ class AirTableHttp {
               title: value['fields']['title'],
               detail: value['fields']['details'],
               function: value['fields']['function'],
-              logo: img,
+              logoImage: img,
               period: value['fields']['period'],
             ),
           );
@@ -140,7 +141,7 @@ class AirTableHttp {
               id: value['id'],
               createdTime: value['createdTime'],
               category: value['fields']['category'],
-              logos: tempListImage,
+              skillImages: tempListImage,
             ),
           );
         },

@@ -24,10 +24,10 @@ class _SkillPageState extends State<SkillPage> {
           return ListView(
             children: values!
                 .map(
-                  (AirtableDataSkill value) => ListTile(
-                    title: Text(value.category),
+                  (value) => ListTile(
+                    title: Text(value.category, style: Theme.of(context).textTheme.headline2),
                     subtitle: Wrap(children: [
-                        for (var logo in value.logos)
+                        for (var logo in value.skillImages)
                           ImageContainer(logo, context)
                       ]),
                   ),

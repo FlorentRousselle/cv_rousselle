@@ -1,19 +1,39 @@
 import 'package:flutter/material.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
-  primaryColor: const Color(0xff1f655d),
-  textTheme: const TextTheme(
-      bodyText1: TextStyle(color: Colors.white, fontFamily: "PalanquinDark"),
-      subtitle1: TextStyle(color: Colors.white)),
-  appBarTheme: const AppBarTheme(color: Color(0xff1f655d)),
-);
+    textTheme: const TextTheme(
+        headline3: TextStyle(
+            color: Colors.white70,
+            fontSize: 20,
+            fontFamily: "Garamond",
+            fontWeight: FontWeight.w600),
+        bodyText2: TextStyle(
+            color: Colors.white70,
+            fontSize: 16,
+            fontFamily: "Garamond",
+            fontWeight: FontWeight.w500),
+        subtitle1: TextStyle(
+            color: Colors.white70, fontSize: 14, fontFamily: "Garamond")),
+    iconTheme: const IconThemeData(color: Colors.white70),
+    appBarTheme: const AppBarTheme(color: Colors.black12),
+    backgroundColor: Colors.black87,
+    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black12));
 
 ThemeData lightTheme = ThemeData.light().copyWith(
-    primaryColor: const Color(0xfff5f5f5),
     textTheme: const TextTheme(
-        bodyText1:
-            TextStyle(color: Colors.black, fontFamily: "ShadowsIntoLightTwo"),
-        subtitle1: TextStyle(color: Colors.grey)),
-    appBarTheme: const AppBarTheme(
-        color: Colors.white12,
-        actionsIconTheme: IconThemeData(color: Colors.white)));
+        headline3: TextStyle(
+            color: Colors.black87,
+            fontSize: 20,
+            fontFamily: "Garamond",
+            fontWeight: FontWeight.w600),
+        bodyText2: TextStyle(
+            color: Colors.black87,
+            fontSize: 16,
+            fontFamily: "Garamond",
+            fontWeight: FontWeight.w500),
+        subtitle1: TextStyle(
+            color: Colors.black87, fontSize: 14, fontFamily: "Garamond")),
+    iconTheme: const IconThemeData(color: Colors.black87),
+    appBarTheme: const AppBarTheme(color: Colors.black12),
+    backgroundColor: Colors.black12,
+    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black87));

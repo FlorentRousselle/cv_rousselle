@@ -2,7 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:dart_airtable/dart_airtable.dart';
 import 'package:cv_flutter/utils/Config.dart';
 
-// unused
+///
+/// UNUSED
+/// See : AirTableHttp for more info
+///
 class MyAirTable {
   Future<void> getProfil() async{
     var airtable = Airtable(apiKey: Config.apiKey, projectBase: Config.projectBase);

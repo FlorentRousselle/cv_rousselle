@@ -16,16 +16,17 @@ class _ExperiencePageState extends State<ExperiencePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-          future: airtableData.getProfil(),
+          future: airtableData.getExperience(),
           builder: (BuildContext context,
-              AsyncSnapshot<List<AirtableDataProfil>> snapshot) {
+              AsyncSnapshot<List<AirtableDataExperience>> snapshot) {
             if (snapshot.hasData) {
-              List<AirtableDataProfil>? values = snapshot.data;
+              List<AirtableDataExperience>? values = snapshot.data;
               return ListView(
                 children: values!
                     .map(
-                      (AirtableDataProfil value) => ListTile(
-                        title: Text(value.content),
+                      (AirtableDataExperience value) => ListTile(
+                        title: Text(value.title),
+                        subtitle: Container(child: value.logo, height: 100,width: 100),
                       ),
                     )
                     .toList(),

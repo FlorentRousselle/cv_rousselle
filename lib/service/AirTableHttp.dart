@@ -1,10 +1,15 @@
 import 'dart:convert';
 
+import 'package:cv_flutter/model/AirTableDataExperience.dart';
 import 'package:cv_flutter/model/AirTableDataProfil.dart';
 import 'package:cv_flutter/utils/Config.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+///
+/// service to access to Airtable Database
+///
 class AirTableHttp {
   final Uri urlProfil = Uri.https(
     "api.airtable.com",
@@ -12,6 +17,16 @@ class AirTableHttp {
     {"maxRecords": "10", "view": "Grid view"},
   );
 
+  final Uri urlExperience = Uri.https(
+    "api.airtable.com",
+    "/v0/${Config.projectBase}/experience",
+    {"maxRecords": "10", "view": "Grid view"},
+  );
+
+  ///
+  /// Get profil data
+  /// model : AirTableDataProfil
+  ///
   Future<List<AirtableDataProfil>> getProfil() async {
     final res = await http.get(
       urlProfil,
@@ -45,9 +60,13 @@ class AirTableHttp {
     }
   }
 
-  Future<List<AirtableDataProfil>> getExperience() async {
+  ///
+  /// Get experience data
+  /// model : AirTableDataExperience
+  ///
+  Future<List<AirtableDataExperience>> getExperience() async {
     final res = await http.get(
-      urlProfil,
+      urlExperience,
       headers: {"Authorization": "Bearer ${Config.apiKey}"},
     );
 
@@ -59,17 +78,21 @@ class AirTableHttp {
         print(data);
       }
 
-      List<AirtableDataProfil> values = [];
+      List<AirtableDataExperience> values = [];
       data.forEach(
-            (value) => {
-          values.add(
-            AirtableDataProfil(
+            (value) {
+              Image img = Image.network(value['fields']['logo'][0]['url']);
+          return values.add(
+            AirtableDataExperience(
               id: value['id'],
               createdTime: value['createdTime'],
-              content: value['fields']['content'],
-              icon: value['fields']['icon'],
+              title: value['fields']['title'],
+              detail: value['fields']['details'],
+              function: value['fields']['function'],
+              logo: img,
+              period: value['fields']['period'],
             ),
-          )
+          );
         },
       );
       return values;

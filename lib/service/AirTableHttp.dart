@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cv_flutter/model/AirTableDataExperience.dart';
 import 'package:cv_flutter/model/AirTableDataProfil.dart';
+import 'package:cv_flutter/model/AirTableDataSkill.dart';
 import 'package:cv_flutter/utils/Config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,12 @@ class AirTableHttp {
   final Uri urlExperience = Uri.https(
     "api.airtable.com",
     "/v0/${Config.projectBase}/experience",
+    {"maxRecords": "10", "view": "Grid view"},
+  );
+
+  final Uri urlSkill = Uri.https(
+    "api.airtable.com",
+    "/v0/${Config.projectBase}/skill",
     {"maxRecords": "10", "view": "Grid view"},
   );
 
@@ -91,6 +98,49 @@ class AirTableHttp {
               function: value['fields']['function'],
               logo: img,
               period: value['fields']['period'],
+            ),
+          );
+        },
+      );
+      return values;
+    } else {
+      throw "ERROR !!!!!";
+    }
+  }
+
+  ///
+  /// Get skills data
+  /// model : AirTableDataSkill
+  ///
+  Future<List<AirtableDataSkill>> getSkill() async {
+    final res = await http.get(
+      urlSkill,
+      headers: {"Authorization": "Bearer ${Config.apiKey}"},
+    );
+
+    if (res.statusCode == 200) {
+      var convertDataToJson = jsonDecode(res.body);
+      var data = convertDataToJson['records'];
+
+      if (kDebugMode) {
+        print(data);
+      }
+
+      List<AirtableDataSkill> values = [];
+      data.forEach(
+            (value) {
+              List<Image> tempListImage = [];
+              dynamic skills =  value['fields']['skills'];
+              skills.forEach((skill) {
+                Image img = Image.network(skill['url']);
+                tempListImage.add(img);
+              });
+          return values.add(
+            AirtableDataSkill(
+              id: value['id'],
+              createdTime: value['createdTime'],
+              category: value['fields']['category'],
+              logos: tempListImage,
             ),
           );
         },

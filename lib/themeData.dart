@@ -15,8 +15,8 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
         subtitle1: TextStyle(
             color: Colors.white70, fontSize: 14, fontFamily: "Garamond")),
     iconTheme: const IconThemeData(color: Colors.white70),
-    appBarTheme: const AppBarTheme(color: Colors.black12),
-    backgroundColor: Colors.black87,
+    appBarTheme: const AppBarTheme(color: Colors.black12, elevation: 0),
+    shadowColor: Colors.white38,
     colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black12));
 
 ThemeData lightTheme = ThemeData.light().copyWith(
@@ -34,6 +34,6 @@ ThemeData lightTheme = ThemeData.light().copyWith(
         subtitle1: TextStyle(
             color: Colors.black87, fontSize: 14, fontFamily: "Garamond")),
     iconTheme: const IconThemeData(color: Colors.black87),
-    appBarTheme: const AppBarTheme(color: Colors.black12),
-    backgroundColor: Colors.black12,
+    appBarTheme: const AppBarTheme(color: Colors.black12, elevation: 0),
+    shadowColor: Colors.black38,
     colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black87));

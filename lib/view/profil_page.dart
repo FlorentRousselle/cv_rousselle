@@ -23,13 +23,11 @@ class _ProfilPageState extends State<ProfilPage> {
       mainAxisSize: MainAxisSize.max,
       children: [
         Container(
-          height: 250,
+          height: 225,
           color: Theme.of(context).appBarTheme.backgroundColor,
           child: Center(
             child: Column(
               children: [
-                const SizedBox(height: 10),
-                const Text("Florent Rousselle"),
                 const CircleAvatar(
                   backgroundColor: Colors.transparent,
                   radius: 80,

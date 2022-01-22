@@ -1,3 +1,4 @@
+import 'package:cv_flutter/Widget/CustomAppBar.dart';
 import 'package:cv_flutter/view/education_page.dart';
 import 'package:cv_flutter/view/experience_page.dart';
 import 'package:cv_flutter/view/info_page.dart';
@@ -14,10 +15,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  /// écran par défaut
+  /// default screen
   int _currentPage = 0;
+  String title = "Florent Rousselle";
+  bool iconVisibility = false;
 
-  /// liste des écrans
+  /// screen list
   final List<Widget> _pageList = [
     ProfilPage(),
     ExperiencePage(),
@@ -30,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(title, iconVisibility, context),
       body: _pageList[_currentPage],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -49,11 +53,9 @@ class _HomePageState extends State<HomePage> {
             label: 'Formation',
           ),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.increase_indent),
-              label:'Compétences'),
+              icon: Icon(CupertinoIcons.increase_indent), label: 'Compétences'),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.info),
-              label:'Info')
+              icon: Icon(CupertinoIcons.info), label: 'Info')
         ],
       ),
     );
@@ -61,10 +63,29 @@ class _HomePageState extends State<HomePage> {
 
   void onTabTapped(int index) {
     setState(() {
+      switch (index) {
+        case 0:
+          title = "Florent Rousselle";
+          iconVisibility = false;
+          break;
+        case 1:
+          title = "Expériences";
+          iconVisibility = true;
+          break;
+        case 2:
+          title = "Formations";
+          iconVisibility = true;
+          break;
+        case 3:
+          title = "Compétences";
+          iconVisibility = true;
+          break;
+        case 4:
+          title = "Infos";
+          iconVisibility = true;
+          break;
+      }
       _currentPage = index;
     });
   }
 }
-
-
-

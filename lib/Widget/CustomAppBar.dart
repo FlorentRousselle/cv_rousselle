@@ -1,4 +1,5 @@
 import 'package:cv_flutter/Global.dart';
+import 'package:cv_flutter/Widget/CustomPopupMenuButton.dart';
 import 'package:cv_flutter/service/ThemeNotifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,23 +30,7 @@ AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
                 onTap: () => launch(
                     "https://www.linkedin.com/in/florent-rousselle-bb843915b/")),
             const SizedBox(width: 10),
-            PopupMenuButton(
-              icon: Icon(Icons.menu,
-                  color: Theme.of(context)
-                      .iconTheme
-                      .color), //don't specify icon if you want 3 dot menu
-              elevation: 0,
-              itemBuilder: (context) => [
-                PopupMenuItem<int>(
-                  value: 0,
-                  child: Text(
-                    "Changer le thème",
-                    style: Theme.of(context).textTheme.button,
-                  ),
-                ),
-              ],
-              onSelected: (item) => {themeNotifier.swapTheme()},
-            ),
+            CustomPopupMenuButton(context, themeNotifier),
             const SizedBox(width: 15)
           ],
         )
@@ -53,23 +38,7 @@ AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
           centerTitle: true,
           title: Text(title, style: Theme.of(context).textTheme.headline1),
           actions: [
-            PopupMenuButton(
-              icon: Icon(Icons.menu,
-                  color: Theme.of(context)
-                      .iconTheme
-                      .color), //don't specify icon if you want 3 dot menu
-              elevation: 0,
-              itemBuilder: (context) => [
-                PopupMenuItem<int>(
-                  value: 0,
-                  child: Text(
-                    "Changer le thème",
-                    style: Theme.of(context).textTheme.button,
-                  ),
-                ),
-              ],
-              onSelected: (item) => {themeNotifier.swapTheme()},
-            ),
+            CustomPopupMenuButton(context, themeNotifier),
               const SizedBox(width: 15)
             ]);
 }

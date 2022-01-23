@@ -28,7 +28,7 @@ class _SkillPageState extends State<SkillPage> {
                     subtitle: Wrap(children: [
                         for (var logo in value.skillImages)
                           Padding(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               child: Container(
                                 child: Padding(
                                     padding: const EdgeInsets.all(5), child: logo),

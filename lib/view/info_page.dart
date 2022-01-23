@@ -21,12 +21,9 @@ class _InfoPageState extends State<InfoPage> {
           AsyncSnapshot<List<AirtableDataInfo>> snapshot) {
         if (snapshot.hasData) {
           List<AirtableDataInfo>? values = snapshot.data;
-          return ListView.separated(
-            separatorBuilder: (context, index) =>
-                Divider(color: Theme.of(context).iconTheme.color),
+          return ListView.builder(
             itemCount: values!.length,
-            itemBuilder: (context, index) => Flexible(
-                child: Padding(
+            itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: Container(
                         decoration: BoxDecoration(
@@ -38,12 +35,12 @@ class _InfoPageState extends State<InfoPage> {
                             children: [
                               Stack(
                                 alignment: Alignment.center,
-                                children: [Padding(
-                                          padding: const EdgeInsets.all(15.0),
-                                          child: SizedBox(
-                                              height: 200,
-                                              width: double.infinity,
-                                              child: values[index].InfoImage)),
+                                children: [
+                                  Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: SizedBox(
+                                          height: 200,
+                                          child: values[index].InfoImage)),
                                   Positioned(
                                       right: 0,
                                       left: 0,
@@ -54,7 +51,8 @@ class _InfoPageState extends State<InfoPage> {
                                           child: Container(
                                               decoration: BoxDecoration(
                                                   color: Theme.of(context)
-                                                      .scaffoldBackgroundColor.withOpacity(0.75)),
+                                                      .scaffoldBackgroundColor
+                                                      .withOpacity(0.75)),
                                               child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(10),
@@ -68,8 +66,11 @@ class _InfoPageState extends State<InfoPage> {
                                 ],
                               ),
                               const SizedBox(width: 10),
-                              Padding(padding: EdgeInsets.all(30),child: Text(values[index].detail, textAlign: TextAlign.justify))
-                            ])))),
+                              Padding(
+                                  padding: const EdgeInsets.all(30),
+                                  child: Text(values[index].detail,
+                                      textAlign: TextAlign.justify))
+                            ]))),
           );
         } else {
           return const Center(child: CircularProgressIndicator());

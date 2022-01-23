@@ -2,32 +2,25 @@
 
 Create your cv with airtable
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-PAGE :
+## PAGE
 - profil "ProfilPage"
 - expérience "ExperiencePage"
 - formation "EducationPage"
 - compétences "SkillPage"
 - infos 'InfoPage'
 
-AIRTABLE :
+## Commentaire
 
-- créer un fichier 'service/config.dart'
-- créer un fichier 'model/airtable_data.dart'
-    - AirtabeDataProfil()
-    - AirtableData...()
-    - AirtableData()
-        - getAllProfil()
-        - getAllExperience()
+Projet agréable à réaliser pour ma part.
+Mise en ligne du projet pour en faire une web app et m'en servir à l'avenir.
+
+
+## Difficultés principales rencontrées
+
+Pas vraiment de difficulté rencontrée de mon côté.
+
+
+## Évolution ultérieures
+
+Déjà utilisateur de Flutter depuis 4 ans je souhaite continuer
+et découvrir les nouvelles mises à jour

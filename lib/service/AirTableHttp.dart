@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cv_flutter/model/AirTableDataEducation.dart';
 import 'package:cv_flutter/model/AirTableDataExperience.dart';
+import 'package:cv_flutter/model/AirTableDataInfo.dart';
 import 'package:cv_flutter/model/AirTableDataProfil.dart';
 import 'package:cv_flutter/model/AirTableDataSkill.dart';
 import 'package:cv_flutter/utils/Config.dart';
@@ -34,6 +35,12 @@ class AirTableHttp {
   final Uri urlEducation = Uri.https(
     "api.airtable.com",
     "/v0/${Config.projectBase}/education",
+    {"maxRecords": "10", "view": "Grid view"},
+  );
+
+  final Uri urlInfo = Uri.https(
+    "api.airtable.com",
+    "/v0/${Config.projectBase}/info",
     {"maxRecords": "10", "view": "Grid view"},
   );
 
@@ -188,6 +195,45 @@ class AirTableHttp {
               title: value['fields']['title'],
               detail: value['fields']['details'],
               educationImage: img
+            ),
+          );
+        },
+      );
+      return values;
+    } else {
+      throw "ERROR !!!!!";
+    }
+  }
+
+  ///
+  /// Get info data
+  /// model : AirTableDataInfo
+  ///
+  Future<List<AirtableDataInfo>> getInfo() async {
+    final res = await http.get(
+      urlInfo,
+      headers: {"Authorization": "Bearer ${Config.apiKey}"},
+    );
+
+    if (res.statusCode == 200) {
+      var convertDataToJson = jsonDecode(res.body);
+      var data = convertDataToJson['records'];
+
+      if (kDebugMode) {
+        print(data);
+      }
+
+      List<AirtableDataInfo> values = [];
+      data.forEach(
+            (value) {
+          Image img = Image.network(value['fields']['image'][0]['url']);
+          return values.add(
+            AirtableDataInfo(
+                id: value['id'],
+                createdTime: value['createdTime'],
+                title: value['fields']['title'],
+                detail: value['fields']['text'],
+                InfoImage: img
             ),
           );
         },

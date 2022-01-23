@@ -49,6 +49,7 @@ class _ExperiencePageState extends State<ExperiencePage> {
                                     style:
                                         Theme.of(context).textTheme.subtitle2),
                                 Text(values[index].detail,
+                                    textAlign: TextAlign.justify,
                                     style:
                                         Theme.of(context).textTheme.subtitle1)
                               ]))

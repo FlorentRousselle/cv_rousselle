@@ -3,6 +3,10 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+///
+/// Menu to add in AppBar
+/// show a Menu with clickable item
+///
 PopupMenuButton<int> CustomPopupMenuButton(
     BuildContext context, ThemeNotifier themeNotifier) {
   return PopupMenuButton(

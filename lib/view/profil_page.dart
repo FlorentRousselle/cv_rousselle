@@ -1,7 +1,5 @@
 import 'package:cv_flutter/Global.dart';
 import 'package:cv_flutter/model/AirTableDataProfil.dart';
-import 'package:cv_flutter/service/AirTableHttp.dart';
-import 'package:cv_flutter/service/MyAirTable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -40,13 +38,13 @@ class _ProfilPageState extends State<ProfilPage> {
                         child: SvgPicture.asset(FACEBOOK_SVG,
                             height: 25, width: 25, color: Theme.of(context).iconTheme.color),
                         onTap: () => launch(
-                            "https://www.facebook.com/florent.rousselle.9")),
+                            FACEBOOK_LINK)),
                     const SizedBox(width: 20),
                     GestureDetector(
                         child: SvgPicture.asset(LINKEDIN_SVG,
                             height: 25, width: 25, color: Theme.of(context).iconTheme.color),
                         onTap: () => launch(
-                            "https://www.linkedin.com/in/florent-rousselle-bb843915b/")),
+                            LINKEDIN_LINK)),
                   ],
                 )
               ],

@@ -1,12 +1,15 @@
 import 'package:cv_flutter/Global.dart';
 import 'package:cv_flutter/Widget/CustomPopupMenuButton.dart';
 import 'package:cv_flutter/service/ThemeNotifier.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
+///
+/// AppBar use in app
+///
 AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
   ThemeNotifier themeNotifier = Provider.of<ThemeNotifier>(context);
 
@@ -20,7 +23,7 @@ AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
                     width: 25,
                     color: Theme.of(context).iconTheme.color),
                 onTap: () =>
-                    launch("https://www.facebook.com/florent.rousselle.9")),
+                    launch(FACEBOOK_LINK)),
             const SizedBox(width: 10),
             GestureDetector(
                 child: SvgPicture.asset(LINKEDIN_SVG,
@@ -28,7 +31,7 @@ AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
                     width: 25,
                     color: Theme.of(context).iconTheme.color),
                 onTap: () => launch(
-                    "https://www.linkedin.com/in/florent-rousselle-bb843915b/")),
+                    LINKEDIN_LINK)),
             const SizedBox(width: 10),
             CustomPopupMenuButton(context, themeNotifier),
             const SizedBox(width: 15)

@@ -1,6 +1,5 @@
 import 'package:cv_flutter/Global.dart';
 import 'package:cv_flutter/model/AirTableDataSkill.dart';
-import 'package:cv_flutter/service/AirTableHttp.dart';
 import 'package:flutter/material.dart';
 
 class SkillPage extends StatefulWidget {

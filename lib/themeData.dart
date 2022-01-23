@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+///
+/// DarkTheme
+///
 ThemeData darkTheme = ThemeData.dark().copyWith(
     textTheme: const TextTheme(
         headline1: TextStyle(
@@ -35,6 +38,9 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
     popupMenuTheme: PopupMenuThemeData(color: Colors.grey[200]),
     colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black12));
 
+///
+/// LightTheme
+///
 ThemeData lightTheme = ThemeData.light().copyWith(
     textTheme: const TextTheme(
         headline1: TextStyle(

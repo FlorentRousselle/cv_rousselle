@@ -1,3 +1,4 @@
+import 'package:cv_flutter/Global.dart';
 import 'package:cv_flutter/model/AirTableDataExperience.dart';
 import 'package:cv_flutter/service/AirTableHttp.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,10 @@ class ExperiencePage extends StatefulWidget {
 }
 
 class _ExperiencePageState extends State<ExperiencePage> {
-  final AirTableHttp airtableData = AirTableHttp();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: airtableData.getExperience(),
+      future: AIRTABLE_HTTP.getExperience(),
       builder: (BuildContext context,
           AsyncSnapshot<List<AirtableDataExperience>> snapshot) {
         if (snapshot.hasData) {
@@ -23,19 +22,24 @@ class _ExperiencePageState extends State<ExperiencePage> {
           return ListView.builder(
             itemCount: values!.length,
             itemBuilder: (context, index) => Container(
-                color: index % 2 == 0 ? Theme.of(context).scaffoldBackgroundColor : Theme.of(context).colorScheme.secondary,
+                color: index % 2 == 0
+                    ? Theme.of(context).scaffoldBackgroundColor
+                    : Theme.of(context).colorScheme.secondary,
                 child: Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(children: [
                       Expanded(
-                          flex: 2,
-                          child: Container(
+                          flex: 3,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minHeight: 50.0,
+                              maxHeight: 130.0,
+                            ),
                             child: values[index].logoImage,
-                            height: 150,
                           )),
                       const SizedBox(width: 30),
                       Expanded(
-                          flex: 8,
+                          flex: 17,
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

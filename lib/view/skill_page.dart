@@ -1,4 +1,4 @@
-import 'package:cv_flutter/Widget/ImageContainer.dart';
+import 'package:cv_flutter/Global.dart';
 import 'package:cv_flutter/model/AirTableDataSkill.dart';
 import 'package:cv_flutter/service/AirTableHttp.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +11,11 @@ class SkillPage extends StatefulWidget {
 }
 
 class _SkillPageState extends State<SkillPage> {
-  final AirTableHttp airtableData = AirTableHttp();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: airtableData.getSkill(),
+      future: AIRTABLE_HTTP.getSkill(),
       builder: (BuildContext context,
           AsyncSnapshot<List<AirtableDataSkill>> snapshot) {
         if (snapshot.hasData) {
@@ -28,7 +27,25 @@ class _SkillPageState extends State<SkillPage> {
                     title: Text(value.category, style: Theme.of(context).textTheme.headline2),
                     subtitle: Wrap(children: [
                         for (var logo in value.skillImages)
-                          ImageContainer(logo, context)
+                          Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Container(
+                                child: Padding(
+                                    padding: const EdgeInsets.all(5), child: logo),
+                                height: 60,
+                                width: 60,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: const Offset(0, 3),
+                                          blurRadius: 3,
+                                          color: Theme.of(context).shadowColor)
+                                    ]),
+                              ))
                       ]),
                   ),
                 )

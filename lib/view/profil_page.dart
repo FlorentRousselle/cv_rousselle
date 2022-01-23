@@ -14,7 +14,6 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
-  AirTableHttp airTableHttp = AirTableHttp();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +59,7 @@ class _ProfilPageState extends State<ProfilPage> {
                 child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FutureBuilder(
-                        future: airTableHttp.getProfil(),
+                        future: AIRTABLE_HTTP.getProfil(),
                         builder: (context,
                             AsyncSnapshot<List<AirtableDataProfil>> snapshot) {
                           if (snapshot.hasData) {

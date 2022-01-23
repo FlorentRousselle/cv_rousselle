@@ -1,10 +1,14 @@
 import 'package:cv_flutter/Global.dart';
+import 'package:cv_flutter/service/ThemeNotifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
+  ThemeNotifier themeNotifier = Provider.of<ThemeNotifier>(context);
+
   return iconVisible
       ? AppBar(
           title: Text(title, style: Theme.of(context).textTheme.headline1),
@@ -25,12 +29,47 @@ AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
                 onTap: () => launch(
                     "https://www.linkedin.com/in/florent-rousselle-bb843915b/")),
             const SizedBox(width: 10),
-            Icon(Icons.menu, color: Theme.of(context).iconTheme.color),
+            PopupMenuButton(
+              icon: Icon(Icons.menu,
+                  color: Theme.of(context)
+                      .iconTheme
+                      .color), //don't specify icon if you want 3 dot menu
+              elevation: 0,
+              itemBuilder: (context) => [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Text(
+                    "Changer le thème",
+                    style: Theme.of(context).textTheme.button,
+                  ),
+                ),
+              ],
+              onSelected: (item) => {themeNotifier.swapTheme()},
+            ),
             const SizedBox(width: 15)
           ],
         )
       : AppBar(
-          title: Center(
-              child: Text(title, style: Theme.of(context).textTheme.headline1)),
-          actions: [Icon(Icons.menu, color: Theme.of(context).iconTheme.color), const SizedBox(width: 15)]);
+          centerTitle: true,
+          title: Text(title, style: Theme.of(context).textTheme.headline1),
+          actions: [
+            PopupMenuButton(
+              icon: Icon(Icons.menu,
+                  color: Theme.of(context)
+                      .iconTheme
+                      .color), //don't specify icon if you want 3 dot menu
+              elevation: 0,
+              itemBuilder: (context) => [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Text(
+                    "Changer le thème",
+                    style: Theme.of(context).textTheme.button,
+                  ),
+                ),
+              ],
+              onSelected: (item) => {themeNotifier.swapTheme()},
+            ),
+              const SizedBox(width: 15)
+            ]);
 }

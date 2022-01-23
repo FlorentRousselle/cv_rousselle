@@ -14,12 +14,7 @@ class InfoPage extends StatefulWidget {
 class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
-    ThemeNotifier themeNotifier = Provider.of<ThemeNotifier>(context);
     return Container(
-      child: GestureDetector(
-        child: const Text("swap theme"),
-        onTap: () => themeNotifier.swapTheme(),
-      ),
     );
   }
 }

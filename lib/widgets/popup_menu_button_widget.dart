@@ -1,4 +1,3 @@
-import 'package:cv_flutter/service/ThemeNotifier.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 /// show a Menu with clickable item
 ///
 PopupMenuButton<int> CustomPopupMenuButton(
-    BuildContext context, ThemeNotifier themeNotifier) {
+    BuildContext context) {
   return PopupMenuButton(
     icon: Icon(Icons.menu,
         color: Theme.of(context)

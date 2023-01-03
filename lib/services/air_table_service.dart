@@ -1,13 +1,12 @@
 import 'dart:convert';
 
-import 'package:cv_flutter/model/AirTableDataEducation.dart';
-import 'package:cv_flutter/model/AirTableDataExperience.dart';
-import 'package:cv_flutter/model/AirTableDataInfo.dart';
-import 'package:cv_flutter/model/AirTableDataProfil.dart';
-import 'package:cv_flutter/model/AirTableDataSkill.dart';
+import 'package:cv_flutter/models/air_table_data_education.dart';
+import 'package:cv_flutter/models/air_table_data_experience.dart';
+import 'package:cv_flutter/models/air_table_data_info.dart';
+import 'package:cv_flutter/models/air_table_data_profil.dart';
+import 'package:cv_flutter/models/air_table_data_skill.dart';
 import 'package:cv_flutter/utils/Config.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 ///
@@ -64,15 +63,14 @@ class AirTableHttp {
 
       List<AirtableDataProfil> values = [];
       data.forEach(
-            (value) => {
+        (value) => {
           values.add(
             AirtableDataProfil(
-              id: value['id'],
-              createdTime: value['createdTime'],
-              content: value['fields']['content'],
-              icon: value['fields']['icon'],
-              type: value['fields']['type']
-            ),
+                id: value['id'],
+                createdTime: value['createdTime'],
+                content: value['fields']['content'],
+                icon: value['fields']['icon'],
+                type: value['fields']['type']),
           )
         },
       );
@@ -102,8 +100,7 @@ class AirTableHttp {
 
       List<AirtableDataExperience> values = [];
       data.forEach(
-            (value) {
-              Image img = Image.network(value['fields']['logo'][0]['url']);
+        (value) {
           return values.add(
             AirtableDataExperience(
               id: value['id'],
@@ -111,7 +108,7 @@ class AirTableHttp {
               title: value['fields']['title'],
               detail: value['fields']['details'],
               function: value['fields']['function'],
-              logoImage: img,
+              imageLink: value['fields']['logo'][0]['url'],
               period: value['fields']['period'],
             ),
           );
@@ -143,19 +140,18 @@ class AirTableHttp {
 
       List<AirtableDataSkill> values = [];
       data.forEach(
-            (value) {
-              List<Image> tempListImage = [];
-              dynamic skills =  value['fields']['skills'];
-              skills.forEach((skill) {
-                Image img = Image.network(skill['url']);
-                tempListImage.add(img);
-              });
+        (value) {
+          List<String> tempListSkills = [];
+          List skills = value['fields']['skills'];
+          for (var skill in skills) {
+            tempListSkills.add(skill['url']);
+          }
           return values.add(
             AirtableDataSkill(
               id: value['id'],
               createdTime: value['createdTime'],
               category: value['fields']['category'],
-              skillImages: tempListImage,
+              listImageLink: tempListSkills,
             ),
           );
         },
@@ -186,15 +182,14 @@ class AirTableHttp {
 
       List<AirtableDataEducation> values = [];
       data.forEach(
-            (value) {
-          Image img = Image.network(value['fields']['image'][0]['url']);
+        (value) {
           return values.add(
             AirtableDataEducation(
               id: value['id'],
               createdTime: value['createdTime'],
               title: value['fields']['title'],
               detail: value['fields']['details'],
-              educationImage: img
+              imageLink: value['fields']['image'][0]['url'],
             ),
           );
         },
@@ -225,15 +220,14 @@ class AirTableHttp {
 
       List<AirtableDataInfo> values = [];
       data.forEach(
-            (value) {
-          Image img = Image.network(value['fields']['image'][0]['url']);
+        (value) {
           return values.add(
             AirtableDataInfo(
-                id: value['id'],
-                createdTime: value['createdTime'],
-                title: value['fields']['title'],
-                detail: value['fields']['text'],
-                InfoImage: img
+              id: value['id'],
+              createdTime: value['createdTime'],
+              title: value['fields']['title'],
+              detail: value['fields']['text'],
+              imageLink: value['fields']['image'][0]['url'],
             ),
           );
         },

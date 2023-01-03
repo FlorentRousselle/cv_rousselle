@@ -1,20 +1,15 @@
-import 'package:cv_flutter/Widget/CustomAppBar.dart';
-import 'package:cv_flutter/view/education_page.dart';
-import 'package:cv_flutter/view/experience_page.dart';
-import 'package:cv_flutter/view/info_page.dart';
-import 'package:cv_flutter/view/profil_page.dart';
-import 'package:cv_flutter/view/skill_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeScreen extends ConsumerStatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   /// default screen
   int _currentPage = 0;
   String title = "Florent Rousselle";

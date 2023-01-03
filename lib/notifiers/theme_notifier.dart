@@ -1,15 +1,16 @@
 import 'package:cv_flutter/ThemeData.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-///
-/// Control for theme in app
-/// Change theme and notify application when changed
-/// (use with provider)
-///
+final themeProvider = ChangeNotifierProvider((ref) {
+  return ThemeNotifier();
+});
+
+
 class ThemeNotifier with ChangeNotifier {
-  ThemeData _themeData;
+  ThemeData _themeData = darkTheme;
 
-  ThemeNotifier(this._themeData);
+  ThemeNotifier();
 
   getTheme() => _themeData;
 

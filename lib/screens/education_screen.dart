@@ -1,4 +1,5 @@
 import 'package:cv_flutter/models/air_table_data_education.dart';
+import 'package:cv_flutter/notifiers/education_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,8 +8,9 @@ class EducationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final EducationNotifier educationNotifier = ref.watch(educationProvider);
     return FutureBuilder(
-      future: AIRTABLE_HTTP.getEducation(),
+      future: educationNotifier.initEducationData(),
       builder: (BuildContext context,
           AsyncSnapshot<List<AirtableDataEducation>> snapshot) {
         if (snapshot.hasData) {
@@ -30,7 +32,7 @@ class EducationScreen extends ConsumerWidget {
                           minHeight: 50.0,
                           maxHeight: 100.0,
                         ),
-                        child: values[index].educationImage,
+                        child: Image.network(values[index].imageLink),
                       ),
                     ),
                     const SizedBox(width: 30),

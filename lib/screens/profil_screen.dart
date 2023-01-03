@@ -1,3 +1,6 @@
+import 'package:cv_flutter/models/air_table_data_profil.dart';
+import 'package:cv_flutter/notifiers/profil_notifier.dart';
+import 'package:cv_flutter/resources/global_resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +11,7 @@ class ProfilScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final ProfilNotifier profilNotifier = ref.watch(profilProvider);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
@@ -21,26 +25,27 @@ class ProfilScreen extends ConsumerWidget {
                 const CircleAvatar(
                   backgroundColor: Colors.transparent,
                   radius: 80,
-                  backgroundImage: AssetImage(PROFIL_IMAGE),
+                  backgroundImage: AssetImage(Global.profilImage),
                 ),
                 const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                        child: SvgPicture.asset(facebookSvg,
-                            height: 25,
-                            width: 25,
-                            color: Theme.of(context).iconTheme.color),
-                        onTap: () => launch(FACEBOOK_LINK)),
+                      child: SvgPicture.asset(Global.facebookSvg,
+                          height: 25,
+                          width: 25,
+                          color: Theme.of(context).iconTheme.color),
+                      onTap: () => launch(Global.facebookLink),
+                    ),
                     const SizedBox(width: 20),
                     GestureDetector(
-                      child: SvgPicture.asset(LINKEDIN_SVG,
+                      child: SvgPicture.asset(Global.linkedInSvg,
                           height: 25,
                           width: 25,
                           color: Theme.of(context).iconTheme.color),
                       onTap: () => launch(
-                        LINKEDIN_LINK,
+                        Global.linkedInLink,
                       ),
                     ),
                   ],
@@ -55,7 +60,7 @@ class ProfilScreen extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: FutureBuilder(
-                future: AIRTABLE_HTTP.getProfil(),
+                future: profilNotifier.initProfilData(),
                 builder: (context,
                     AsyncSnapshot<List<AirtableDataProfil>> snapshot) {
                   if (snapshot.hasData) {

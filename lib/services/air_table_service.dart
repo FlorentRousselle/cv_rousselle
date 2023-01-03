@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 ///
 /// service to access to Airtable Database
 ///
-class AirTableHttp {
+class AirTableService {
   final Uri urlProfil = Uri.https(
     "api.airtable.com",
     "/v0/${Config.projectBase}/profil",

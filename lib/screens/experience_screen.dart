@@ -1,3 +1,5 @@
+import 'package:cv_flutter/models/air_table_data_experience.dart';
+import 'package:cv_flutter/notifiers/experience_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,8 +8,9 @@ class ExperienceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final ExperienceNotifier experienceNotifier = ref.watch(experienceProvider);
     return FutureBuilder(
-      future: AIRTABLE_HTTP.getExperience(),
+      future: experienceNotifier.initExperienceData(),
       builder: (BuildContext context,
           AsyncSnapshot<List<AirtableDataExperience>> snapshot) {
         if (snapshot.hasData) {
@@ -29,7 +32,7 @@ class ExperienceScreen extends ConsumerWidget {
                             minHeight: 50.0,
                             maxHeight: 130.0,
                           ),
-                          child: values[index].logoImage,
+                          child: Image.network(values[index].imageLink),
                         )),
                     const SizedBox(width: 30),
                     Expanded(

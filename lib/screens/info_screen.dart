@@ -1,3 +1,5 @@
+import 'package:cv_flutter/models/air_table_data_info.dart';
+import 'package:cv_flutter/notifiers/info_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,8 +8,9 @@ class InfoScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final InfoNotifier infoNotifier = ref.watch(infoProvider);
     return FutureBuilder(
-      future: AIRTABLE_HTTP.getInfo(),
+      future: infoNotifier.initInfoData(),
       builder: (BuildContext context,
           AsyncSnapshot<List<AirtableDataInfo>> snapshot) {
         if (snapshot.hasData) {
@@ -29,7 +32,9 @@ class InfoScreen extends ConsumerWidget {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: SizedBox(
-                              height: 200, child: values[index].infoImage),
+                            height: 200,
+                            child: Image.network(values[index].imageLink),
+                          ),
                         ),
                         Positioned(
                           right: 0,

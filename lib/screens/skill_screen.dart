@@ -1,3 +1,5 @@
+import 'package:cv_flutter/models/air_table_data_skill.dart';
+import 'package:cv_flutter/notifiers/skill_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,8 +8,9 @@ class SkillScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final SkillNotifier skillNotifier = ref.watch(skillProvider);
     return FutureBuilder(
-      future: AIRTABLE_HTTP.getSkill(),
+      future: skillNotifier.initSkillData(),
       builder: (BuildContext context,
           AsyncSnapshot<List<AirtableDataSkill>> snapshot) {
         if (snapshot.hasData) {
@@ -20,13 +23,14 @@ class SkillScreen extends ConsumerWidget {
                         style: Theme.of(context).textTheme.headline2),
                     subtitle: Wrap(
                       children: [
-                        for (var logo in value.skillImages)
+                        for (var logo in value.listImageLink)
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: Container(
                               child: Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: logo),
+                                padding: const EdgeInsets.all(5),
+                                child: Image.network(logo),
+                              ),
                               height: 60,
                               width: 60,
                               decoration: BoxDecoration(

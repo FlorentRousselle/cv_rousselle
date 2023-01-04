@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
-///
-/// AppBar use in app
-///
+/*
 AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
   return iconVisible
       ? AppBar(
@@ -40,3 +37,4 @@ AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
               const SizedBox(width: 15)
             ]);
 }
+*/

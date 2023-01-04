@@ -1,3 +1,9 @@
+import 'package:cv_flutter/notifiers/home_notifier.dart';
+import 'package:cv_flutter/screens/education_screen.dart';
+import 'package:cv_flutter/screens/experience_screen.dart';
+import 'package:cv_flutter/screens/info_screen.dart';
+import 'package:cv_flutter/screens/profil_screen.dart';
+import 'package:cv_flutter/screens/skill_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,19 +22,39 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   bool iconVisibility = false;
 
   /// screen list
-  final List<Widget> _pageList = [
-    ProfilPage(),
-    ExperiencePage(),
-    EducationPage(),
-    SkillPage(),
-    InfoPage()
+  final List<Widget> _pageList = const [
+    ProfilScreen(),
+    ExperienceScreen(),
+    EducationScreen(),
+    SkillScreen(),
+    InfoScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    final HomeNotifier homeNotifier = ref.read(homeProvider);
+    homeNotifier.initData();
+  }
 
   /// construction de l'écran principal
   @override
   Widget build(BuildContext context) {
+    final HomeNotifier homeNotifier = ref.watch(homeProvider);
+    if (homeNotifier.isDataLoading()) {
+      return const Text("loading");
+    } else {
+      return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth > 750) {
+          return WebHomeScreenBuilder();
+        } else {
+          return MobileHomeScreenBuilder();
+        }
+      });
+    }
+    /*
     return Scaffold(
-      appBar: CustomAppBar(title, iconVisibility, context),
       body: _pageList[_currentPage],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -51,6 +77,42 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               icon: Icon(CupertinoIcons.increase_indent), label: 'Compétences'),
           BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.info), label: 'Info')
+        ],
+      ),
+    );*/
+  }
+
+  Widget WebHomeScreenBuilder() {
+    return Scaffold(
+      body: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Container(
+            width: 250,
+            color: Colors.blue,
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.grey,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget MobileHomeScreenBuilder() {
+    return Scaffold(
+      body: Center(
+        child: Text("Mobile"),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.remove), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.camera), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.dangerous), label: ""),
         ],
       ),
     );

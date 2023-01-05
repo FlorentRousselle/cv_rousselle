@@ -4,7 +4,6 @@ import 'package:cv_flutter/screens/experience_screen.dart';
 import 'package:cv_flutter/screens/info_screen.dart';
 import 'package:cv_flutter/screens/profil_screen.dart';
 import 'package:cv_flutter/screens/skill_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,13 +18,11 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   /// default screen
-  int _currentItem = 0;
-  int _currentPage = 0;
   String title = "Florent Rousselle";
   bool iconVisibility = false;
 
   /// screen list
-  final List<Widget> _pageList = const [
+  final List<Widget> _index = const [
     ProfilScreen(),
     ExperienceScreen(),
     EducationScreen(),
@@ -49,10 +46,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     } else {
       return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-        if (constraints.maxWidth > 750) {
-          return WebHomeScreenBuilder();
+        if (constraints.maxWidth > 550) {
+          return webHomeScreenBuilder(homeNotifier, constraints.maxWidth < 750);
         } else {
-          return MobileHomeScreenBuilder();
+          return mobileHomeScreenBuilder(homeNotifier);
         }
       });
     }
@@ -85,15 +82,69 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );*/
   }
 
-  Widget WebHomeScreenBuilder() {
+  Widget webHomeScreenBuilder(HomeNotifier homeNotifier, bool isSmall) {
     return Scaffold(
       body: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Container(
-            width: 250,
-            color: Colors.blue,
-          ),
+          isSmall
+              ? Container(
+                  width: 80,
+                  color: Colors.blue,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text("title"),
+                      Center(
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              color: homeNotifier.currentIndex == 1
+                                  ? Colors.yellow
+                                  : Colors.red,
+                            ),
+                            Container(
+                              width: 50,
+                              height: 50,
+                              color: homeNotifier.currentIndex == 2
+                                  ? Colors.yellow
+                                  : Colors.red,
+                            ),
+                            Container(
+                              width: 50,
+                              height: 50,
+                              color: homeNotifier.currentIndex == 3
+                                  ? Colors.yellow
+                                  : Colors.red,
+                            ),
+                            Container(
+                              width: 50,
+                              height: 50,
+                              color: homeNotifier.currentIndex == 4
+                                  ? Colors.yellow
+                                  : Colors.red,
+                            ),
+                            Container(
+                              width: 50,
+                              height: 50,
+                              color: homeNotifier.currentIndex == 5
+                                  ? Colors.yellow
+                                  : Colors.red,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text("bottom"),
+                    ],
+                  ),
+                )
+              : Container(
+                  width: 250,
+                  color: Colors.blue,
+                ),
           Expanded(
             child: Container(
               color: Colors.grey,
@@ -102,91 +153,119 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   // 1
                   VisibilityDetector(
                     key: const Key("1"),
-                    onVisibilityChanged: (VisibilityInfo info) {
-                      if (info.visibleFraction == 1) {
-                        setState(() {
-                          _currentItem = 1;
-                          if (kDebugMode) {
-                            print(_currentItem);
-                          }
-                        });
-                      }
-                    },
+                    onVisibilityChanged: (VisibilityInfo info) =>
+                        homeNotifier.visibilityChanged(info, 1),
                     child: Container(
-                      height: 500,
                       color: Colors.red,
+                      height: 600,
+                      child: Column(
+                        children: [
+                          Text("PROFIL"),
+                          for (var item in homeNotifier.listProfil!)
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 10),
+                              child: Center(
+                                child: Text(item.content),
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
                   ),
                   // 2
                   VisibilityDetector(
                     key: const Key("2"),
-                    onVisibilityChanged: (VisibilityInfo info) {
-                      if (info.visibleFraction == 1) {
-                        setState(() {
-                          _currentItem = 2;
-                          if (kDebugMode) {
-                            print(_currentItem);
-                          }
-                        });
-                      }
-                    },
+                    onVisibilityChanged: (VisibilityInfo info) =>
+                        homeNotifier.visibilityChanged(info, 2),
                     child: Container(
-                      height: 500,
                       color: Colors.orange,
+                      height: 600,
+                      child: Column(
+                        children: [
+                          Text("Experience"),
+                          for (var item in homeNotifier.listExperience!)
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 10),
+                              child: Center(
+                                child: Text(item.title),
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
                   ),
                   // 3
                   VisibilityDetector(
                     key: const Key("3"),
-                    onVisibilityChanged: (VisibilityInfo info) {
-                      if (info.visibleFraction == 1) {
-                        setState(() {
-                          _currentItem = 3;
-                          if (kDebugMode) {
-                            print(_currentItem);
-                          }
-                        });
-                      }
-                    },
+                    onVisibilityChanged: (VisibilityInfo info) =>
+                        homeNotifier.visibilityChanged(info, 3),
                     child: Container(
-                      height: 500,
+                      height: 600,
                       color: Colors.yellow,
+                      child: Column(
+                        children: [
+                          Text("Formations"),
+                          for (var item in homeNotifier.listEducation!)
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 10),
+                              child: Center(
+                                child: Text(item.title),
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
                   ),
                   // 4
                   VisibilityDetector(
                     key: const Key("4"),
-                    onVisibilityChanged: (VisibilityInfo info) {
-                      if (info.visibleFraction == 1) {
-                        setState(() {
-                          _currentItem = 4;
-                          if (kDebugMode) {
-                            print(_currentItem);
-                          }
-                        });
-                      }
-                    },
+                    onVisibilityChanged: (VisibilityInfo info) =>
+                        homeNotifier.visibilityChanged(info, 4),
                     child: Container(
-                      height: 500,
+                      height: 600,
                       color: Colors.green,
+                      child: Column(
+                        children: [
+                          Text("Compétences"),
+                          for (var item in homeNotifier.listSkill!)
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 10),
+                              child: Center(
+                                child: Image.network(
+                                  item.listImageLink[0],
+                                  height: 100,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
                   ),
                   // 5
                   VisibilityDetector(
                     key: const Key("5"),
-                    onVisibilityChanged: (VisibilityInfo info) {
-                      if (info.visibleFraction == 1) {
-                        setState(() {
-                          _currentItem = 5;
-                          if (kDebugMode) {
-                            print(_currentItem);
-                          }
-                        });
-                      }
-                    },
+                    onVisibilityChanged: (VisibilityInfo info) =>
+                        homeNotifier.visibilityChanged(info, 5),
                     child: Container(
-                      height: 500,
+                      height: 600,
                       color: Colors.blue,
+                      child: Column(
+                        children: [
+                          Text("Mes projets"),
+                          for (var item in homeNotifier.listInfo!)
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 10),
+                              child: Center(
+                                child: Text(item.title),
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -198,7 +277,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget MobileHomeScreenBuilder() {
+  Widget mobileHomeScreenBuilder(HomeNotifier homeNotifier) {
     return Scaffold(
       body: Center(
         child: Text("Mobile"),
@@ -213,33 +292,5 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ],
       ),
     );
-  }
-
-  void onTabTapped(int index) {
-    setState(() {
-      switch (index) {
-        case 0:
-          title = "Florent Rousselle";
-          iconVisibility = false;
-          break;
-        case 1:
-          title = "Expériences";
-          iconVisibility = true;
-          break;
-        case 2:
-          title = "Formations";
-          iconVisibility = true;
-          break;
-        case 3:
-          title = "Compétences";
-          iconVisibility = true;
-          break;
-        case 4:
-          title = "Infos";
-          iconVisibility = true;
-          break;
-      }
-      _currentPage = index;
-    });
   }
 }

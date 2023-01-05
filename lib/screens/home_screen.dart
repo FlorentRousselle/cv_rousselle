@@ -5,8 +5,10 @@ import 'package:cv_flutter/screens/info_screen.dart';
 import 'package:cv_flutter/screens/profil_screen.dart';
 import 'package:cv_flutter/screens/skill_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,6 +19,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   /// default screen
+  int _currentItem = 0;
   int _currentPage = 0;
   String title = "Florent Rousselle";
   bool iconVisibility = false;
@@ -94,6 +97,100 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           Expanded(
             child: Container(
               color: Colors.grey,
+              child: ListView(
+                children: [
+                  // 1
+                  VisibilityDetector(
+                    key: const Key("1"),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      if (info.visibleFraction == 1) {
+                        setState(() {
+                          _currentItem = 1;
+                          if (kDebugMode) {
+                            print(_currentItem);
+                          }
+                        });
+                      }
+                    },
+                    child: Container(
+                      height: 500,
+                      color: Colors.red,
+                    ),
+                  ),
+                  // 2
+                  VisibilityDetector(
+                    key: const Key("2"),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      if (info.visibleFraction == 1) {
+                        setState(() {
+                          _currentItem = 2;
+                          if (kDebugMode) {
+                            print(_currentItem);
+                          }
+                        });
+                      }
+                    },
+                    child: Container(
+                      height: 500,
+                      color: Colors.orange,
+                    ),
+                  ),
+                  // 3
+                  VisibilityDetector(
+                    key: const Key("3"),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      if (info.visibleFraction == 1) {
+                        setState(() {
+                          _currentItem = 3;
+                          if (kDebugMode) {
+                            print(_currentItem);
+                          }
+                        });
+                      }
+                    },
+                    child: Container(
+                      height: 500,
+                      color: Colors.yellow,
+                    ),
+                  ),
+                  // 4
+                  VisibilityDetector(
+                    key: const Key("4"),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      if (info.visibleFraction == 1) {
+                        setState(() {
+                          _currentItem = 4;
+                          if (kDebugMode) {
+                            print(_currentItem);
+                          }
+                        });
+                      }
+                    },
+                    child: Container(
+                      height: 500,
+                      color: Colors.green,
+                    ),
+                  ),
+                  // 5
+                  VisibilityDetector(
+                    key: const Key("5"),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      if (info.visibleFraction == 1) {
+                        setState(() {
+                          _currentItem = 5;
+                          if (kDebugMode) {
+                            print(_currentItem);
+                          }
+                        });
+                      }
+                    },
+                    child: Container(
+                      height: 500,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

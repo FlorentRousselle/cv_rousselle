@@ -1,4 +1,4 @@
-import 'package:cv_flutter/models/air_table_data_education.dart';
+import 'package:cv_flutter/models/tables/air_table_data_education.dart';
 import 'package:cv_flutter/notifiers/education_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

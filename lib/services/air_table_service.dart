@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:cv_flutter/models/air_table_data_education.dart';
-import 'package:cv_flutter/models/air_table_data_experience.dart';
-import 'package:cv_flutter/models/air_table_data_info.dart';
-import 'package:cv_flutter/models/air_table_data_profil.dart';
-import 'package:cv_flutter/models/air_table_data_skill.dart';
+import 'package:cv_flutter/models/tables/air_table_data_education.dart';
+import 'package:cv_flutter/models/tables/air_table_data_experience.dart';
+import 'package:cv_flutter/models/tables/air_table_data_info.dart';
+import 'package:cv_flutter/models/tables/air_table_data_profil.dart';
+import 'package:cv_flutter/models/tables/air_table_data_skill.dart';
 import 'package:cv_flutter/utils/config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;

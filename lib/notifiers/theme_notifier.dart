@@ -8,7 +8,7 @@ final themeProvider = ChangeNotifierProvider((ref) {
 
 
 class ThemeNotifier with ChangeNotifier {
-  ThemeData _themeData = darkTheme;
+  ThemeData _themeData = lightTheme;
 
   ThemeNotifier();
 

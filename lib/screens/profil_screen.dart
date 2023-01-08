@@ -1,4 +1,4 @@
-import 'package:cv_flutter/models/air_table_data_profil.dart';
+import 'package:cv_flutter/models/tables/air_table_data_profil.dart';
 import 'package:cv_flutter/notifiers/profil_notifier.dart';
 import 'package:cv_flutter/resources/global_resources.dart';
 import 'package:flutter/material.dart';

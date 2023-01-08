@@ -1,12 +1,16 @@
+import 'package:cv_flutter/models/selector_item_model.dart';
 import 'package:cv_flutter/notifiers/home_notifier.dart';
+import 'package:cv_flutter/notifiers/theme_notifier.dart';
+import 'package:cv_flutter/resources/global_resources.dart';
 import 'package:cv_flutter/screens/education_screen.dart';
 import 'package:cv_flutter/screens/experience_screen.dart';
 import 'package:cv_flutter/screens/info_screen.dart';
 import 'package:cv_flutter/screens/profil_screen.dart';
 import 'package:cv_flutter/screens/skill_screen.dart';
-import 'package:flutter/foundation.dart';
+import 'package:cv_flutter/widgets/selector_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -53,33 +57,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         }
       });
     }
-    /*
-    return Scaffold(
-      body: _pageList[_currentPage],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        onTap: onTabTapped,
-        currentIndex: _currentPage,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.profile_circled),
-            label: 'Profil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.square_list),
-            label: 'Expérience',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.book),
-            label: 'Formation',
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.increase_indent), label: 'Compétences'),
-          BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.info), label: 'Info')
-        ],
-      ),
-    );*/
   }
 
   Widget webHomeScreenBuilder(HomeNotifier homeNotifier, bool isSmall) {
@@ -87,76 +64,93 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          isSmall
-              ? Container(
-                  width: 80,
-                  color: Colors.blue,
+          Container(
+            width: isSmall ? 80 : 250,
+            color: Theme.of(context).appBarTheme.backgroundColor,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text("title"),
+                Center(
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text("title"),
-                      Center(
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              color: homeNotifier.currentIndex == 1
-                                  ? Colors.yellow
-                                  : Colors.red,
-                            ),
-                            Container(
-                              width: 50,
-                              height: 50,
-                              color: homeNotifier.currentIndex == 2
-                                  ? Colors.yellow
-                                  : Colors.red,
-                            ),
-                            Container(
-                              width: 50,
-                              height: 50,
-                              color: homeNotifier.currentIndex == 3
-                                  ? Colors.yellow
-                                  : Colors.red,
-                            ),
-                            Container(
-                              width: 50,
-                              height: 50,
-                              color: homeNotifier.currentIndex == 4
-                                  ? Colors.yellow
-                                  : Colors.red,
-                            ),
-                            Container(
-                              width: 50,
-                              height: 50,
-                              color: homeNotifier.currentIndex == 5
-                                  ? Colors.yellow
-                                  : Colors.red,
-                            ),
-                          ],
-                        ),
+                      SelectorMenuItem(
+                        item: SelectorItemModel(
+                            name: "Profil", iconLink: Global.profilSvg),
+                        onPressed: () => homeNotifier.navigateToIndex(0),
+                        isSelected: homeNotifier.currentIndex == 0,
+                        isTextShow: !isSmall,
                       ),
-                      Text("bottom"),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SelectorMenuItem(
+                        item: SelectorItemModel(
+                            name: "Experiences",
+                            iconLink: Global.experienceSvg),
+                        onPressed: () => homeNotifier.navigateToIndex(1),
+                        isSelected: homeNotifier.currentIndex == 1,
+                        isTextShow: !isSmall,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SelectorMenuItem(
+                        item: SelectorItemModel(
+                            name: "Formations", iconLink: Global.formationSvg),
+                        onPressed: () => homeNotifier.navigateToIndex(2),
+                        isSelected: homeNotifier.currentIndex == 2,
+                        isTextShow: !isSmall,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SelectorMenuItem(
+                        item: SelectorItemModel(
+                            name: "Compétences", iconLink: Global.skillSvg),
+                        onPressed: () => homeNotifier.navigateToIndex(3),
+                        isSelected: homeNotifier.currentIndex == 3,
+                        isTextShow: !isSmall,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SelectorMenuItem(
+                        item: SelectorItemModel(
+                            name: "Mes projets", iconLink: Global.projectSvg),
+                        onPressed: () => homeNotifier.navigateToIndex(4),
+                        isSelected: homeNotifier.currentIndex == 4,
+                        isTextShow: !isSmall,
+                      ),
                     ],
                   ),
-                )
-              : Container(
-                  width: 250,
-                  color: Colors.blue,
                 ),
+                const Text("bottom"),
+                SelectorMenuItem(
+                  item: SelectorItemModel(
+                      name: "Changer de thème", iconLink: Global.swapSvg),
+                  onPressed: () {
+                    var themeNotifier = ref.read(themeProvider);
+                    themeNotifier.swapTheme();
+                  },
+                  isTextShow: !isSmall,
+                ),
+              ],
+            ),
+          ),
           Expanded(
             child: Container(
-              color: Colors.grey,
-              child: ListView(
-                children: [
-                  // 1
-                  VisibilityDetector(
-                    key: const Key("1"),
+              child: ScrollablePositionedList.separated(
+                itemScrollController: homeNotifier.scrollController,
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return VisibilityDetector(
+                    key: Key(index.toString()),
                     onVisibilityChanged: (VisibilityInfo info) =>
-                        homeNotifier.visibilityChanged(info, 1),
+                        homeNotifier.visibilityChanged(info, index),
                     child: Container(
-                      color: Colors.red,
                       height: 600,
                       child: Column(
                         children: [
@@ -172,103 +166,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ],
                       ),
                     ),
-                  ),
-                  // 2
-                  VisibilityDetector(
-                    key: const Key("2"),
-                    onVisibilityChanged: (VisibilityInfo info) =>
-                        homeNotifier.visibilityChanged(info, 2),
-                    child: Container(
-                      color: Colors.orange,
-                      height: 600,
-                      child: Column(
-                        children: [
-                          Text("Experience"),
-                          for (var item in homeNotifier.listExperience!)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 10),
-                              child: Center(
-                                child: Text(item.title),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  // 3
-                  VisibilityDetector(
-                    key: const Key("3"),
-                    onVisibilityChanged: (VisibilityInfo info) =>
-                        homeNotifier.visibilityChanged(info, 3),
-                    child: Container(
-                      height: 600,
-                      color: Colors.yellow,
-                      child: Column(
-                        children: [
-                          Text("Formations"),
-                          for (var item in homeNotifier.listEducation!)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 10),
-                              child: Center(
-                                child: Text(item.title),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  // 4
-                  VisibilityDetector(
-                    key: const Key("4"),
-                    onVisibilityChanged: (VisibilityInfo info) =>
-                        homeNotifier.visibilityChanged(info, 4),
-                    child: Container(
-                      height: 600,
-                      color: Colors.green,
-                      child: Column(
-                        children: [
-                          Text("Compétences"),
-                          for (var item in homeNotifier.listSkill!)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 10),
-                              child: Center(
-                                child: Image.network(
-                                  item.listImageLink[0],
-                                  height: 100,
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  // 5
-                  VisibilityDetector(
-                    key: const Key("5"),
-                    onVisibilityChanged: (VisibilityInfo info) =>
-                        homeNotifier.visibilityChanged(info, 5),
-                    child: Container(
-                      height: 600,
-                      color: Colors.blue,
-                      child: Column(
-                        children: [
-                          Text("Mes projets"),
-                          for (var item in homeNotifier.listInfo!)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 10),
-                              child: Center(
-                                child: Text(item.title),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                  );
+                },
+                separatorBuilder: (context, index) => const Divider(),
               ),
             ),
           ),
@@ -279,11 +179,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget mobileHomeScreenBuilder(HomeNotifier homeNotifier) {
     return Scaffold(
-      body: Center(
+      appBar: AppBar(
+        title: const Center(
+          child: Text("Title"),
+        ),
+      ),
+      body: const Center(
         child: Text("Mobile"),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.add), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.remove), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: ""),

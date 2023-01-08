@@ -1,11 +1,12 @@
-import 'package:cv_flutter/models/air_table_data_education.dart';
-import 'package:cv_flutter/models/air_table_data_experience.dart';
-import 'package:cv_flutter/models/air_table_data_info.dart';
-import 'package:cv_flutter/models/air_table_data_profil.dart';
-import 'package:cv_flutter/models/air_table_data_skill.dart';
+import 'package:cv_flutter/models/tables/air_table_data_education.dart';
+import 'package:cv_flutter/models/tables/air_table_data_experience.dart';
+import 'package:cv_flutter/models/tables/air_table_data_info.dart';
+import 'package:cv_flutter/models/tables/air_table_data_profil.dart';
+import 'package:cv_flutter/models/tables/air_table_data_skill.dart';
 import 'package:cv_flutter/resources/global_resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 final homeProvider = ChangeNotifierProvider((ref) {
@@ -19,7 +20,8 @@ class HomeNotifier with ChangeNotifier {
   List<AirtableDataProfil>? listProfil;
   List<AirtableDataSkill>? listSkill;
 
-  int currentIndex = 1;
+  final scrollController = ItemScrollController();
+  int currentIndex = 0;
 
   bool isDataLoading() =>
       listEducation == null &&
@@ -38,7 +40,17 @@ class HomeNotifier with ChangeNotifier {
   }
 
   void visibilityChanged(VisibilityInfo info, int index) {
-    currentIndex = index;
+    if (info.visibleFraction == 1) {
+      currentIndex = index;
+      notifyListeners();
+    }
+  }
+
+  void navigateToIndex(int index) {
+    scrollController.scrollTo(
+      index: index,
+      duration: const Duration(milliseconds: 500),
+    );
     notifyListeners();
   }
 

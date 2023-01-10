@@ -51,7 +51,8 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: ColorResources.black,
   backgroundColor: ColorResources.black,
   cardColor: ColorResources.grey,
-  appBarTheme: const AppBarTheme(color: ColorResources.blueLight, elevation: 0),
+  canvasColor: ColorResources.blueLight,
+  appBarTheme: const AppBarTheme(backgroundColor: ColorResources.blueLight, elevation: 0),
   shadowColor: ColorResources.shadow,
 );
 
@@ -105,6 +106,7 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   scaffoldBackgroundColor: ColorResources.white,
   backgroundColor: ColorResources.white,
   cardColor: ColorResources.blueLight,
-  appBarTheme: const AppBarTheme(color: ColorResources.blueDark, elevation: 0),
+  canvasColor: ColorResources.blueDark,
+  appBarTheme: const AppBarTheme(backgroundColor: ColorResources.blueDark, elevation: 0),
   shadowColor: ColorResources.shadow,
 );

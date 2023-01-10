@@ -1,40 +1,35 @@
-import 'package:cv_flutter/resources/global_resources.dart';
+import 'package:cv_flutter/notifiers/theme_notifier.dart';
+import 'package:cv_flutter/widgets/popup_menu_button_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-/*
-AppBar CustomAppBar(String title, bool iconVisible, BuildContext context) {
-  return iconVisible
-      ? AppBar(
-          title: Text(title, style: Theme.of(context).textTheme.headline1),
-          actions: [
-            GestureDetector(
-                child: SvgPicture.asset(facebookSvg,
-                    height: 25,
-                    width: 25,
-                    color: Theme.of(context).iconTheme.color),
-                onTap: () =>
-                    launch(FACEBOOK_LINK)),
-            const SizedBox(width: 10),
-            GestureDetector(
-                child: SvgPicture.asset(LINKEDIN_SVG,
-                    height: 25,
-                    width: 25,
-                    color: Theme.of(context).iconTheme.color),
-                onTap: () => launch(
-                    LINKEDIN_LINK)),
-            const SizedBox(width: 10),
-            CustomPopupMenuButton(context, themeNotifier),
-            const SizedBox(width: 15)
-          ],
-        )
-      : AppBar(
-          centerTitle: true,
-          title: Text(title, style: Theme.of(context).textTheme.headline1),
-          actions: [
-            CustomPopupMenuButton(context, themeNotifier),
-              const SizedBox(width: 15)
-            ]);
+class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final ThemeNotifier themeNotifier;
+
+  const AppBarWidget({
+    Key? key,
+    required this.title,
+    required this.themeNotifier,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(
+        title,
+        style: Theme.of(context)
+            .textTheme
+            .headline1!
+            .copyWith(color: Theme.of(context).backgroundColor),
+      ),
+      iconTheme: Theme.of(context)
+          .iconTheme.copyWith(color: Theme.of(context).backgroundColor),
+      actions: [
+        PopupMenuButtonWidget(themeNotifier: themeNotifier),
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
-*/

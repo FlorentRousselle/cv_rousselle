@@ -2,15 +2,13 @@ import 'package:cv_flutter/models/selector_item_model.dart';
 import 'package:cv_flutter/notifiers/home_notifier.dart';
 import 'package:cv_flutter/notifiers/theme_notifier.dart';
 import 'package:cv_flutter/resources/global_resources.dart';
-import 'package:cv_flutter/screens/education_screen.dart';
-import 'package:cv_flutter/screens/experience_screen.dart';
-import 'package:cv_flutter/screens/info_screen.dart';
-import 'package:cv_flutter/screens/profil_screen.dart';
-import 'package:cv_flutter/screens/skill_screen.dart';
+import 'package:cv_flutter/widgets/app_bar_widget.dart';
 import 'package:cv_flutter/widgets/selector_menu_item.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -24,15 +22,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   /// default screen
   String title = "Florent Rousselle";
   bool iconVisibility = false;
-
-  /// screen list
-  final List<Widget> _index = const [
-    ProfilScreen(),
-    ExperienceScreen(),
-    EducationScreen(),
-    SkillScreen(),
-    InfoScreen(),
-  ];
 
   @override
   void initState() {
@@ -79,7 +68,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       SelectorMenuItem(
                         item: SelectorItemModel(
                             name: "Profil", iconLink: Global.profilSvg),
-                        onPressed: () => homeNotifier.navigateToIndex(0),
+                        onPressed: () => homeNotifier.webGoToIndex(0),
                         isSelected: homeNotifier.currentIndex == 0,
                         isTextShow: !isSmall,
                       ),
@@ -90,7 +79,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         item: SelectorItemModel(
                             name: "Experiences",
                             iconLink: Global.experienceSvg),
-                        onPressed: () => homeNotifier.navigateToIndex(1),
+                        onPressed: () => homeNotifier.webGoToIndex(1),
                         isSelected: homeNotifier.currentIndex == 1,
                         isTextShow: !isSmall,
                       ),
@@ -100,7 +89,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       SelectorMenuItem(
                         item: SelectorItemModel(
                             name: "Formations", iconLink: Global.formationSvg),
-                        onPressed: () => homeNotifier.navigateToIndex(2),
+                        onPressed: () => homeNotifier.webGoToIndex(2),
                         isSelected: homeNotifier.currentIndex == 2,
                         isTextShow: !isSmall,
                       ),
@@ -110,7 +99,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       SelectorMenuItem(
                         item: SelectorItemModel(
                             name: "Compétences", iconLink: Global.skillSvg),
-                        onPressed: () => homeNotifier.navigateToIndex(3),
+                        onPressed: () => homeNotifier.webGoToIndex(3),
                         isSelected: homeNotifier.currentIndex == 3,
                         isTextShow: !isSmall,
                       ),
@@ -120,55 +109,96 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       SelectorMenuItem(
                         item: SelectorItemModel(
                             name: "Mes projets", iconLink: Global.projectSvg),
-                        onPressed: () => homeNotifier.navigateToIndex(4),
+                        onPressed: () => homeNotifier.webGoToIndex(4),
                         isSelected: homeNotifier.currentIndex == 4,
                         isTextShow: !isSmall,
                       ),
                     ],
                   ),
                 ),
-                const Text("bottom"),
-                SelectorMenuItem(
-                  item: SelectorItemModel(
-                      name: "Changer de thème", iconLink: Global.swapSvg),
-                  onPressed: () {
-                    var themeNotifier = ref.read(themeProvider);
-                    themeNotifier.swapTheme();
-                  },
-                  isTextShow: !isSmall,
+                Wrap(
+                  spacing: 12.0,
+                  direction: Axis.vertical,
+                  children: [
+                    SelectorMenuItem(
+                      item: SelectorItemModel(
+                          name: "Changer de thème", iconLink: Global.swapSvg),
+                      onPressed: () {
+                        var themeNotifier = ref.read(themeProvider);
+                        themeNotifier.swapTheme();
+                      },
+                      isTextShow: !isSmall,
+                    ),
+                    SelectorMenuItem(
+                      item: SelectorItemModel(
+                          name: "Facebook", iconLink: Global.facebookSvg),
+                      onPressed: () {
+                        launchUrl(
+                          Uri.parse(Global.facebookLink),
+                        );
+                        Navigator.of(context).pop();
+                      },
+                      isTextShow: !isSmall,
+                    ),
+                    SelectorMenuItem(
+                      item: SelectorItemModel(
+                          name: "LinkedIn", iconLink: Global.linkedInSvg),
+                      onPressed: () {
+                        launchUrl(
+                          Uri.parse(Global.linkedInLink),
+                        );
+                        Navigator.of(context).pop();
+                      },
+                      isTextShow: !isSmall,
+                    ),
+                    kIsWeb
+                        ? SelectorMenuItem(
+                      item: SelectorItemModel(
+                          name: "Android App", iconLink: Global.androidSvg),
+                      onPressed: () {
+                        launchUrl(
+                          Uri.parse(Global.androidLink),
+                        );
+                        Navigator.of(context).pop();
+                      },
+                      isTextShow: !isSmall,
+                    )
+                        : SelectorMenuItem(
+                      item: SelectorItemModel(
+                          name: "Site web", iconLink: Global.webSvg),
+                      onPressed: () {
+                        launchUrl(
+                          Uri.parse(Global.webLink),
+                        );
+                        Navigator.of(context).pop();
+                      },
+                      isTextShow: true,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
           Expanded(
-            child: Container(
-              child: ScrollablePositionedList.separated(
-                itemScrollController: homeNotifier.scrollController,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return VisibilityDetector(
-                    key: Key(index.toString()),
-                    onVisibilityChanged: (VisibilityInfo info) =>
-                        homeNotifier.visibilityChanged(info, index),
-                    child: Container(
-                      height: 600,
-                      child: Column(
-                        children: [
-                          Text("PROFIL"),
-                          for (var item in homeNotifier.listProfil!)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 10),
-                              child: Center(
-                                child: Text(item.content),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) => const Divider(),
+            child: ScrollablePositionedList.separated(
+              itemScrollController: homeNotifier.scrollController,
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return VisibilityDetector(
+                  key: Key(index.toString()),
+                  onVisibilityChanged: (VisibilityInfo info) =>
+                      homeNotifier.visibilityChanged(info, index),
+                  child: homeNotifier.getScreen(index, homeNotifier),
+                );
+              },
+              separatorBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                child: Divider(
+                  color: Theme.of(context).appBarTheme.backgroundColor,
+                ),
               ),
             ),
           ),
@@ -178,23 +208,73 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Widget mobileHomeScreenBuilder(HomeNotifier homeNotifier) {
+    ThemeNotifier themeNotifier = ref.read(themeProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text("Title"),
-        ),
+      appBar: AppBarWidget(
+        title: homeNotifier.getTitle(homeNotifier.currentIndex),
+        themeNotifier: themeNotifier,
       ),
-      body: const Center(
-        child: Text("Mobile"),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.remove), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.camera), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.dangerous), label: ""),
+      body: homeNotifier.getScreen(homeNotifier.currentIndex, homeNotifier),
+      bottomNavigationBar: mobileNavigationBar(homeNotifier),
+    );
+  }
+
+  Widget mobileNavigationBar(HomeNotifier homeNotifier) {
+    return Container(
+      color: Theme.of(context).appBarTheme.backgroundColor,
+      child: BottomNavigationBar(
+        currentIndex: homeNotifier.currentIndex,
+        items: [
+          BottomNavigationBarItem(
+            icon: SelectorMenuItem(
+              item:
+                  SelectorItemModel(name: "Profil", iconLink: Global.profilSvg),
+              onPressed: () => homeNotifier.mobileGoToIndex(0),
+              isSelected: homeNotifier.currentIndex == 0,
+              isTextShow: false,
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: SelectorMenuItem(
+              item: SelectorItemModel(
+                  name: "Experiences", iconLink: Global.experienceSvg),
+              onPressed: () => homeNotifier.mobileGoToIndex(1),
+              isSelected: homeNotifier.currentIndex == 1,
+              isTextShow: false,
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: SelectorMenuItem(
+              item: SelectorItemModel(
+                  name: "Formations", iconLink: Global.formationSvg),
+              onPressed: () => homeNotifier.mobileGoToIndex(2),
+              isSelected: homeNotifier.currentIndex == 2,
+              isTextShow: false,
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: SelectorMenuItem(
+              item: SelectorItemModel(
+                  name: "Compétences", iconLink: Global.skillSvg),
+              onPressed: () => homeNotifier.mobileGoToIndex(3),
+              isSelected: homeNotifier.currentIndex == 3,
+              isTextShow: false,
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: SelectorMenuItem(
+              item: SelectorItemModel(
+                  name: "Mes projets", iconLink: Global.projectSvg),
+              onPressed: () => homeNotifier.mobileGoToIndex(4),
+              isSelected: homeNotifier.currentIndex == 4,
+              isTextShow: false,
+            ),
+            label: "",
+          ),
         ],
       ),
     );

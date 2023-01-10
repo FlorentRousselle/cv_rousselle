@@ -4,7 +4,8 @@ class Global {
   static const String profilImage = "assets/images/profil.png";
   static const String facebookSvg = "assets/svg/facebook.svg";
   static const String linkedInSvg = "assets/svg/linkedin.svg";
-
+  static const String androidSvg = "assets/svg/android.svg";
+  static const String webSvg = "assets/svg/web.svg";
 
   static const String profilSvg = "assets/svg/profil.svg";
   static const String experienceSvg = "assets/svg/experience.svg";
@@ -19,4 +20,7 @@ class Global {
       "https://www.facebook.com/florent.rousselle.9";
   static const String linkedInLink =
       "https://www.linkedin.com/in/florent-rousselle-bb843915b/";
+  static const String androidLink =
+      "https://drive.google.com/file/d/1D7MQrFmwZEV4gBJNVrf4RdRCfnlYVXRD/view?usp=sharing";
+  static const String webLink = "https://cvrousselle.web.app";
 }

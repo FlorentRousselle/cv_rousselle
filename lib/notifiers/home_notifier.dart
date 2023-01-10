@@ -4,6 +4,11 @@ import 'package:cv_flutter/models/tables/air_table_data_info.dart';
 import 'package:cv_flutter/models/tables/air_table_data_profil.dart';
 import 'package:cv_flutter/models/tables/air_table_data_skill.dart';
 import 'package:cv_flutter/resources/global_resources.dart';
+import 'package:cv_flutter/widgets/menus/education_menu.dart';
+import 'package:cv_flutter/widgets/menus/experience_menu.dart';
+import 'package:cv_flutter/widgets/menus/info_menu.dart';
+import 'package:cv_flutter/widgets/menus/profil_menu.dart';
+import 'package:cv_flutter/widgets/menus/skill_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -46,7 +51,7 @@ class HomeNotifier with ChangeNotifier {
     }
   }
 
-  void navigateToIndex(int index) {
+  void webGoToIndex(int index) {
     scrollController.scrollTo(
       index: index,
       duration: const Duration(milliseconds: 500),
@@ -54,31 +59,32 @@ class HomeNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  void onTabTapped(int index) {
-    /*
-    switch (index) {
-      case 0:
-        title = "Florent Rousselle";
-        iconVisibility = false;
-        break;
-      case 1:
-        title = "Expériences";
-        iconVisibility = true;
-        break;
-      case 2:
-        title = "Formations";
-        iconVisibility = true;
-        break;
-      case 3:
-        title = "Compétences";
-        iconVisibility = true;
-        break;
-      case 4:
-        title = "Infos";
-        iconVisibility = true;
-        break;
-    }
-     */
+  void mobileGoToIndex(int index) {
     currentIndex = index;
+    notifyListeners();
+  }
+
+  Widget getScreen(int index, HomeNotifier homeNotifier) {
+    Map<int, Widget> mapIndex = {
+      0: ProfilMenu(homeNotifier: homeNotifier),
+      1: ExperienceMenu(homeNotifier: homeNotifier),
+      2: EducationMenu(homeNotifier: homeNotifier),
+      3: SkillMenu(homeNotifier: homeNotifier),
+      4: InfoMenu(homeNotifier: homeNotifier),
+    };
+
+    return mapIndex[index] ?? const Center();
+  }
+
+  String getTitle(int index) {
+    Map<int, String> mapIndex = {
+      0: "Profil",
+      1: "Expériences",
+      2: "Formations",
+      3: "Compétences",
+      4: "Mes projets",
+    };
+
+    return mapIndex[index] ?? "";
   }
 }

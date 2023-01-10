@@ -3,12 +3,12 @@ import 'package:cv_flutter/models/tables/air_table_data_experience.dart';
 import 'package:cv_flutter/models/tables/air_table_data_info.dart';
 import 'package:cv_flutter/models/tables/air_table_data_profil.dart';
 import 'package:cv_flutter/models/tables/air_table_data_skill.dart';
-import 'package:cv_flutter/resources/global_resources.dart';
-import 'package:cv_flutter/widgets/menus/education_menu.dart';
-import 'package:cv_flutter/widgets/menus/experience_menu.dart';
-import 'package:cv_flutter/widgets/menus/info_menu.dart';
-import 'package:cv_flutter/widgets/menus/profil_menu.dart';
-import 'package:cv_flutter/widgets/menus/skill_menu.dart';
+import 'package:cv_flutter/services/air_table_service.dart';
+import 'package:cv_flutter/widgets/datas/education_data_widget.dart';
+import 'package:cv_flutter/widgets/datas/experience_data_widget.dart';
+import 'package:cv_flutter/widgets/datas/info_data_widget.dart';
+import 'package:cv_flutter/widgets/datas/profil_data_widget.dart';
+import 'package:cv_flutter/widgets/datas/skill_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -36,11 +36,15 @@ class HomeNotifier with ChangeNotifier {
       listSkill == null;
 
   Future<void> initData() async {
-    listEducation = await Global.airTableService.getEducation();
-    listExperience = await Global.airTableService.getExperience();
-    listInfo = await Global.airTableService.getInfo();
-    listProfil = await Global.airTableService.getProfil();
-    listSkill = await Global.airTableService.getSkill();
+    listProfil = await AirTableService.getProfil();
+    listEducation = [];
+    listExperience = [];
+    listInfo = [];
+    listSkill = [];
+    // listEducation = await AirTableService.getEducation();
+    // listExperience = await AirTableService.getExperience();
+    // listInfo = await AirTableService.getInfo();
+    // listSkill = await AirTableService.getSkill();
     notifyListeners();
   }
 
@@ -66,11 +70,11 @@ class HomeNotifier with ChangeNotifier {
 
   Widget getScreen(int index, HomeNotifier homeNotifier, bool isWeb) {
     Map<int, Widget> mapIndex = {
-      0: ProfilMenu(homeNotifier: homeNotifier, isWeb: isWeb),
-      1: ExperienceMenu(homeNotifier: homeNotifier, isWeb: isWeb),
-      2: EducationMenu(homeNotifier: homeNotifier, isWeb: isWeb),
-      3: SkillMenu(homeNotifier: homeNotifier, isWeb: isWeb),
-      4: InfoMenu(homeNotifier: homeNotifier, isWeb: isWeb),
+      0: ProfilDataWidget(homeNotifier: homeNotifier, isWeb: isWeb),
+      1: ExperienceDataWidget(homeNotifier: homeNotifier, isWeb: isWeb),
+      2: EducationData(homeNotifier: homeNotifier, isWeb: isWeb),
+      3: SkillDataWidget(homeNotifier: homeNotifier, isWeb: isWeb),
+      4: InfoDataWidget(homeNotifier: homeNotifier, isWeb: isWeb),
     };
 
     return mapIndex[index] ?? const Center();

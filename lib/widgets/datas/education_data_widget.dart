@@ -3,11 +3,11 @@ import 'package:cv_flutter/resources/global_resources.dart';
 import 'package:cv_flutter/widgets/web_title_widget.dart';
 import 'package:flutter/material.dart';
 
-class InfoMenu extends StatelessWidget {
+class EducationData extends StatelessWidget {
   final HomeNotifier homeNotifier;
   final bool isWeb;
 
-  const InfoMenu({
+  const EducationData({
     Key? key,
     required this.homeNotifier,
     this.isWeb = false,
@@ -22,13 +22,13 @@ class InfoMenu extends StatelessWidget {
           if (isWeb)
             const Align(
               child: WebTitleWidget(
-                title: "Mes projets",
-                iconLink: Global.projectSvg,
+                title: "Formations",
+                iconLink: Global.formationSvg,
                 width: 240,
               ),
               alignment: Alignment.centerLeft,
             ),
-          for (var item in homeNotifier.listInfo!)
+          for (var item in homeNotifier.listEducation!)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               child: Center(

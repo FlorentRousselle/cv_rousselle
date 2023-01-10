@@ -25,43 +25,62 @@ class WebTitleWidget extends StatelessWidget {
           Positioned(
             child: Container(
               decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.elliptical(10, 15),
+                  bottomLeft: Radius.elliptical(10, 15),
+                  bottomRight: Radius.elliptical(100, 10),
+                  topRight: Radius.elliptical(100, 10),
+                ),
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: [
                     ColorResources.blue,
-                    ColorResources.blue.withOpacity(0.4),
-                    ColorResources.blue.withOpacity(0.2),
+                    ColorResources.blue.withOpacity(0.6),
+                    ColorResources.blue.withOpacity(0.3),
+                    ColorResources.blue.withOpacity(0.1),
                     ColorResources.blue.withOpacity(0),
                   ],
                 ),
               ),
             ),
-            left: 59,
+            left: 0,
             top: 6,
             bottom: 6,
             right: 0,
           ),
           Positioned(
-            child: Container(
-              height: 60,
-              width: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                color: ColorResources.blue,
-              ),
-              child: Center(
-                child: SvgPicture.asset(
-                  iconLink,
-                  height: 45,
-                  color: Theme.of(context).textTheme.bodyText2!.color,
-                ),
+            child: Center(
+              child: SvgPicture.asset(
+                iconLink,
+                height: 40,
+                color: Theme.of(context).textTheme.bodyText2!.color,
               ),
             ),
-            left: 0,
+            left: 5,
             top: 0,
             bottom: 0,
           ),
+          // Positioned(
+          //   child: Container(
+          //     height: 60,
+          //     width: 60,
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(8.0),
+          //       color: ColorResources.blue,
+          //     ),
+          //     child: Center(
+          //       child: SvgPicture.asset(
+          //         iconLink,
+          //         height: 45,
+          //         color: Theme.of(context).textTheme.bodyText2!.color,
+          //       ),
+          //     ),
+          //   ),
+          //   left: 0,
+          //   top: 0,
+          //   bottom: 0,
+          // ),
           Positioned(
             child: Center(
               child: Text(

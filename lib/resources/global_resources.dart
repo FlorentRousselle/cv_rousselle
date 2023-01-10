@@ -14,8 +14,6 @@ class Global {
   static const String skillSvg = "assets/svg/skill.svg";
   static const String swapSvg = "assets/svg/swap.svg";
 
-  static final AirTableService airTableService = AirTableService();
-
   static const String facebookLink =
       "https://www.facebook.com/florent.rousselle.9";
   static const String linkedInLink =

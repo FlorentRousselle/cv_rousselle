@@ -3,10 +3,11 @@ import 'package:cv_flutter/notifiers/home_notifier.dart';
 import 'package:cv_flutter/notifiers/theme_notifier.dart';
 import 'package:cv_flutter/resources/color_resources.dart';
 import 'package:cv_flutter/resources/global_resources.dart';
-import 'package:cv_flutter/widgets/app_bar_widget.dart';
-import 'package:cv_flutter/widgets/left_menu_widget.dart';
+import 'package:cv_flutter/widgets/menus/app_bar_widget.dart';
+import 'package:cv_flutter/widgets/menus/bottom_bar_widget.dart';
+import 'package:cv_flutter/widgets/menus/left_menu_widget.dart';
 import 'package:cv_flutter/widgets/loader_widget.dart';
-import 'package:cv_flutter/widgets/selector_menu_item.dart';
+import 'package:cv_flutter/widgets/menus/selector_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -50,7 +51,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
   }
 
-  Widget webHomeScreenBuilder(HomeNotifier homeNotifier, bool isSmall) {
+  Widget webHomeScreenBuilder(HomeNotifier homeNotifier, bool isLeftMenuSmall) {
     ThemeNotifier themeNotifier = ref.read(themeProvider);
     return Scaffold(
       body: Row(
@@ -60,7 +61,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             context: context,
             homeNotifier: homeNotifier,
             themeNotifier: themeNotifier,
-            isSmall: isSmall,
+            isSmall: isLeftMenuSmall,
           ),
           Expanded(
             child: ScrollablePositionedList.separated(
@@ -95,8 +96,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         themeNotifier: themeNotifier,
       ),
       body: SingleChildScrollView(
-        child: homeNotifier.getScreen(
-            homeNotifier.currentIndex, homeNotifier, false),
+        child: Center(
+          child: homeNotifier.getScreen(
+              homeNotifier.currentIndex, homeNotifier, false),
+        ),
       ),
       bottomNavigationBar: mobileNavigationBar(homeNotifier),
     );
@@ -105,61 +108,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget mobileNavigationBar(HomeNotifier homeNotifier) {
     return Container(
       color: Theme.of(context).appBarTheme.backgroundColor,
-      child: BottomNavigationBar(
-        currentIndex: homeNotifier.currentIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: SelectorMenuItem(
-              item:
-                  SelectorItemModel(name: "Profil", iconLink: Global.profilSvg),
-              onPressed: () => homeNotifier.mobileGoToIndex(0),
-              isSelected: homeNotifier.currentIndex == 0,
-              isTextShow: false,
-            ),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: SelectorMenuItem(
-              item: SelectorItemModel(
-                  name: "Experiences", iconLink: Global.experienceSvg),
-              onPressed: () => homeNotifier.mobileGoToIndex(1),
-              isSelected: homeNotifier.currentIndex == 1,
-              isTextShow: false,
-            ),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: SelectorMenuItem(
-              item: SelectorItemModel(
-                  name: "Formations", iconLink: Global.formationSvg),
-              onPressed: () => homeNotifier.mobileGoToIndex(2),
-              isSelected: homeNotifier.currentIndex == 2,
-              isTextShow: false,
-            ),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: SelectorMenuItem(
-              item: SelectorItemModel(
-                  name: "Compétences", iconLink: Global.skillSvg),
-              onPressed: () => homeNotifier.mobileGoToIndex(3),
-              isSelected: homeNotifier.currentIndex == 3,
-              isTextShow: false,
-            ),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: SelectorMenuItem(
-              item: SelectorItemModel(
-                  name: "Mes projets", iconLink: Global.projectSvg),
-              onPressed: () => homeNotifier.mobileGoToIndex(4),
-              isSelected: homeNotifier.currentIndex == 4,
-              isTextShow: false,
-            ),
-            label: "",
-          ),
-        ],
-      ),
+      child: BottomBarWidget(homeNotifier : homeNotifier),
     );
   }
 }

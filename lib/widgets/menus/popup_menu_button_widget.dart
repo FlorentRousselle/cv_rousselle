@@ -1,7 +1,7 @@
 import 'package:cv_flutter/models/selector_item_model.dart';
 import 'package:cv_flutter/notifiers/theme_notifier.dart';
 import 'package:cv_flutter/resources/global_resources.dart';
-import 'package:cv_flutter/widgets/selector_menu_item.dart';
+import 'package:cv_flutter/widgets/menus/selector_menu_item.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';

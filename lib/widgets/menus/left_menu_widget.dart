@@ -3,7 +3,7 @@ import 'package:cv_flutter/notifiers/home_notifier.dart';
 import 'package:cv_flutter/notifiers/theme_notifier.dart';
 import 'package:cv_flutter/resources/color_resources.dart';
 import 'package:cv_flutter/resources/global_resources.dart';
-import 'package:cv_flutter/widgets/selector_menu_item.dart';
+import 'package:cv_flutter/widgets/menus/selector_menu_item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -215,29 +215,29 @@ class LeftMenuWidget extends StatelessWidget {
               },
               isTextShow: !isSmall,
             ),
-            kIsWeb
-                ? SelectorMenuItem(
-                    item: SelectorItemModel(
-                        name: "Android App", iconLink: Global.androidSvg),
-                    onPressed: () {
-                      launchUrl(
-                        Uri.parse(Global.androidLink),
-                      );
-                      Navigator.of(context).pop();
-                    },
-                    isTextShow: !isSmall,
-                  )
-                : SelectorMenuItem(
-                    item: SelectorItemModel(
-                        name: "Site web", iconLink: Global.webSvg),
-                    onPressed: () {
-                      launchUrl(
-                        Uri.parse(Global.webLink),
-                      );
-                      Navigator.of(context).pop();
-                    },
-                    isTextShow: true,
-                  ),
+            // kIsWeb
+            //     ? SelectorMenuItem(
+            //         item: SelectorItemModel(
+            //             name: "Android App", iconLink: Global.androidSvg),
+            //         onPressed: () {
+            //           launchUrl(
+            //             Uri.parse(Global.androidLink),
+            //           );
+            //           Navigator.of(context).pop();
+            //         },
+            //         isTextShow: !isSmall,
+            //       )
+            //     : SelectorMenuItem(
+            //         item: SelectorItemModel(
+            //             name: "Site web", iconLink: Global.webSvg),
+            //         onPressed: () {
+            //           launchUrl(
+            //             Uri.parse(Global.webLink),
+            //           );
+            //           Navigator.of(context).pop();
+            //         },
+            //         isTextShow: true,
+            //       ),
             const SizedBox(
               height: 10,
             ),

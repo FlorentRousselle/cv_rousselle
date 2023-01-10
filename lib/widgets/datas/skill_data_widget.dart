@@ -3,11 +3,11 @@ import 'package:cv_flutter/resources/global_resources.dart';
 import 'package:cv_flutter/widgets/web_title_widget.dart';
 import 'package:flutter/material.dart';
 
-class SkillMenu extends StatelessWidget {
+class SkillDataWidget extends StatelessWidget {
   final HomeNotifier homeNotifier;
   final bool isWeb;
 
-  const SkillMenu({
+  const SkillDataWidget({
     Key? key,
     required this.homeNotifier,
     this.isWeb = false,

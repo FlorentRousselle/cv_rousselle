@@ -1,5 +1,5 @@
 import 'package:cv_flutter/notifiers/theme_notifier.dart';
-import 'package:cv_flutter/widgets/popup_menu_button_widget.dart';
+import 'package:cv_flutter/widgets/menus/popup_menu_button_widget.dart';
 import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {

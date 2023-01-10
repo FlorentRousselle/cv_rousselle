@@ -13,31 +13,31 @@ import 'package:http/http.dart' as http;
 /// service to access to Airtable Database
 ///
 class AirTableService {
-  final Uri urlProfil = Uri.https(
+  static final Uri urlProfil = Uri.https(
     "api.airtable.com",
     "/v0/${Config.projectBase}/profil",
     {"maxRecords": "10", "view": "Grid view"},
   );
 
-  final Uri urlExperience = Uri.https(
+  static final Uri urlExperience = Uri.https(
     "api.airtable.com",
     "/v0/${Config.projectBase}/experience",
     {"maxRecords": "10", "view": "Grid view"},
   );
 
-  final Uri urlSkill = Uri.https(
+  static final Uri urlSkill = Uri.https(
     "api.airtable.com",
     "/v0/${Config.projectBase}/skill",
     {"maxRecords": "10", "view": "Grid view"},
   );
 
-  final Uri urlEducation = Uri.https(
+  static final Uri urlEducation = Uri.https(
     "api.airtable.com",
     "/v0/${Config.projectBase}/education",
     {"maxRecords": "10", "view": "Grid view"},
   );
 
-  final Uri urlInfo = Uri.https(
+  static final Uri urlInfo = Uri.https(
     "api.airtable.com",
     "/v0/${Config.projectBase}/info",
     {"maxRecords": "10", "view": "Grid view"},
@@ -47,32 +47,26 @@ class AirTableService {
   /// Get profil data
   /// model : AirTableDataProfil
   ///
-  Future<List<AirtableDataProfil>> getProfil() async {
+  static Future<List<AirtableDataProfil>> getProfil() async {
     final res = await http.get(
       urlProfil,
       headers: {"Authorization": "Bearer ${Config.apiKey}"},
     );
 
     if (res.statusCode == 200) {
+      // if (kDebugMode) {
+      //   print("PROFIL");
+      //   print(res.body);
+      // }
+
       var convertDataToJson = jsonDecode(res.body);
       var data = convertDataToJson['records'];
 
-      if (kDebugMode) {
-        print(data);
-      }
-
       List<AirtableDataProfil> values = [];
       data.forEach(
-        (value) => {
-          values.add(
-            AirtableDataProfil(
-                id: value['id'],
-                createdTime: value['createdTime'],
-                content: value['fields']['content'],
-                icon: value['fields']['icon'],
-                type: value['fields']['type']),
-          )
-        },
+        (jsonValue) => values.add(
+          AirtableDataProfil.fromJson(jsonValue['fields']),
+        ),
       );
       return values;
     } else {
@@ -84,7 +78,7 @@ class AirTableService {
   /// Get experience data
   /// model : AirTableDataExperience
   ///
-  Future<List<AirtableDataExperience>> getExperience() async {
+  static Future<List<AirtableDataExperience>> getExperience() async {
     final res = await http.get(
       urlExperience,
       headers: {"Authorization": "Bearer ${Config.apiKey}"},
@@ -124,7 +118,7 @@ class AirTableService {
   /// Get skills data
   /// model : AirTableDataSkill
   ///
-  Future<List<AirtableDataSkill>> getSkill() async {
+  static Future<List<AirtableDataSkill>> getSkill() async {
     final res = await http.get(
       urlSkill,
       headers: {"Authorization": "Bearer ${Config.apiKey}"},
@@ -166,7 +160,7 @@ class AirTableService {
   /// Get education data
   /// model : AirTableDataEducation
   ///
-  Future<List<AirtableDataEducation>> getEducation() async {
+  static Future<List<AirtableDataEducation>> getEducation() async {
     final res = await http.get(
       urlEducation,
       headers: {"Authorization": "Bearer ${Config.apiKey}"},
@@ -204,7 +198,7 @@ class AirTableService {
   /// Get info data
   /// model : AirTableDataInfo
   ///
-  Future<List<AirtableDataInfo>> getInfo() async {
+  static Future<List<AirtableDataInfo>> getInfo() async {
     final res = await http.get(
       urlInfo,
       headers: {"Authorization": "Bearer ${Config.apiKey}"},

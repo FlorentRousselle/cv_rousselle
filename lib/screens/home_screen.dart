@@ -71,7 +71,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   key: Key(index.toString()),
                   onVisibilityChanged: (VisibilityInfo info) =>
                       homeNotifier.visibilityChanged(info, index),
-                  child: homeNotifier.getScreen(index, homeNotifier),
+                  child: homeNotifier.getScreen(index, homeNotifier, true),
                 );
               },
               separatorBuilder: (context, index) => Padding(
@@ -94,7 +94,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         title: homeNotifier.getTitle(homeNotifier.currentIndex),
         themeNotifier: themeNotifier,
       ),
-      body: homeNotifier.getScreen(homeNotifier.currentIndex, homeNotifier),
+      body: SingleChildScrollView(
+        child: homeNotifier.getScreen(
+            homeNotifier.currentIndex, homeNotifier, false),
+      ),
       bottomNavigationBar: mobileNavigationBar(homeNotifier),
     );
   }

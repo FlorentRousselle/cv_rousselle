@@ -64,13 +64,13 @@ class HomeNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  Widget getScreen(int index, HomeNotifier homeNotifier) {
+  Widget getScreen(int index, HomeNotifier homeNotifier, bool isWeb) {
     Map<int, Widget> mapIndex = {
-      0: ProfilMenu(homeNotifier: homeNotifier),
-      1: ExperienceMenu(homeNotifier: homeNotifier),
-      2: EducationMenu(homeNotifier: homeNotifier),
-      3: SkillMenu(homeNotifier: homeNotifier),
-      4: InfoMenu(homeNotifier: homeNotifier),
+      0: ProfilMenu(homeNotifier: homeNotifier, isWeb: isWeb),
+      1: ExperienceMenu(homeNotifier: homeNotifier, isWeb: isWeb),
+      2: EducationMenu(homeNotifier: homeNotifier, isWeb: isWeb),
+      3: SkillMenu(homeNotifier: homeNotifier, isWeb: isWeb),
+      4: InfoMenu(homeNotifier: homeNotifier, isWeb: isWeb),
     };
 
     return mapIndex[index] ?? const Center();

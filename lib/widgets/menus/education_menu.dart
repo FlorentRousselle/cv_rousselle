@@ -1,12 +1,16 @@
 import 'package:cv_flutter/notifiers/home_notifier.dart';
+import 'package:cv_flutter/resources/global_resources.dart';
+import 'package:cv_flutter/widgets/web_title_widget.dart';
 import 'package:flutter/material.dart';
 
 class EducationMenu extends StatelessWidget {
   final HomeNotifier homeNotifier;
+  final bool isWeb;
 
   const EducationMenu({
     Key? key,
     required this.homeNotifier,
+    this.isWeb = false,
   }) : super(key: key);
 
   @override
@@ -15,7 +19,15 @@ class EducationMenu extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
       child: Column(
         children: [
-          const Text("FORMATIONS"),
+          if (isWeb)
+            const Align(
+              child: WebTitleWidget(
+                title: "Formations",
+                iconLink: Global.formationSvg,
+                width: 240,
+              ),
+              alignment: Alignment.centerLeft,
+            ),
           for (var item in homeNotifier.listEducation!)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
@@ -27,5 +39,4 @@ class EducationMenu extends StatelessWidget {
       ),
     );
   }
-
 }

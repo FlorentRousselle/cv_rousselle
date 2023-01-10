@@ -1,12 +1,16 @@
 import 'package:cv_flutter/notifiers/home_notifier.dart';
+import 'package:cv_flutter/resources/global_resources.dart';
+import 'package:cv_flutter/widgets/web_title_widget.dart';
 import 'package:flutter/material.dart';
 
 class InfoMenu extends StatelessWidget {
   final HomeNotifier homeNotifier;
+  final bool isWeb;
 
   const InfoMenu({
     Key? key,
     required this.homeNotifier,
+    this.isWeb = false,
   }) : super(key: key);
 
   @override
@@ -15,7 +19,15 @@ class InfoMenu extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
       child: Column(
         children: [
-          const Text("MES PROJETS"),
+          if (isWeb)
+            const Align(
+              child: WebTitleWidget(
+                title: "Mes projets",
+                iconLink: Global.projectSvg,
+                width: 240,
+              ),
+              alignment: Alignment.centerLeft,
+            ),
           for (var item in homeNotifier.listInfo!)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
@@ -27,5 +39,4 @@ class InfoMenu extends StatelessWidget {
       ),
     );
   }
-
 }

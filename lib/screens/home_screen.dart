@@ -1,14 +1,16 @@
 import 'package:cv_flutter/models/selector_item_model.dart';
 import 'package:cv_flutter/notifiers/home_notifier.dart';
 import 'package:cv_flutter/notifiers/theme_notifier.dart';
+import 'package:cv_flutter/resources/color_resources.dart';
 import 'package:cv_flutter/resources/global_resources.dart';
 import 'package:cv_flutter/widgets/app_bar_widget.dart';
+import 'package:cv_flutter/widgets/left_menu_widget.dart';
+import 'package:cv_flutter/widgets/loader_widget.dart';
 import 'package:cv_flutter/widgets/selector_menu_item.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -35,7 +37,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final HomeNotifier homeNotifier = ref.watch(homeProvider);
     if (homeNotifier.isDataLoading()) {
-      return const Text("loading");
+      return const LoaderWidget();
     } else {
       return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -49,138 +51,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Widget webHomeScreenBuilder(HomeNotifier homeNotifier, bool isSmall) {
+    ThemeNotifier themeNotifier = ref.read(themeProvider);
     return Scaffold(
       body: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Container(
-            width: isSmall ? 80 : 250,
-            color: Theme.of(context).appBarTheme.backgroundColor,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text("title"),
-                Center(
-                  child: Column(
-                    children: [
-                      SelectorMenuItem(
-                        item: SelectorItemModel(
-                            name: "Profil", iconLink: Global.profilSvg),
-                        onPressed: () => homeNotifier.webGoToIndex(0),
-                        isSelected: homeNotifier.currentIndex == 0,
-                        isTextShow: !isSmall,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SelectorMenuItem(
-                        item: SelectorItemModel(
-                            name: "Experiences",
-                            iconLink: Global.experienceSvg),
-                        onPressed: () => homeNotifier.webGoToIndex(1),
-                        isSelected: homeNotifier.currentIndex == 1,
-                        isTextShow: !isSmall,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SelectorMenuItem(
-                        item: SelectorItemModel(
-                            name: "Formations", iconLink: Global.formationSvg),
-                        onPressed: () => homeNotifier.webGoToIndex(2),
-                        isSelected: homeNotifier.currentIndex == 2,
-                        isTextShow: !isSmall,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SelectorMenuItem(
-                        item: SelectorItemModel(
-                            name: "Compétences", iconLink: Global.skillSvg),
-                        onPressed: () => homeNotifier.webGoToIndex(3),
-                        isSelected: homeNotifier.currentIndex == 3,
-                        isTextShow: !isSmall,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SelectorMenuItem(
-                        item: SelectorItemModel(
-                            name: "Mes projets", iconLink: Global.projectSvg),
-                        onPressed: () => homeNotifier.webGoToIndex(4),
-                        isSelected: homeNotifier.currentIndex == 4,
-                        isTextShow: !isSmall,
-                      ),
-                    ],
-                  ),
-                ),
-                Wrap(
-                  spacing: 12.0,
-                  direction: Axis.vertical,
-                  children: [
-                    SelectorMenuItem(
-                      item: SelectorItemModel(
-                          name: "Changer de thème", iconLink: Global.swapSvg),
-                      onPressed: () {
-                        var themeNotifier = ref.read(themeProvider);
-                        themeNotifier.swapTheme();
-                      },
-                      isTextShow: !isSmall,
-                    ),
-                    SelectorMenuItem(
-                      item: SelectorItemModel(
-                          name: "Facebook", iconLink: Global.facebookSvg),
-                      onPressed: () {
-                        launchUrl(
-                          Uri.parse(Global.facebookLink),
-                        );
-                        Navigator.of(context).pop();
-                      },
-                      isTextShow: !isSmall,
-                    ),
-                    SelectorMenuItem(
-                      item: SelectorItemModel(
-                          name: "LinkedIn", iconLink: Global.linkedInSvg),
-                      onPressed: () {
-                        launchUrl(
-                          Uri.parse(Global.linkedInLink),
-                        );
-                        Navigator.of(context).pop();
-                      },
-                      isTextShow: !isSmall,
-                    ),
-                    kIsWeb
-                        ? SelectorMenuItem(
-                      item: SelectorItemModel(
-                          name: "Android App", iconLink: Global.androidSvg),
-                      onPressed: () {
-                        launchUrl(
-                          Uri.parse(Global.androidLink),
-                        );
-                        Navigator.of(context).pop();
-                      },
-                      isTextShow: !isSmall,
-                    )
-                        : SelectorMenuItem(
-                      item: SelectorItemModel(
-                          name: "Site web", iconLink: Global.webSvg),
-                      onPressed: () {
-                        launchUrl(
-                          Uri.parse(Global.webLink),
-                        );
-                        Navigator.of(context).pop();
-                      },
-                      isTextShow: true,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          LeftMenuWidget(
+            context: context,
+            homeNotifier: homeNotifier,
+            themeNotifier: themeNotifier,
+            isSmall: isSmall,
           ),
           Expanded(
             child: ScrollablePositionedList.separated(

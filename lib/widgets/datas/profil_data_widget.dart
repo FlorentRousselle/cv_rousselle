@@ -55,25 +55,4 @@ class ProfilDataWidget extends StatelessWidget {
       ),
     );
   }
-
-  Future<bool> launcher(AirtableDataProfil value) {
-    switch (value.type) {
-      case "mail":
-        return launchUrl(
-          Uri(path: "mailto:${value.details}"),
-        );
-      case "tel":
-        return launchUrl(
-          Uri(path: "tel:${value.details}"),
-        );
-      case "gps":
-        return launchUrl(
-          Uri(
-              path:
-                  "https://www.google.com/maps/search/?api=1&query=${value.details}"),
-        );
-      default:
-        return Future<bool>.value(false);
-    }
-  }
 }

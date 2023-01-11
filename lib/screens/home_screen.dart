@@ -92,6 +92,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ThemeNotifier themeNotifier = ref.read(themeProvider);
     return Scaffold(
       appBar: AppBarWidget(
+        iconLink: homeNotifier.getIconLink(homeNotifier.currentIndex),
         title: homeNotifier.getTitle(homeNotifier.currentIndex),
         themeNotifier: themeNotifier,
       ),

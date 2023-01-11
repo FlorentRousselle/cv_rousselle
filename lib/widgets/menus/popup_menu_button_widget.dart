@@ -74,37 +74,37 @@ class PopupMenuButtonWidget extends StatelessWidget {
             ),
           ),
         ),
-        kIsWeb
-            ? PopupMenuItem<int>(
-                child: Center(
-                  child: SelectorMenuItem(
-                    item: SelectorItemModel(
-                        name: "Android App", iconLink: Global.androidSvg),
-                    onPressed: () {
-                      launchUrl(
-                        Uri.parse(Global.androidLink),
-                      );
-                      Navigator.of(context).pop();
-                    },
-                    isTextShow: true,
-                  ),
-                ),
-              )
-            : PopupMenuItem<int>(
-                child: Center(
-                  child: SelectorMenuItem(
-                    item: SelectorItemModel(
-                        name: "Site web", iconLink: Global.webSvg),
-                    onPressed: () {
-                      launchUrl(
-                        Uri.parse(Global.webLink),
-                      );
-                      Navigator.of(context).pop();
-                    },
-                    isTextShow: true,
-                  ),
-                ),
-              ),
+        // kIsWeb
+        //     ? PopupMenuItem<int>(
+        //         child: Center(
+        //           child: SelectorMenuItem(
+        //             item: SelectorItemModel(
+        //                 name: "Android App", iconLink: Global.androidSvg),
+        //             onPressed: () {
+        //               launchUrl(
+        //                 Uri.parse(Global.androidLink),
+        //               );
+        //               Navigator.of(context).pop();
+        //             },
+        //             isTextShow: true,
+        //           ),
+        //         ),
+        //       )
+        //     : PopupMenuItem<int>(
+        //         child: Center(
+        //           child: SelectorMenuItem(
+        //             item: SelectorItemModel(
+        //                 name: "Site web", iconLink: Global.webSvg),
+        //             onPressed: () {
+        //               launchUrl(
+        //                 Uri.parse(Global.webLink),
+        //               );
+        //               Navigator.of(context).pop();
+        //             },
+        //             isTextShow: true,
+        //           ),
+        //         ),
+        //       ),
       ],
     );
   }

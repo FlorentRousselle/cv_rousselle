@@ -1,5 +1,6 @@
 import 'package:cv_flutter/notifiers/home_notifier.dart';
 import 'package:cv_flutter/resources/global_resources.dart';
+import 'package:cv_flutter/widgets/cards/experience_card.dart';
 import 'package:cv_flutter/widgets/web_title_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -28,13 +29,22 @@ class ExperienceDataWidget extends StatelessWidget {
               ),
               alignment: Alignment.centerLeft,
             ),
-          for (var item in homeNotifier.listExperience!)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              child: Center(
-                child: Text(item.title),
-              ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Wrap(
+              spacing: 30.0,
+              runSpacing: 30.0,
+              alignment: WrapAlignment.center,
+              runAlignment: WrapAlignment.center,
+              children: [
+                for (var item in homeNotifier.listExperience!)
+                  ExperienceCardWidget(
+                    dataExperience: item,
+                    isWeb: isWeb,
+                  ),
+              ],
             ),
+          ),
         ],
       ),
     );

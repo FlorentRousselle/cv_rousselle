@@ -1,5 +1,6 @@
 import 'package:cv_flutter/models/tables/air_table_data_profil.dart';
 import 'package:cv_flutter/notifiers/home_notifier.dart';
+import 'package:cv_flutter/resources/color_resources.dart';
 import 'package:cv_flutter/resources/global_resources.dart';
 import 'package:cv_flutter/widgets/cards/profil_card.dart';
 import 'package:cv_flutter/widgets/web_title_widget.dart';
@@ -19,7 +20,8 @@ class ProfilDataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
+      padding:
+          EdgeInsets.symmetric(vertical: isWeb ? 30.0 : 10.0, horizontal: 20.0),
       child: Column(
         children: [
           if (isWeb)
@@ -35,6 +37,33 @@ class ProfilDataWidget extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 20.0,
+                ),
+              ],
+            ),
+          if (!isWeb)
+            Column(
+              children: [
+                Text(
+                  "Florent Rousselle",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                CircleAvatar(
+                  radius: MediaQuery.of(context).size.width / 7,
+                  backgroundColor: Colors.white,
+                  child: ClipOval(
+                    child: Image.asset(
+                      Global.profilImage,
+                      height: MediaQuery.of(context).size.width / 3.5,
+                      width: MediaQuery.of(context).size.width / 3.5,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
               ],
             ),

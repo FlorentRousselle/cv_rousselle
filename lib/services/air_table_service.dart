@@ -45,7 +45,7 @@ class AirTableService {
 
   ///
   /// Get profil data
-  /// model : AirTableDataProfil
+  /// model : [AirtableDataProfil]
   ///
   static Future<List<AirtableDataProfil>> getProfil() async {
     final res = await http.get(
@@ -54,10 +54,10 @@ class AirTableService {
     );
 
     if (res.statusCode == 200) {
-      // if (kDebugMode) {
-      //   print("PROFIL");
-      //   print(res.body);
-      // }
+      if (kDebugMode) {
+        print("PROFIL");
+        print(res.body);
+      }
 
       var convertDataToJson = jsonDecode(res.body);
       var data = convertDataToJson['records'];
@@ -76,7 +76,7 @@ class AirTableService {
 
   ///
   /// Get experience data
-  /// model : AirTableDataExperience
+  /// model : [AirtableDataExperience]
   ///
   static Future<List<AirtableDataExperience>> getExperience() async {
     final res = await http.get(
@@ -85,28 +85,19 @@ class AirTableService {
     );
 
     if (res.statusCode == 200) {
+      if (kDebugMode) {
+        print("EXPERIENCE");
+        print(res.body);
+      }
+
       var convertDataToJson = jsonDecode(res.body);
       var data = convertDataToJson['records'];
 
-      if (kDebugMode) {
-        print(data);
-      }
-
       List<AirtableDataExperience> values = [];
       data.forEach(
-        (value) {
-          return values.add(
-            AirtableDataExperience(
-              id: value['id'],
-              createdTime: value['createdTime'],
-              title: value['fields']['title'],
-              detail: value['fields']['details'],
-              function: value['fields']['function'],
-              imageLink: value['fields']['logo'][0]['url'],
-              period: value['fields']['period'],
-            ),
-          );
-        },
+            (jsonValue) => values.add(
+              AirtableDataExperience.fromJson(jsonValue['fields']),
+        ),
       );
       return values;
     } else {

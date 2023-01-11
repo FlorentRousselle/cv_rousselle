@@ -3,6 +3,7 @@ import 'package:cv_flutter/models/tables/air_table_data_experience.dart';
 import 'package:cv_flutter/models/tables/air_table_data_info.dart';
 import 'package:cv_flutter/models/tables/air_table_data_profil.dart';
 import 'package:cv_flutter/models/tables/air_table_data_skill.dart';
+import 'package:cv_flutter/resources/global_resources.dart';
 import 'package:cv_flutter/services/air_table_service.dart';
 import 'package:cv_flutter/widgets/datas/education_data_widget.dart';
 import 'package:cv_flutter/widgets/datas/experience_data_widget.dart';
@@ -37,8 +38,8 @@ class HomeNotifier with ChangeNotifier {
 
   Future<void> initData() async {
     listProfil = await AirTableService.getProfil();
+    listExperience = await AirTableService.getExperience();
     listEducation = [];
-    listExperience = [];
     listInfo = [];
     listSkill = [];
     // listEducation = await AirTableService.getEducation();
@@ -87,6 +88,18 @@ class HomeNotifier with ChangeNotifier {
       2: "Formations",
       3: "Compétences",
       4: "Mes projets",
+    };
+
+    return mapIndex[index] ?? "";
+  }
+
+  String getIconLink(int index) {
+    Map<int, String> mapIndex = {
+      0: Global.profilSvg,
+      1: Global.experienceSvg,
+      2: Global.formationSvg,
+      3: Global.skillSvg,
+      4: Global.projectSvg,
     };
 
     return mapIndex[index] ?? "";

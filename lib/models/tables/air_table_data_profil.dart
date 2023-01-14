@@ -1,5 +1,3 @@
-import 'package:cv_flutter/services/air_table_service.dart';
-
 class AirtableDataProfil {
   String title;
   String details;

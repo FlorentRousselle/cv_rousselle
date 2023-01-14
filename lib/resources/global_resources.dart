@@ -13,6 +13,8 @@ class Global {
   static const String projectSvg = "assets/svg/project.svg";
   static const String skillSvg = "assets/svg/skill.svg";
   static const String swapSvg = "assets/svg/swap.svg";
+  static const String heartFilledSvg = "assets/svg/heart-filled.svg";
+  static const String heartOutlinedSvg = "assets/svg/heart-outlined.svg";
 
   static const String facebookLink =
       "https://www.facebook.com/florent.rousselle.9";

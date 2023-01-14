@@ -37,7 +37,7 @@ class ProfilDataWidget extends StatelessWidget {
                   ),
                   alignment: Alignment.centerLeft,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
               ],
@@ -57,10 +57,13 @@ class ProfilDataWidget extends StatelessWidget {
                   radius: MediaQuery.of(context).size.width / 7,
                   backgroundColor: Colors.white,
                   child: ClipOval(
-                    child: Image.asset(
-                      Global.profilImage,
-                      height: MediaQuery.of(context).size.width / 3.5,
-                      width: MediaQuery.of(context).size.width / 3.5,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Image.asset(
+                        Global.profilImage,
+                        height: MediaQuery.of(context).size.width / 3.5,
+                        width: MediaQuery.of(context).size.width / 3.5,
+                      ),
                     ),
                   ),
                 ),

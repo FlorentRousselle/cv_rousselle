@@ -1,17 +1,29 @@
-import 'package:flutter/material.dart';
-
 class AirtableDataInfo {
-  String id;
-  String createdTime;
   String title;
-  String detail;
-  String imageLink;
+  String link;
+  String details;
+  String image;
 
   AirtableDataInfo({
-    required this.id,
-    required this.createdTime,
     required this.title,
-    required this.detail,
-    required this.imageLink
+    required this.link,
+    required this.details,
+    required this.image,
   });
+
+  factory AirtableDataInfo.fromJson(Map<String, dynamic> json) {
+    return AirtableDataInfo(
+      title: json['title'],
+      link: json['link'],
+      details: json['details'],
+      image: json['image'][0]['url'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'title': title,
+    'link': link,
+    'details': details,
+    'image': image,
+  };
 }

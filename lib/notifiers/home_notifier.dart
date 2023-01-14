@@ -72,13 +72,9 @@ class HomeNotifier with ChangeNotifier {
   Future<void> initData() async {
     listProfil = await AirTableService.getProfil();
     listExperience = await AirTableService.getExperience();
-    listEducation = [];
-    listInfo = [];
-    listSkill = [];
-    // listEducation = await AirTableService.getEducation();
-    // listExperience = await AirTableService.getExperience();
-    // listInfo = await AirTableService.getInfo();
-    // listSkill = await AirTableService.getSkill();
+    listEducation = await AirTableService.getEducation();
+    listSkill = await AirTableService.getSkill();
+    listInfo = await AirTableService.getInfo();
     notifyListeners();
   }
 

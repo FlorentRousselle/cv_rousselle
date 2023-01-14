@@ -37,8 +37,8 @@ class ExperienceCardWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Container(
-                height: isSmall ? 100 : 200,
-                width: isSmall ? 100 : 200,
+                height: isWeb ? isSmall ? 100 : 150 : 75,
+                width: isWeb ? isSmall ? 100 : 150 : 75,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0),
@@ -65,10 +65,10 @@ class ExperienceCardWidget extends StatelessWidget {
                         ? Theme.of(context).textTheme.headline1
                         : Theme.of(context).textTheme.headline2,
                   ),
-                  if(!isWeb)
-                  const SizedBox(
-                    height: 5.0,
-                  ),
+                  if (!isWeb)
+                    const SizedBox(
+                      height: 5.0,
+                    ),
                   Wrap(
                     direction: Axis.horizontal,
                     spacing: 25.0,
@@ -84,7 +84,11 @@ class ExperienceCardWidget extends StatelessWidget {
                         dataExperience.period,
                         style: isWeb
                             ? Theme.of(context).textTheme.headline2
-                            : Theme.of(context).textTheme.bodyText1,
+                            : Theme.of(context).textTheme.bodyText2!.copyWith(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .color),
                       ),
                     ],
                   ),
@@ -93,10 +97,12 @@ class ExperienceCardWidget extends StatelessWidget {
                   ),
                   Text(
                     dataExperience.function,
-                    style: Theme.of(context).textTheme.headline3!.copyWith(
-                          fontWeight: FontWeight.normal,
-                          fontStyle: FontStyle.italic,
-                        ),
+                    style: isWeb
+                        ? Theme.of(context).textTheme.headline3!.copyWith(
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.italic,
+                            )
+                        : Theme.of(context).textTheme.bodyText1,
                   ),
                   if (!isSmall)
                     Column(

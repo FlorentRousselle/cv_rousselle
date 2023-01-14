@@ -8,7 +8,7 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
   textTheme: const TextTheme(
     headline1: TextStyle(
       color: ColorResources.blue,
-      fontSize: 36,
+      fontSize: 28,
       fontFamily: "Garamond",
       fontWeight: FontWeight.w600,
     ),

@@ -95,8 +95,8 @@ class AirTableService {
 
       List<AirtableDataExperience> values = [];
       data.forEach(
-            (jsonValue) => values.add(
-              AirtableDataExperience.fromJson(jsonValue['fields']),
+        (jsonValue) => values.add(
+          AirtableDataExperience.fromJson(jsonValue['fields']),
         ),
       );
       return values;
@@ -107,7 +107,7 @@ class AirTableService {
 
   ///
   /// Get skills data
-  /// model : AirTableDataSkill
+  /// model : [AirtableDataSkill]
   ///
   static Future<List<AirtableDataSkill>> getSkill() async {
     final res = await http.get(
@@ -120,26 +120,15 @@ class AirTableService {
       var data = convertDataToJson['records'];
 
       if (kDebugMode) {
+        print("SKILL");
         print(data);
       }
 
       List<AirtableDataSkill> values = [];
       data.forEach(
-        (value) {
-          List<String> tempListSkills = [];
-          List skills = value['fields']['skills'];
-          for (var skill in skills) {
-            tempListSkills.add(skill['url']);
-          }
-          return values.add(
-            AirtableDataSkill(
-              id: value['id'],
-              createdTime: value['createdTime'],
-              category: value['fields']['category'],
-              listImageLink: tempListSkills,
-            ),
-          );
-        },
+        (jsonValue) => values.add(
+          AirtableDataSkill.fromJson(jsonValue['fields']),
+        ),
       );
       return values;
     } else {
@@ -149,7 +138,7 @@ class AirTableService {
 
   ///
   /// Get education data
-  /// model : AirTableDataEducation
+  /// model : [AirtableDataEducation]
   ///
   static Future<List<AirtableDataEducation>> getEducation() async {
     final res = await http.get(
@@ -167,17 +156,9 @@ class AirTableService {
 
       List<AirtableDataEducation> values = [];
       data.forEach(
-        (value) {
-          return values.add(
-            AirtableDataEducation(
-              id: value['id'],
-              createdTime: value['createdTime'],
-              title: value['fields']['title'],
-              detail: value['fields']['details'],
-              imageLink: value['fields']['image'][0]['url'],
-            ),
-          );
-        },
+        (jsonValue) => values.add(
+          AirtableDataEducation.fromJson(jsonValue['fields']),
+        ),
       );
       return values;
     } else {
@@ -187,7 +168,7 @@ class AirTableService {
 
   ///
   /// Get info data
-  /// model : AirTableDataInfo
+  /// model : [AirTableDataInfo]
   ///
   static Future<List<AirtableDataInfo>> getInfo() async {
     final res = await http.get(
@@ -205,17 +186,9 @@ class AirTableService {
 
       List<AirtableDataInfo> values = [];
       data.forEach(
-        (value) {
-          return values.add(
-            AirtableDataInfo(
-              id: value['id'],
-              createdTime: value['createdTime'],
-              title: value['fields']['title'],
-              detail: value['fields']['text'],
-              imageLink: value['fields']['image'][0]['url'],
-            ),
-          );
-        },
+        (jsonValue) => values.add(
+          AirtableDataInfo.fromJson(jsonValue['fields']),
+        ),
       );
       return values;
     } else {

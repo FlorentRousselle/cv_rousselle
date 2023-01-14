@@ -72,10 +72,13 @@ class LeftMenuWidget extends StatelessWidget {
                     radius: 25,
                     backgroundColor: ColorResources.white,
                     child: ClipOval(
-                      child: Image.asset(
-                        Global.profilImage,
-                        height: 50,
-                        width: 50,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Image.asset(
+                          Global.profilImage,
+                          height: 50,
+                          width: 50,
+                        ),
                       ),
                     ),
                   ),
@@ -103,14 +106,17 @@ class LeftMenuWidget extends StatelessWidget {
                         : MediaQuery.of(context).size.height / 16,
                     backgroundColor: ColorResources.white,
                     child: ClipOval(
-                      child: Image.asset(
-                        Global.profilImage,
-                        height: isHeightSmall
-                            ? 50
-                            : MediaQuery.of(context).size.height / 8,
-                        width: isHeightSmall
-                            ? 50
-                            : MediaQuery.of(context).size.height / 8,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Image.asset(
+                          Global.profilImage,
+                          height: isHeightSmall
+                              ? 50
+                              : MediaQuery.of(context).size.height / 8,
+                          width: isHeightSmall
+                              ? 50
+                              : MediaQuery.of(context).size.height / 8,
+                        ),
                       ),
                     ),
                   ),

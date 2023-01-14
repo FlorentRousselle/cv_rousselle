@@ -15,27 +15,34 @@ class SkillDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
-      child: Column(
-        children: [
-          if (isWeb)
-            const Align(
-              child: WebTitleWidget(
-                title: "Compétences",
-                iconLink: Global.skillSvg,
-                width: 275,
+    return Container(
+      height: 600,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
+        child: Column(
+          children: [
+            if (isWeb)
+              Align(
+                child: WebTitleWidget(
+                  visibilityKey: homeNotifier.getInfo(3).key,
+                  onVisibilityChanged: (info) =>
+                      homeNotifier.visibilityChanged(info, 3),
+                  title: "Compétences",
+                  iconLink: Global.skillSvg,
+                  width: 275,
+                ),
+                alignment: Alignment.centerLeft,
               ),
-              alignment: Alignment.centerLeft,
-            ),
-          for (var item in homeNotifier.listSkill!)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              child: Center(
-                child: Text(item.category),
+            for (var item in homeNotifier.listSkill!)
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: Center(
+                  child: Text(item.category),
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

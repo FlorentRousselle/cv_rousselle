@@ -15,27 +15,32 @@ class InfoDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
-      child: Column(
-        children: [
-          if (isWeb)
-            const Align(
-              child: WebTitleWidget(
-                title: "Mes projets",
-                iconLink: Global.projectSvg,
-                width: 240,
+    return Container(
+      height: 600,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
+        child: Column(
+          children: [
+            if (isWeb)
+              Align(
+                child: WebTitleWidget(
+                  visibilityKey: homeNotifier.getInfo(4).key,
+                  onVisibilityChanged: (info) => homeNotifier.visibilityChanged(info, 4),
+                  title: "Mes projets",
+                  iconLink: Global.projectSvg,
+                  width: 240,
+                ),
+                alignment: Alignment.centerLeft,
               ),
-              alignment: Alignment.centerLeft,
-            ),
-          for (var item in homeNotifier.listInfo!)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              child: Center(
-                child: Text(item.title),
+            for (var item in homeNotifier.listInfo!)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: Center(
+                  child: Text(item.title),
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

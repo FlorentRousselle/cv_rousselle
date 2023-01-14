@@ -1,3 +1,4 @@
+import 'package:cv_flutter/models/airtable_info_model.dart';
 import 'package:cv_flutter/models/tables/air_table_data_education.dart';
 import 'package:cv_flutter/models/tables/air_table_data_experience.dart';
 import 'package:cv_flutter/models/tables/air_table_data_info.dart';
@@ -26,8 +27,40 @@ class HomeNotifier with ChangeNotifier {
   List<AirtableDataProfil>? listProfil;
   List<AirtableDataSkill>? listSkill;
 
+  AirtableInfoModel profilInfo = AirtableInfoModel(
+    title: "Profil",
+    icon: Global.profilSvg,
+    key: const Key("profil"),
+  );
+
+  AirtableInfoModel experienceInfo = AirtableInfoModel(
+    title: "Expériences",
+    icon: Global.experienceSvg,
+    key: const Key("experience"),
+  );
+
+  AirtableInfoModel formationInfo = AirtableInfoModel(
+    title: "Formations",
+    icon: Global.formationSvg,
+    key: const Key("formation"),
+  );
+
+  AirtableInfoModel skillInfo = AirtableInfoModel(
+    title: "Compétences",
+    icon: Global.skillSvg,
+    key: const Key("skill"),
+  );
+
+  AirtableInfoModel projectInfo = AirtableInfoModel(
+    title: "Mes projets",
+    icon: Global.projectSvg,
+    key: const Key("project"),
+  );
+
   final scrollController = ItemScrollController();
   int currentIndex = 0;
+
+  bool isCurrentIndexVisible = true;
 
   bool isDataLoading() =>
       listEducation == null &&
@@ -81,27 +114,15 @@ class HomeNotifier with ChangeNotifier {
     return mapIndex[index] ?? const Center();
   }
 
-  String getTitle(int index) {
-    Map<int, String> mapIndex = {
-      0: "Profil",
-      1: "Expériences",
-      2: "Formations",
-      3: "Compétences",
-      4: "Mes projets",
+  AirtableInfoModel getInfo(int index) {
+    Map<int, AirtableInfoModel> mapIndex = {
+      0: profilInfo,
+      1: experienceInfo,
+      2: formationInfo,
+      3: skillInfo,
+      4: profilInfo,
     };
 
-    return mapIndex[index] ?? "";
-  }
-
-  String getIconLink(int index) {
-    Map<int, String> mapIndex = {
-      0: Global.profilSvg,
-      1: Global.experienceSvg,
-      2: Global.formationSvg,
-      3: Global.skillSvg,
-      4: Global.projectSvg,
-    };
-
-    return mapIndex[index] ?? "";
+    return mapIndex[index] ?? profilInfo;
   }
 }

@@ -3,6 +3,7 @@ import 'package:cv_flutter/resources/global_resources.dart';
 import 'package:cv_flutter/widgets/cards/experience_card.dart';
 import 'package:cv_flutter/widgets/web_title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class ExperienceDataWidget extends StatelessWidget {
   final HomeNotifier homeNotifier;
@@ -21,8 +22,10 @@ class ExperienceDataWidget extends StatelessWidget {
       child: Column(
         children: [
           if (isWeb)
-            const Align(
+            Align(
               child: WebTitleWidget(
+                visibilityKey: homeNotifier.getInfo(1).key,
+                onVisibilityChanged: (info) => homeNotifier.visibilityChanged(info, 1),
                 title: "Expériences",
                 iconLink: Global.experienceSvg,
                 width: 240,
@@ -38,9 +41,13 @@ class ExperienceDataWidget extends StatelessWidget {
               runAlignment: WrapAlignment.center,
               children: [
                 for (var item in homeNotifier.listExperience!)
-                  ExperienceCardWidget(
-                    dataExperience: item,
-                    isWeb: isWeb,
+                  VisibilityDetector(
+                    key: Key("${homeNotifier.getInfo(1).key.toString()}${item.details}${item.title}${item.period}"),
+                    onVisibilityChanged: (info) => homeNotifier.visibilityChanged(info, 1),
+                    child: ExperienceCardWidget(
+                      dataExperience: item,
+                      isWeb: isWeb,
+                    ),
                   ),
               ],
             ),

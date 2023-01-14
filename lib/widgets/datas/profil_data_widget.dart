@@ -26,9 +26,11 @@ class ProfilDataWidget extends StatelessWidget {
         children: [
           if (isWeb)
             Column(
-              children: const [
+              children: [
                 Align(
                   child: WebTitleWidget(
+                    visibilityKey: homeNotifier.getInfo(0).key,
+                    onVisibilityChanged: (info) => homeNotifier.visibilityChanged(info, 0),
                     title: "Profil",
                     iconLink: Global.profilSvg,
                     width: 160,

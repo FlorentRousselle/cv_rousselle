@@ -68,12 +68,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               itemScrollController: homeNotifier.scrollController,
               itemCount: 5,
               itemBuilder: (context, index) {
-                return VisibilityDetector(
-                  key: Key(index.toString()),
-                  onVisibilityChanged: (VisibilityInfo info) =>
-                      homeNotifier.visibilityChanged(info, index),
-                  child: homeNotifier.getScreen(index, homeNotifier, true),
-                );
+                // key: homeNotifier.getInfo(index).key,
+                // onVisibilityChanged: (VisibilityInfo info) =>
+                // homeNotifier.visibilityChanged(info, index),
+                return homeNotifier.getScreen(index, homeNotifier, true);
               },
               separatorBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 100.0),
@@ -92,8 +90,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ThemeNotifier themeNotifier = ref.read(themeProvider);
     return Scaffold(
       appBar: AppBarWidget(
-        iconLink: homeNotifier.getIconLink(homeNotifier.currentIndex),
-        title: homeNotifier.getTitle(homeNotifier.currentIndex),
+        iconLink: homeNotifier.getInfo(homeNotifier.currentIndex).icon,
+        title: homeNotifier.getInfo(homeNotifier.currentIndex).title,
         themeNotifier: themeNotifier,
       ),
       body: SingleChildScrollView(

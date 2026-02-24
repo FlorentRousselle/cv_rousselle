@@ -1,6 +1,6 @@
-import 'package:cv_flutter/notifiers/theme_notifier.dart';
+import 'package:cv_flutter/app_theme_resources.dart';
+import 'package:cv_flutter/global.dart';
 import 'package:cv_flutter/screens/home_screen.dart';
-import 'package:cv_flutter/services/air_table_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,10 +17,9 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ThemeNotifier themeNotifier = ref.watch(themeProvider);
     return MaterialApp(
       title: 'CV Rousselle',
-      theme: themeNotifier.getTheme(),
+      theme: AppThemeResources.getTheme(colorTheme: lightColorTheme),
       home: const HomeScreen(),
     );
   }

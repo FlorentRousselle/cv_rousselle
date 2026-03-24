@@ -19,8 +19,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final HomeNotifier homeNotifier = ref.watch(homeProvider);
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        if (constraints.maxWidth > 550) {
-          return webHomeScreenBuilder(homeNotifier, constraints.maxWidth < 750);
+        if (constraints.maxWidth > 800) {
+          return webHomeScreenBuilder(homeNotifier);
         } else {
           return mobileHomeScreenBuilder(homeNotifier);
         }
@@ -28,7 +28,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget webHomeScreenBuilder(HomeNotifier homeNotifier, bool isLeftMenuSmall) {
+  Widget webHomeScreenBuilder(HomeNotifier homeNotifier) {
     return Scaffold(
       body: Stack(
         children: [
@@ -36,7 +36,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           SvgPicture.asset(
             IconResources.background,
             alignment: Alignment.center,
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
 
           // content
@@ -47,7 +47,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 mainAxisSize: MainAxisSize.max,
                 spacing: 20.0,
                 children: [
-                  LeftMenuWidget(context: context, homeNotifier: homeNotifier),
+                  LeftMenuWidget(
+                    context: context,
+                    homeNotifier: homeNotifier,
+                  ),
                   Expanded(
                     child: Container(color: Colors.red),
 

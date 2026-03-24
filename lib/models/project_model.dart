@@ -1,4 +1,4 @@
-class AirtableDataExperience {
+class ProjectModel {
   String title;
   String function;
   String period;
@@ -6,7 +6,7 @@ class AirtableDataExperience {
   String details;
   String image;
 
-  AirtableDataExperience({
+  ProjectModel({
     required this.title,
     required this.function,
     required this.details,
@@ -15,8 +15,8 @@ class AirtableDataExperience {
     required this.image
   });
 
-  factory AirtableDataExperience.fromJson(Map<String, dynamic> json) {
-    return AirtableDataExperience(
+  factory ProjectModel.fromJson(Map<String, dynamic> json) {
+    return ProjectModel(
       title: json['title'],
       function: json['function'],
       details: json['details'],

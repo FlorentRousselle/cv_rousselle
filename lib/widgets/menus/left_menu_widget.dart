@@ -1,5 +1,7 @@
 import 'package:cv_flutter/notifiers/home_notifier.dart';
-import 'package:cv_flutter/resources/color_resources.dart';
+import 'package:cv_flutter/resources/icon_resources.dart';
+import 'package:cv_flutter/resources/image_resources.dart';
+import 'package:cv_flutter/widgets/menus/menu_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
@@ -39,14 +41,48 @@ class LeftMenuWidget extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 40),
+        padding: const EdgeInsetsGeometry.symmetric(
+          horizontal: 20,
+          vertical: 40,
+        ),
         child: Column(
+          spacing: 12.0,
           children: [
-            Text("1"),
-            Text("2"),
-            Text("3"),
-            Text("4"),
-            Text("5"),
+            Image.asset(ImageResources.picture, width: 160, height: 160),
+            Text(
+              "Florent Rousselle",
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            MenuItemWidget(
+              text: "Profil",
+              iconPath: IconResources.profile,
+              isSelected: true,
+              onPressed: () {},
+            ),
+            MenuItemWidget(
+              text: "Expériences",
+              iconPath: IconResources.experience,
+              isSelected: false,
+              onPressed: () {},
+            ),
+            MenuItemWidget(
+              text: "Mes projets",
+              iconPath: IconResources.project,
+              isSelected: false,
+              onPressed: () {},
+            ),
+            MenuItemWidget(
+              text: "Compétences",
+              iconPath: IconResources.skill,
+              isSelected: false,
+              onPressed: () {},
+            ),
+            MenuItemWidget(
+              text: "Formations",
+              iconPath: IconResources.formation,
+              isSelected: false,
+              onPressed: () {},
+            ),
           ],
         ),
       ),

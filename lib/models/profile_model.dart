@@ -1,18 +1,18 @@
-class AirtableDataProfil {
+class ProfileModel {
   String title;
   String details;
   String icon;
   String type;
 
-  AirtableDataProfil({
+  ProfileModel({
     required this.type,
     required this.title,
     required this.details,
     required this.icon,
   });
 
-  factory AirtableDataProfil.fromJson(Map<String, dynamic> json) {
-    return AirtableDataProfil(
+  factory ProfileModel.fromJson(Map<String, dynamic> json) {
+    return ProfileModel(
       type: json['type'],
       title: json['title'],
       details: json['details'],
@@ -21,9 +21,9 @@ class AirtableDataProfil {
   }
 
   Map<String, dynamic> toJson() => {
-        'type': type,
-        'title': title,
-        'details': details,
-        'icon': icon,
-      };
+    'type': type,
+    'title': title,
+    'details': details,
+    'icon': icon,
+  };
 }

@@ -1,18 +1,18 @@
-class AirtableDataInfo {
+class InfoModel {
   String title;
   String link;
   String details;
   String image;
 
-  AirtableDataInfo({
+  InfoModel({
     required this.title,
     required this.link,
     required this.details,
     required this.image,
   });
 
-  factory AirtableDataInfo.fromJson(Map<String, dynamic> json) {
-    return AirtableDataInfo(
+  factory InfoModel.fromJson(Map<String, dynamic> json) {
+    return InfoModel(
       title: json['title'],
       link: json['link'],
       details: json['details'],

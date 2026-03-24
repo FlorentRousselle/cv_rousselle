@@ -1,4 +1,4 @@
-// import 'package:cv_flutter/models/tables/profil_model.dart';
+// import 'package:cv_flutter/models/tables/profile_model.dart';
 // import 'package:cv_flutter/notifiers/home_notifier.dart';
 // import 'package:cv_flutter/resources/color_resources.dart';
 // import 'package:cv_flutter/resources/global_resources.dart';

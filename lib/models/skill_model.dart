@@ -1,18 +1,18 @@
-class AirtableDataSkillElement {
+class SkillModel {
   String title;
   int note;
   String type;
   String image;
 
-  AirtableDataSkillElement({
+  SkillModel({
     required this.title,
     required this.note,
     required this.type,
     required this.image
   });
 
-  factory AirtableDataSkillElement.fromJson(Map<String, dynamic> json) {
-    return AirtableDataSkillElement(
+  factory SkillModel.fromJson(Map<String, dynamic> json) {
+    return SkillModel(
       title: json['title'],
       note: json['note'],
       type: json['type'],

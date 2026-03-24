@@ -1,11 +1,11 @@
-class AirtableDataEducation {
+class EducationModel {
   String diploma;
   String school;
   String date;
   String details;
   String image;
 
-  AirtableDataEducation({
+  EducationModel({
     required this.diploma,
     required this.school,
     required this.details,
@@ -13,8 +13,8 @@ class AirtableDataEducation {
     required this.image,
   });
 
-  factory AirtableDataEducation.fromJson(Map<String, dynamic> json) {
-    return AirtableDataEducation(
+  factory EducationModel.fromJson(Map<String, dynamic> json) {
+    return EducationModel(
       diploma: json['diploma'],
       school: json['school'],
       details: json['details'],

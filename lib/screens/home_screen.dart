@@ -14,27 +14,11 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  final ItemScrollController itemScrollController = ItemScrollController();
-
-  int selectedIndex = 0;
-
-  final List<String> sections = [
-    'Profil',
-    'Expériences',
-    'Mes projets',
-    'Compétences',
-    'Formations',
-  ];
-
-  void scrollToIndex(int index) {
-    itemScrollController.scrollTo(
-      index: index,
-      duration: const Duration(milliseconds: 600),
-      curve: Curves.easeInOutCubic,
-    );
-    setState(() {
-      selectedIndex = index;
-    });
+  @override
+  void initState() {
+    super.initState();
+    final HomeNotifier homeNotifier = ref.read(homeProvider);
+    homeNotifier.initListener();
   }
 
   /// build home screen
@@ -54,57 +38,86 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget webHomeScreenBuilder(HomeNotifier homeNotifier) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // background
-          SvgPicture.asset(
-            IconResources.background,
-            alignment: Alignment.center,
-            fit: BoxFit.cover,
-          ),
-
-          // content
-          Positioned.fill(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                spacing: 20.0,
-                children: [
-                  const MenuWidget(mobileMenu: false),
-                  Expanded(
-                    child: ScrollablePositionedList.separated(
-                      itemScrollController: itemScrollController,
-                      itemCount: sections.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          height: 800,
-                          color: index.isEven ? Colors.grey[100] : Colors.white,
-                          child: Center(
-                            child: Text(
-                              sections[index],
-                              style: Theme.of(context).textTheme.displayLarge?.copyWith(color: Colors.red),
-                            ),
-                          ),
-                        );
-                      },
-                      separatorBuilder:
-                          (context, index) => Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 100.0,
-                            ),
-                            child: Divider(
-                              color:
-                                  Theme.of(context).appBarTheme.backgroundColor,
-                            ),
-                          ),
-                    ),
-                  ),
-                ],
+      body: SizedBox(
+        height: double.maxFinite,
+        width: double.maxFinite,
+        child: Stack(
+          children: [
+            // background
+            Positioned.fill(
+              child: SvgPicture.asset(
+                IconResources.background,
+                alignment: Alignment.center,
+                fit: BoxFit.cover,
               ),
             ),
-          ),
-        ],
+
+            // content
+            Positioned.fill(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  spacing: 20.0,
+                  children: [
+                    const MenuWidget(mobileMenu: false),
+                    // NavigationRail(
+                    //   selectedIndex: homeNotifier.selectedIndexItem,
+                    //   onDestinationSelected: homeNotifier.scrollToIndex,
+                    //   labelType: NavigationRailLabelType.all,
+                    //   destinations:
+                    //       sections
+                    //           .map(
+                    //             (name) => NavigationRailDestination(
+                    //               icon: Icon(Icons.circle_outlined),
+                    //               selectedIcon: Icon(Icons.circle),
+                    //               label: Text(name),
+                    //             ),
+                    //           )
+                    //           .toList(),
+                    // ),
+                    Expanded(
+                      child: ScrollablePositionedList.separated(
+                        itemScrollController: homeNotifier.itemScrollController,
+                        itemCount: homeNotifier.getMenuItems(false).length,
+                        itemPositionsListener:
+                            homeNotifier.itemPositionsListener,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            height: 800,
+                            color:
+                                index.isEven
+                                    ? Colors.grey[100]?.withAlpha(100)
+                                    : Colors.white.withAlpha(100),
+                            child: Center(
+                              child: Text(
+                                "INDEX" + index.toString(),
+                                style: Theme.of(context).textTheme.displayLarge
+                                    ?.copyWith(color: Colors.red),
+                              ),
+                            ),
+                          );
+                        },
+                        separatorBuilder:
+                            (context, index) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 100.0,
+                              ),
+                              child: Divider(
+                                color:
+                                    Theme.of(
+                                      context,
+                                    ).appBarTheme.backgroundColor,
+                              ),
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -113,15 +126,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       body: Expanded(
         child: ScrollablePositionedList.separated(
-          itemScrollController: itemScrollController,
-          itemCount: sections.length,
+          itemScrollController: homeNotifier.itemScrollController,
+          itemCount: homeNotifier.getMenuItems(true).length,
           itemBuilder: (context, index) {
             return Container(
               height: 800,
               color: index.isEven ? Colors.grey[100] : Colors.white,
               child: Center(
                 child: Text(
-                  sections[index],
+                  "INDEX" + index.toString(),
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
@@ -129,14 +142,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           },
           separatorBuilder:
               (context, index) => Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 100.0,
-            ),
-            child: Divider(
-              color:
-              Theme.of(context).appBarTheme.backgroundColor,
-            ),
-          ),
+                padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                child: Divider(
+                  color: Theme.of(context).appBarTheme.backgroundColor,
+                ),
+              ),
         ),
       ),
       bottomNavigationBar: const MenuWidget(mobileMenu: true),

@@ -1,56 +1,17 @@
-import 'package:cv_flutter/resources/icon_resources.dart';
+import 'package:cv_flutter/notifiers/home_notifier.dart';
 import 'package:cv_flutter/resources/image_resources.dart';
-import 'package:cv_flutter/widgets/menus/menu_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
-class MenuWidget extends StatelessWidget {
-  const MenuWidget({Key? key, this.mobileMenu = false}) : super(key: key);
+class MenuWidget extends ConsumerWidget {
+  const MenuWidget({super.key, this.mobileMenu = false});
 
   final bool mobileMenu;
 
-  List<Widget> getMenuItems(bool smallFormat) {
-    return <Widget>[
-      MenuItemWidget(
-        text: "Profil",
-        iconPath: IconResources.profile,
-        isSelected: true,
-        isMobileFormat: smallFormat,
-        onPressed: () {},
-      ),
-      MenuItemWidget(
-        text: "Expériences",
-        iconPath: IconResources.experience,
-        isSelected: false,
-        isMobileFormat: smallFormat,
-        onPressed: () {},
-      ),
-      MenuItemWidget(
-        text: "Mes projets",
-        iconPath: IconResources.project,
-        isSelected: false,
-        isMobileFormat: smallFormat,
-        onPressed: () {},
-      ),
-      MenuItemWidget(
-        text: "Compétences",
-        iconPath: IconResources.skill,
-        isSelected: false,
-        isMobileFormat: smallFormat,
-        onPressed: () {},
-      ),
-      MenuItemWidget(
-        text: "Formations",
-        iconPath: IconResources.formation,
-        isSelected: false,
-        isMobileFormat: smallFormat,
-        onPressed: () {},
-      ),
-    ];
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    HomeNotifier homeNotifier = ref.watch(homeProvider);
     return Padding(
       padding:
           mobileMenu ? const EdgeInsets.all(20.0) : const EdgeInsets.all(0.0),
@@ -100,7 +61,7 @@ class MenuWidget extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ],
-                for (var item in getMenuItems(mobileMenu)) item,
+                for (var item in homeNotifier.getMenuItems(mobileMenu)) item,
               ],
             ),
           ),

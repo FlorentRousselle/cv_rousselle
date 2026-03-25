@@ -1,6 +1,7 @@
 import 'package:cv_flutter/notifiers/home_notifier.dart';
 import 'package:cv_flutter/resources/icon_resources.dart';
 import 'package:cv_flutter/widgets/menus/menu_widget.dart';
+import 'package:cv_flutter/widgets/sections/profile_section_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,11 +15,23 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+  List<Widget> sectionWidgets() {
+    final HomeNotifier homeNotifier = ref.read(homeProvider);
+    return [
+      ProfileSectionWidget(listProfile: homeNotifier.listProfile),
+      ProfileSectionWidget(listProfile: []),
+      ProfileSectionWidget(listProfile: []),
+      ProfileSectionWidget(listProfile: []),
+      ProfileSectionWidget(listProfile: []),
+    ];
+  }
+
   @override
   void initState() {
     super.initState();
     final HomeNotifier homeNotifier = ref.read(homeProvider);
     homeNotifier.initListener();
+    homeNotifier.loadData();
   }
 
   /// build home screen
@@ -83,20 +96,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         itemPositionsListener:
                             homeNotifier.itemPositionsListener,
                         itemBuilder: (context, index) {
-                          return Container(
-                            height: 800,
-                            color:
-                                index.isEven
-                                    ? Colors.grey[100]?.withAlpha(100)
-                                    : Colors.white.withAlpha(100),
-                            child: Center(
-                              child: Text(
-                                "INDEX" + index.toString(),
-                                style: Theme.of(context).textTheme.displayLarge
-                                    ?.copyWith(color: Colors.red),
-                              ),
-                            ),
-                          );
+                          return sectionWidgets()[index];
                         },
                         separatorBuilder:
                             (context, index) => Padding(

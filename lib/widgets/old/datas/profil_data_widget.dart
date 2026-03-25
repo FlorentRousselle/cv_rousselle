@@ -2,7 +2,7 @@
 // import 'package:cv_flutter/notifiers/home_notifier.dart';
 // import 'package:cv_flutter/resources/color_resources.dart';
 // import 'package:cv_flutter/resources/global_resources.dart';
-// import 'package:cv_flutter/widgets/cards/profil_card.dart';
+// import 'package:cv_flutter/widgets/cards/profil_card_widget.dart';
 // import 'package:cv_flutter/widgets/web_title_widget.dart';
 // import 'package:flutter/material.dart';
 // import 'package:url_launcher/url_launcher.dart';

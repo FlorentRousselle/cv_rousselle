@@ -1,3 +1,5 @@
+import 'package:cv_flutter/models/profiles/profile_model.dart';
+import 'package:cv_flutter/resources/data_resources.dart';
 import 'package:cv_flutter/resources/icon_resources.dart';
 import 'package:cv_flutter/widgets/menus/menu_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +13,12 @@ final homeProvider = ChangeNotifierProvider((ref) {
 class HomeNotifier with ChangeNotifier {
   final ItemScrollController itemScrollController = ItemScrollController();
 
-  int selectedIndexItem = 0;
-
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
+
+  int selectedIndexItem = 0;
+
+  List<ProfileModel> listProfile = <ProfileModel>[];
 
   List<Widget> getMenuItems(bool smallFormat) {
     return <Widget>[
@@ -96,5 +100,10 @@ class HomeNotifier with ChangeNotifier {
         }
       }
     });
+  }
+
+  void loadData() {
+    listProfile = DataResources.listProfile;
+    notifyListeners();
   }
 }

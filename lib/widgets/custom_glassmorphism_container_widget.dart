@@ -21,9 +21,9 @@ class CustomGlassmorphismContainerWidget extends StatelessWidget {
       width: width,
       height: height,
       borderRadius: radius,
-      blur: 4,
+      blur: 3,
       alignment: Alignment.topCenter,
-      border: 2,
+      border: 1,
       linearGradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,

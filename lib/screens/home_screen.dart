@@ -41,17 +41,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final HomeNotifier homeNotifier = ref.watch(homeProvider);
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        if (constraints.maxWidth > 800) {
-          return webHomeScreenBuilder(homeNotifier);
-        } else {
-          return mobileHomeScreenBuilder(homeNotifier);
-        }
+        return _homeScreenBuilder(
+          homeNotifier,
+          isMobile: constraints.maxWidth < 800,
+        );
       },
     );
   }
 
-  Widget webHomeScreenBuilder(HomeNotifier homeNotifier) {
+  Widget _homeScreenBuilder(
+    HomeNotifier homeNotifier, {
+    bool isMobile = false,
+  }) {
     return Scaffold(
+      extendBody: true,
+      bottomNavigationBar: isMobile ? const MenuWidget(mobileMenu: true) : null,
       body: SizedBox(
         height: double.maxFinite,
         width: double.maxFinite,
@@ -59,50 +63,69 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           children: [
             // background
             Positioned.fill(
-              child: SvgPicture.asset(
-                IconResources.background,
-                alignment: Alignment.center,
-                fit: BoxFit.cover,
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: RadialGradient(
+                    colors: [Color(0xffC3D9E9), Color(0xff97BDD8)],
+                    center: Alignment.center,
+                    radius: 1,
+                  ),
+                ),
+                child: SvgPicture.asset(
+                  IconResources.background,
+                  alignment: Alignment.center,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
 
             // content
             Positioned.fill(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  spacing: 20.0,
-                  children: [
-                    const MenuWidget(mobileMenu: false),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 25),
-                        child: ScrollablePositionedList.separated(
-                          itemScrollController: homeNotifier.itemScrollController,
-                          itemCount: homeNotifier.getMenuItems(false).length,
-                          itemPositionsListener:
-                              homeNotifier.itemPositionsListener,
-                          itemBuilder: (context, index) {
-                            return sectionWidgets()[index];
-                          },
-                          separatorBuilder:
-                              (context, index) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 100.0,
-                                ),
-                                child: Divider(
-                                  color:
-                                      Theme.of(
-                                        context,
-                                      ).appBarTheme.backgroundColor,
-                                ),
-                              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                spacing: 20.0,
+                children: [
+                  if (!isMobile)
+                    const Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: MenuWidget(mobileMenu: false),
+                    ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width / 25,
+                      ),
+                      child: ScrollablePositionedList.separated(
+                        padding: const EdgeInsets.only(
+                          top: 30.0,
+                          bottom: 150.0,
+                          left: 20.0,
+                          right: 20.0,
                         ),
+                        physics: const BouncingScrollPhysics(),
+                        itemScrollController: homeNotifier.itemScrollController,
+                        itemCount: homeNotifier.getMenuItems(false).length,
+                        itemPositionsListener:
+                            homeNotifier.itemPositionsListener,
+                        itemBuilder: (context, index) {
+                          return sectionWidgets()[index];
+                        },
+                        separatorBuilder:
+                            (context, index) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 100.0,
+                              ),
+                              child: Divider(
+                                color:
+                                    Theme.of(
+                                      context,
+                                    ).appBarTheme.backgroundColor,
+                              ),
+                            ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

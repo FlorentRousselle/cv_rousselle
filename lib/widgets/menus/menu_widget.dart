@@ -21,7 +21,7 @@ class MenuWidget extends ConsumerWidget {
         borderRadius: 20,
         blur: 2,
         alignment: Alignment.topCenter,
-        border: 2,
+        border: 1,
         linearGradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,

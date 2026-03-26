@@ -3,6 +3,7 @@ import 'package:cv_flutter/resources/data_resources.dart';
 import 'package:cv_flutter/resources/icon_resources.dart';
 import 'package:cv_flutter/widgets/menus/menu_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -103,7 +104,9 @@ class HomeNotifier with ChangeNotifier {
   }
 
   void loadData() {
-    listProfile = DataResources.listProfile;
-    notifyListeners();
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      listProfile = DataResources.listProfile;
+      notifyListeners();
+    });
   }
 }

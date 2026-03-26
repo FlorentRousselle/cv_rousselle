@@ -5,10 +5,10 @@ import 'package:cv_flutter/widgets/section_header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class ProfileSectionWidget extends StatelessWidget {
+class ExperienceSectionWidget extends StatelessWidget {
   final List<ExperienceModel> listExperience;
 
-  const ProfileSectionWidget({super.key, required this.listExperience});
+  const ExperienceSectionWidget({super.key, required this.listExperience});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ProfileSectionWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: StaggeredGrid.count(
                 crossAxisCount: crossAxisCount,
-                mainAxisSpacing: 12,
+                mainAxisSpacing: 70,
                 crossAxisSpacing: 12,
                 children:
                     listExperience.map((ExperienceModel experience) {

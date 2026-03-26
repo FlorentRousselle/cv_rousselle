@@ -15,14 +15,14 @@ class SectionHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
+      height: 80,
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(color: Theme.of(context).primaryColor, width: 1.0),
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.fromLTRB(16.0,20.0,16.0,0.0),
         child: Row(
           spacing: 8.0,
           crossAxisAlignment: CrossAxisAlignment.center,

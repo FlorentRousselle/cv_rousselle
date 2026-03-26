@@ -1,6 +1,7 @@
 import 'package:cv_flutter/notifiers/home_notifier.dart';
 import 'package:cv_flutter/resources/icon_resources.dart';
 import 'package:cv_flutter/widgets/menus/menu_widget.dart';
+import 'package:cv_flutter/widgets/sections/experience_section_widget.dart';
 import 'package:cv_flutter/widgets/sections/profile_section_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +20,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final HomeNotifier homeNotifier = ref.read(homeProvider);
     return [
       ProfileSectionWidget(listProfile: homeNotifier.listProfile),
-      ProfileSectionWidget(listProfile: []),
+      ExperienceSectionWidget(listExperience: homeNotifier.listExperience),
       ProfileSectionWidget(listProfile: []),
       ProfileSectionWidget(listProfile: []),
       ProfileSectionWidget(listProfile: []),
@@ -74,42 +75,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   spacing: 20.0,
                   children: [
                     const MenuWidget(mobileMenu: false),
-                    // NavigationRail(
-                    //   selectedIndex: homeNotifier.selectedIndexItem,
-                    //   onDestinationSelected: homeNotifier.scrollToIndex,
-                    //   labelType: NavigationRailLabelType.all,
-                    //   destinations:
-                    //       sections
-                    //           .map(
-                    //             (name) => NavigationRailDestination(
-                    //               icon: Icon(Icons.circle_outlined),
-                    //               selectedIcon: Icon(Icons.circle),
-                    //               label: Text(name),
-                    //             ),
-                    //           )
-                    //           .toList(),
-                    // ),
                     Expanded(
-                      child: ScrollablePositionedList.separated(
-                        itemScrollController: homeNotifier.itemScrollController,
-                        itemCount: homeNotifier.getMenuItems(false).length,
-                        itemPositionsListener:
-                            homeNotifier.itemPositionsListener,
-                        itemBuilder: (context, index) {
-                          return sectionWidgets()[index];
-                        },
-                        separatorBuilder:
-                            (context, index) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 100.0,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 25),
+                        child: ScrollablePositionedList.separated(
+                          itemScrollController: homeNotifier.itemScrollController,
+                          itemCount: homeNotifier.getMenuItems(false).length,
+                          itemPositionsListener:
+                              homeNotifier.itemPositionsListener,
+                          itemBuilder: (context, index) {
+                            return sectionWidgets()[index];
+                          },
+                          separatorBuilder:
+                              (context, index) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 100.0,
+                                ),
+                                child: Divider(
+                                  color:
+                                      Theme.of(
+                                        context,
+                                      ).appBarTheme.backgroundColor,
+                                ),
                               ),
-                              child: Divider(
-                                color:
-                                    Theme.of(
-                                      context,
-                                    ).appBarTheme.backgroundColor,
-                              ),
-                            ),
+                        ),
                       ),
                     ),
                   ],

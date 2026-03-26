@@ -1,3 +1,4 @@
+import 'package:cv_flutter/models/experiences/experience_model.dart';
 import 'package:cv_flutter/models/profiles/profile_model.dart';
 import 'package:cv_flutter/resources/data_resources.dart';
 import 'package:cv_flutter/resources/icon_resources.dart';
@@ -20,6 +21,8 @@ class HomeNotifier with ChangeNotifier {
   int selectedIndexItem = 0;
 
   List<ProfileModel> listProfile = <ProfileModel>[];
+
+  List<ExperienceModel> listExperience = <ExperienceModel>[];
 
   List<Widget> getMenuItems(bool smallFormat) {
     return <Widget>[
@@ -106,6 +109,7 @@ class HomeNotifier with ChangeNotifier {
   void loadData() {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       listProfile = DataResources.listProfile;
+      listExperience = DataResources.listExperience;
       notifyListeners();
     });
   }

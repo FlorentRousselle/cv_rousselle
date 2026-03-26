@@ -1,27 +1,27 @@
-class InfoProfileModel {
+class ProfileInfoModel {
   String title;
   String text;
-  String icon;
+  String imageLink;
   String urlLink;
 
-  bool get hasIcon => icon.isNotEmpty;
+  bool get hasImage => imageLink.isNotEmpty;
 
   bool get hasLink => urlLink.isNotEmpty;
 
   bool get hasTitle => title.isNotEmpty;
 
-  InfoProfileModel({
+  ProfileInfoModel({
     this.title = "",
     required this.text,
-    this.icon = "",
+    this.imageLink = "",
     this.urlLink = "",
   });
 
-  factory InfoProfileModel.fromJson(Map<String, dynamic> json) {
-    return InfoProfileModel(
+  factory ProfileInfoModel.fromJson(Map<String, dynamic> json) {
+    return ProfileInfoModel(
       title: json['title'],
       text: json['text'],
-      icon: json['icon'],
+      imageLink: json['imageLink'],
       urlLink: json['urlLink'],
     );
   }
@@ -29,7 +29,7 @@ class InfoProfileModel {
   Map<String, dynamic> toJson() => {
     'title': title,
     'text': text,
-    'icon': icon,
+    'imageLink': imageLink,
     'urlLink': urlLink,
   };
 }

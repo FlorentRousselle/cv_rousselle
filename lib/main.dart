@@ -21,6 +21,13 @@ class MyApp extends ConsumerWidget {
       title: 'CV Rousselle',
       theme: AppThemeResources.getTheme(colorTheme: lightColorTheme),
       home: const HomeScreen(),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context)
+              .copyWith(textScaler: TextScaler.noScaling),
+          child: child ?? Container(),
+        );
+      },
     );
   }
 }

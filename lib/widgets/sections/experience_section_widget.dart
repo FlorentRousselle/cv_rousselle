@@ -1,14 +1,14 @@
-import 'package:cv_flutter/models/profiles/profile_model.dart';
+import 'package:cv_flutter/models/experiences/experience_model.dart';
 import 'package:cv_flutter/resources/icon_resources.dart';
-import 'package:cv_flutter/widgets/cards/profile_card_widget.dart';
+import 'package:cv_flutter/widgets/cards/experience_card_widget.dart';
 import 'package:cv_flutter/widgets/section_header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ProfileSectionWidget extends StatelessWidget {
-  final List<ProfileModel> listProfile;
+  final List<ExperienceModel> listExperience;
 
-  const ProfileSectionWidget({super.key, required this.listProfile});
+  const ProfileSectionWidget({super.key, required this.listExperience});
 
   @override
   Widget build(BuildContext context) {
@@ -21,24 +21,20 @@ class ProfileSectionWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SectionHeaderWidget(
-              iconPath: IconResources.profile,
-              text: "Profil",
+              iconPath: IconResources.experience,
+              text: "Expériences",
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: StaggeredGrid.count(
                 crossAxisCount: crossAxisCount,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
                 children:
-                    listProfile.map((ProfileModel profile) {
-                      int tileSpan =
-                          (profile.fillSpace && crossAxisCount > 1) ? 2 : 1;
+                    listExperience.map((ExperienceModel experience) {
                       return StaggeredGridTile.fit(
-                        crossAxisCellCount: tileSpan,
-                        child: ProfileCardWidget(profile: profile),
+                        crossAxisCellCount: 2,
+                        child: ExperienceCardWidget(experience: experience),
                       );
                     }).toList(),
               ),

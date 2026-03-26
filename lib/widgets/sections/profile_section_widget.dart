@@ -12,29 +12,39 @@ class ProfileSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: 12.0,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const SectionHeaderWidget(
-          iconPath: IconResources.profile,
-          text: "Profil",
-        ),
-        MasonryGridView.builder(
-          shrinkWrap: true,
-          gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: MediaQuery.of(context).size.width > 900 ? 2 : 1,
-          ),
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-          itemCount: listProfile.length,
-          itemBuilder: (context, index) {
-            final ProfileModel profileItem = listProfile[index];
-            return ProfileCardWidget(profile: profileItem);
-          },
-        ),
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        int crossAxisCount = constraints.maxWidth > 900 ? 2 : 1;
+        return Column(
+          spacing: 12.0,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SectionHeaderWidget(
+              iconPath: IconResources.profile,
+              text: "Profil",
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/7-50),
+              child: StaggeredGrid.count(
+                crossAxisCount: crossAxisCount,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                children:
+                    listProfile.map((ProfileModel profile) {
+                      int tileSpan =
+                          (profile.fillSpace && crossAxisCount > 1) ? 2 : 1;
+                      return StaggeredGridTile.count(
+                        crossAxisCellCount: tileSpan,
+                        mainAxisCellCount: 0.4,
+                        child: ProfileCardWidget(profile: profile),
+                      );
+                    }).toList(),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

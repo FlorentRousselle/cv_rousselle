@@ -1,3 +1,4 @@
+import 'package:cv_flutter/models/profiles/info_profile_model.dart';
 import 'package:cv_flutter/models/profiles/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism/glassmorphism.dart';
@@ -11,31 +12,85 @@ class ProfileCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlassmorphicContainer(
-      borderRadius: 20,
-      blur: 20,
-      padding: EdgeInsets.all(40),
-      alignment: Alignment.bottomCenter,
+      width: double.infinity,
+      height: double.maxFinite,
+      borderRadius: 12,
+      blur: 4,
+      alignment: Alignment.topCenter,
       border: 2,
       linearGradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          Color(0xFFffffff).withOpacity(0.1),
-          Color(0xFFFFFFFF).withOpacity(0.05),
+          Colors.white.withValues(alpha: 0.35),
+          Colors.white.withValues(alpha: 0.3),
         ],
-        stops: [0.1, 1],
       ),
       borderGradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          Color(0xFFffffff).withOpacity(0.5),
-          Color((0xFFFFFFFF)).withOpacity(0.5),
+          Colors.white.withValues(alpha: 0.5),
+          Colors.white.withValues(alpha: 0.1),
         ],
       ),
-      width: 200,
-      height: 200,
-      child: Text(profile.title),
+      child: Padding(
+        padding: EdgeInsetsGeometry.symmetric(vertical: 15.0, horizontal: 30.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: 12.0,
+          children: [
+            Center(
+              child: Text(
+                profile.title,
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+            ),
+            if (profile.hasDetail)
+              Center(
+                child: Text(
+                  profile.detail,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              ),
+            Column(
+              crossAxisAlignment:
+                  profile.centerInfo
+                      ? CrossAxisAlignment.center
+                      : CrossAxisAlignment.start,
+              spacing: 8.0,
+              children:
+                  profile.listInfoProfile.map((InfoProfileModel infoProfile) {
+                    return Column(
+                      spacing: 2.0,
+                      crossAxisAlignment:
+                          profile.centerInfo
+                              ? CrossAxisAlignment.center
+                              : CrossAxisAlignment.start,
+                      children: [
+                        if (infoProfile.hasTitle)
+                          Text(
+                            infoProfile.title,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.titleMedium?.copyWith(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              height: 1,
+                            ),
+                          ),
+                        Text(
+                          infoProfile.text,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
+                    );
+                  }).toList(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

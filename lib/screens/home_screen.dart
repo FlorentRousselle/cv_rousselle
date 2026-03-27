@@ -4,6 +4,7 @@ import 'package:cv_flutter/widgets/menus/menu_widget.dart';
 import 'package:cv_flutter/widgets/sections/experience_section_widget.dart';
 import 'package:cv_flutter/widgets/sections/profile_section_widget.dart';
 import 'package:cv_flutter/widgets/sections/project_section_widget.dart';
+import 'package:cv_flutter/widgets/sections/skill_section_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,7 +24,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ProfileSectionWidget(listProfile: homeNotifier.listProfile),
       ExperienceSectionWidget(listExperience: homeNotifier.listExperience),
       ProjectSectionWidget(listProject: homeNotifier.listProject),
-      ProfileSectionWidget(listProfile: []),
+      SkillSectionWidget(listSkill: homeNotifier.listSkill),
       ProfileSectionWidget(listProfile: []),
     ];
   }

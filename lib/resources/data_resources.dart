@@ -244,13 +244,13 @@ class DataResources {
     ),
     SkillModel(
       title: "Swift",
-      rating: 5,
+      rating: 3,
       imageLink: ImageResources.swift,
       category: "Langage et framework",
     ),
     SkillModel(
       title: "React Native",
-      rating: 5,
+      rating: 3,
       imageLink: ImageResources.react,
       category: "Langage et framework",
     ),

@@ -3,6 +3,7 @@ import 'package:cv_flutter/resources/icon_resources.dart';
 import 'package:cv_flutter/widgets/menus/menu_widget.dart';
 import 'package:cv_flutter/widgets/sections/experience_section_widget.dart';
 import 'package:cv_flutter/widgets/sections/profile_section_widget.dart';
+import 'package:cv_flutter/widgets/sections/project_section_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -21,7 +22,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return [
       ProfileSectionWidget(listProfile: homeNotifier.listProfile),
       ExperienceSectionWidget(listExperience: homeNotifier.listExperience),
-      ProfileSectionWidget(listProfile: []),
+      ProjectSectionWidget(listProject: homeNotifier.listProject),
       ProfileSectionWidget(listProfile: []),
       ProfileSectionWidget(listProfile: []),
     ];
@@ -86,10 +87,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 spacing: 20.0,
                 children: [
                   if (!isMobile)
-                    const Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: MenuWidget(mobileMenu: false),
-                    ),
+                    const MenuWidget(mobileMenu: false),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(
@@ -131,37 +129,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget mobileHomeScreenBuilder(HomeNotifier homeNotifier) {
-    return Scaffold(
-      body: Expanded(
-        child: ScrollablePositionedList.separated(
-          itemScrollController: homeNotifier.itemScrollController,
-          itemCount: homeNotifier.getMenuItems(true).length,
-          itemBuilder: (context, index) {
-            return Container(
-              height: 800,
-              color: index.isEven ? Colors.grey[100] : Colors.white,
-              child: Center(
-                child: Text(
-                  "INDEX" + index.toString(),
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
-              ),
-            );
-          },
-          separatorBuilder:
-              (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100.0),
-                child: Divider(
-                  color: Theme.of(context).appBarTheme.backgroundColor,
-                ),
-              ),
-        ),
-      ),
-      bottomNavigationBar: const MenuWidget(mobileMenu: true),
     );
   }
 }

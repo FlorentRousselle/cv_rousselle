@@ -19,6 +19,7 @@ class ImageResources {
   static const String kotlin = "assets/images/kotlin.png";
   static const String linkedin = "assets/images/linkedin.png";
   static const String loupGarouLocal = "assets/images/loup-garou-local.png";
+  static const String maui = "assets/images/maui.png";
   static const String monSsiFacile = "assets/images/mon-ssi-facile.png";
   static const String myBeam = "assets/images/my-beam.png";
   static const String react = "assets/images/react.png";

@@ -1,5 +1,7 @@
 import 'package:cv_flutter/models/experiences/experience_model.dart';
 import 'package:cv_flutter/models/profiles/profile_model.dart';
+import 'package:cv_flutter/models/projects/project_model.dart';
+import 'package:cv_flutter/models/skills/skill_model.dart';
 import 'package:cv_flutter/resources/data_resources.dart';
 import 'package:cv_flutter/resources/icon_resources.dart';
 import 'package:cv_flutter/widgets/menus/menu_item_widget.dart';
@@ -23,6 +25,10 @@ class HomeNotifier with ChangeNotifier {
   List<ProfileModel> listProfile = <ProfileModel>[];
 
   List<ExperienceModel> listExperience = <ExperienceModel>[];
+
+  List<ProjectModel> listProject = <ProjectModel>[];
+
+  List<SkillModel> listSkill = <SkillModel>[];
 
   List<Widget> getMenuItems(bool smallFormat) {
     return <Widget>[
@@ -110,6 +116,8 @@ class HomeNotifier with ChangeNotifier {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       listProfile = DataResources.listProfile;
       listExperience = DataResources.listExperience;
+      listProject = DataResources.listProject;
+      listSkill = DataResources.listSkill;
       notifyListeners();
     });
   }

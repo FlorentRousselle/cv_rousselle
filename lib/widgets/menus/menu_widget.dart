@@ -14,7 +14,7 @@ class MenuWidget extends ConsumerWidget {
     HomeNotifier homeNotifier = ref.watch(homeProvider);
     return Padding(
       padding:
-          mobileMenu ? const EdgeInsets.all(20.0) : const EdgeInsets.all(0.0),
+          mobileMenu ? const EdgeInsets.all(20.0) : const EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
       child: GlassmorphicContainer(
         width: mobileMenu ? double.infinity : 250,
         height: mobileMenu ? 72 : double.maxFinite,

@@ -2,6 +2,8 @@ import 'package:cv_flutter/models/experiences/experience_model.dart';
 import 'package:cv_flutter/models/experiences/experience_info_model.dart';
 import 'package:cv_flutter/models/profiles/profile_info_model.dart';
 import 'package:cv_flutter/models/profiles/profile_model.dart';
+import 'package:cv_flutter/models/projects/project_model.dart';
+import 'package:cv_flutter/models/skills/skill_model.dart';
 import 'package:cv_flutter/resources/image_resources.dart';
 
 /// ONLY FOR TESTING IN LOCAL
@@ -164,7 +166,7 @@ class DataResources {
       location: "DBCall, à Roubaix (59100)",
       startYear: 2018,
       endYear: 2019,
-      companyImage: ImageResources.ssisoftLogo,
+      companyImage: ImageResources.dbcall,
       listActivity: [
         "Développement d’une application mobile avec le framework Flutter",
         "Développement d’un serveur sous Java",
@@ -174,11 +176,107 @@ class DataResources {
           title: "Dispatch mobile",
           description:
               "Application pour consulter les demandes de dépannage pour les techniciens incendies",
-          imageLink: ImageResources.monSsiFacile,
+          imageLink: ImageResources.dbcallApp,
           urlLink:
               "https://play.google.com/store/apps/details?id=io.wyattapp.dbcall.dispatch",
         ),
       ],
+    ),
+  ];
+
+  /// project list
+  static List<ProjectModel> listProject = <ProjectModel>[
+    ProjectModel(
+      title: "Création de jeu de société",
+      imageLink: ImageResources.emulife,
+      listDetail: <String>[
+        "Création d’un jeu de société qui fonctionne par principe de combinaisons de cartes",
+        "Participation à des événements pour présentation de prototype de mon jeu",
+        "Création entièrement faite à la main, impression des cartes et design",
+      ],
+    ),
+    ProjectModel(
+      title: "Loup garou local",
+      imageLink: ImageResources.loupGarouLocal,
+      urlLink:
+          "https://play.google.com/store/apps/details?id=flowster.loup_garou_mobile",
+      listDetail: <String>[
+        "Application du jeu de loup garou gratuit pour jouer sur téléphone ",
+        "Utilisation de Firebase et des bases de données en temps réel pour communication",
+      ],
+    ),
+    ProjectModel(
+      title: "Landing page - Sapeurs pompiers",
+      imageLink: ImageResources.sapeursPompiers,
+      urlLink: "https://sdwsapeur.web.app/#/",
+      listDetail: <String>[
+        "Site web réalisé pour un projet scolaire pour mettre en avant les sapeurs pompiers",
+        "Site réalisé sous Flutter et hébergé sur Firebase",
+      ],
+    ),
+  ];
+
+  /// skill list
+  static List<SkillModel> listSkill = <SkillModel>[
+    SkillModel(
+      title: "Kotlin",
+      rating: 4,
+      imageLink: ImageResources.kotlin,
+      category: "Langage et framework",
+    ),
+    SkillModel(
+      title: "Xamarin",
+      rating: 4,
+      imageLink: ImageResources.xamarin,
+      category: "Langage et framework",
+    ),
+    SkillModel(
+      title: "Java",
+      rating: 4,
+      imageLink: ImageResources.java,
+      category: "Langage et framework",
+    ),
+    SkillModel(
+      title: ".NET MAUI",
+      rating: 4,
+      imageLink: ImageResources.maui,
+      category: "Langage et framework",
+    ),
+    SkillModel(
+      title: "Swift",
+      rating: 5,
+      imageLink: ImageResources.swift,
+      category: "Langage et framework",
+    ),
+    SkillModel(
+      title: "React Native",
+      rating: 5,
+      imageLink: ImageResources.react,
+      category: "Langage et framework",
+    ),
+    SkillModel(
+      title: "Flutter",
+      rating: 5,
+      imageLink: ImageResources.flutter,
+      category: "Langage et framework",
+    ),
+    SkillModel(
+      title: "Figma",
+      rating: 5,
+      imageLink: ImageResources.figma,
+      category: "Stack technique",
+    ),
+    SkillModel(
+      title: "Firebase",
+      rating: 4,
+      imageLink: ImageResources.firebase,
+      category: "Stack technique",
+    ),
+    SkillModel(
+      title: "Git",
+      rating: 4,
+      imageLink: ImageResources.git,
+      category: "Stack technique",
     ),
   ];
 }

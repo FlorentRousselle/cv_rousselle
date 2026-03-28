@@ -1,11 +1,11 @@
 {
-    "name": "cv_flutter",
-    "short_name": "cv_flutter",
+    "name": "cv_florent_rousselle",
+    "short_name": "cv_fr",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Create your cv with airtable",
+    "description": "CV - Florent Rousselle",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -1,111 +1,146 @@
-import 'package:cv_flutter/models/tables/air_table_data_education.dart';
+import 'package:cv_flutter/models/educations/education_model.dart';
+import 'package:cv_flutter/widgets/custom_glassmorphism_container_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class EducationCardWidget extends StatelessWidget {
-  final AirtableDataEducation dataEducation;
-  final bool isWeb;
+  final EducationModel education;
 
-  const EducationCardWidget({
-    Key? key,
-    required this.dataEducation,
-    required this.isWeb,
-  }) : super(key: key);
+  const EducationCardWidget({Key? key, required this.education})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      elevation: 3.0,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: builder(context),
-      ),
-    );
-  }
-
-  Widget builder(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Container(
-            height: isWeb
-                ? 100
-                : 75,
-            width: isWeb
-                ? 100
-                : 75,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Image.network(dataEducation.image),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 15.0,
-        ),
-        Flexible(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        int crossAxisCount = constraints.maxWidth > 900 ? 2 : 1;
+        bool oneLine = crossAxisCount == 1;
+        return IntrinsicHeight(
+          child: Flex(
+            direction: oneLine ? Axis.vertical : Axis.horizontal,
+            spacing: 12.0,
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                dataEducation.diploma,
-                style: isWeb
-                    ? Theme.of(context).textTheme.headline1
-                    : Theme.of(context).textTheme.headline2,
-              ),
-              if (!isWeb)
-                const SizedBox(
-                  height: 5.0,
+              IntrinsicHeight(
+                child: CustomGlassmorphismContainerWidget(
+                  width: oneLine ? double.infinity : 100,
+                  child: Padding(
+                    padding: const EdgeInsetsGeometry.symmetric(
+                      horizontal: 5.0,
+                      vertical: 15.0,
+                    ),
+                    child: Center(
+                      child: Text(
+                        education.year.toString(),
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                  ),
                 ),
-              Wrap(
-                direction: Axis.horizontal,
-                spacing: 25.0,
-                runSpacing: 5.0,
-                children: [
-                  Text(
-                    dataEducation.details,
-                    style: isWeb
-                        ? Theme.of(context).textTheme.headline3
-                        : Theme.of(context).textTheme.bodyText2,
-                  ),
-                  Text(
-                    dataEducation.date,
-                    style: isWeb
-                        ? Theme.of(context).textTheme.headline2
-                        : Theme.of(context).textTheme.bodyText2!.copyWith(
-                            color:
-                                Theme.of(context).textTheme.headline1!.color),
-                  ),
-                ],
               ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                "École: ${dataEducation.school}",
-                style: isWeb
-                    ? Theme.of(context).textTheme.headline3!.copyWith(
-                          fontWeight: FontWeight.normal,
-                          fontStyle: FontStyle.italic,
-                        )
-                    : Theme.of(context).textTheme.bodyText1,
+              if (!oneLine)
+                CustomGlassmorphismContainerWidget(
+                  height: 50,
+                  width: 50,
+                  radius: 100.0,
+                  child: Center(
+                    child: Container(
+                      width: 30.0,
+                      height: 30.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100.0),
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+              Expanded(
+                child: CustomGlassmorphismContainerWidget(
+                  child: Padding(
+                    padding: const EdgeInsetsGeometry.symmetric(
+                      vertical: 15.0,
+                      horizontal: 30.0,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      spacing: 12.0,
+                      children: [
+                        Row(
+                          spacing: 30.0,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Column(
+                                spacing: 4.0,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    education.title,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.headlineMedium?.copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                  Text(
+                                    education.location,
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Image.asset(
+                              education.schoolImage,
+                              height: 50,
+                              width: 80,
+                              fit: BoxFit.contain,
+                              alignment: Alignment.centerRight,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 8.0,
+                          children:
+                              education.listActivity.map((String activity) {
+                                String bullet = "\u2022";
+                                return Row(
+                                  spacing: 8.0,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      bullet,
+                                      style:
+                                          Theme.of(
+                                            context,
+                                          ).textTheme.bodyMedium,
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        activity,
+                                        style:
+                                            Theme.of(
+                                              context,
+                                            ).textTheme.bodyMedium,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

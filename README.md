@@ -1,6 +1,6 @@
 # cv_flutter
 
-Create your cv with airtable
+My CV - Florent Rousselle
 
 ## PAGE
 - profil "ProfilPage"
@@ -9,18 +9,16 @@ Create your cv with airtable
 - compétences "SkillPage"
 - infos 'InfoPage'
 
-## Commentaire
+## Comment déployer
+https://medium.com/@nayanbabariya/deploying-flutter-web-app-to-firebase-hosting-cac47636f140
+(ceci est une doc d'assistance)
 
-Projet agréable à réaliser pour ma part.
-Mise en ligne du projet pour en faire une web app et m'en servir à l'avenir.
+### 1. Compiler
+$ flutter build web --wasp
 
+### 2. Lancer le serveur local pour vérification
+Installer serve : $ npm install -g serve
+Lancer serve : $ serve build/web
 
-## Difficultés principales rencontrées
-
-Pas vraiment de difficulté rencontrée de mon côté.
-
-
-## Évolution ultérieures
-
-Déjà utilisateur de Flutter depuis 4 ans je souhaite continuer
-et découvrir les nouvelles mises à jour
+### 2. Déployer sur Firebase
+$ firebase deploy

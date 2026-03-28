@@ -1,18 +1,15 @@
-import 'package:cv_flutter/models/selector_item_model.dart';
 import 'package:cv_flutter/notifiers/home_notifier.dart';
-import 'package:cv_flutter/notifiers/theme_notifier.dart';
-import 'package:cv_flutter/resources/color_resources.dart';
-import 'package:cv_flutter/resources/global_resources.dart';
-import 'package:cv_flutter/widgets/menus/app_bar_widget.dart';
-import 'package:cv_flutter/widgets/menus/bottom_bar_widget.dart';
-import 'package:cv_flutter/widgets/menus/left_menu_widget.dart';
-import 'package:cv_flutter/widgets/loader_widget.dart';
-import 'package:cv_flutter/widgets/menus/selector_menu_item.dart';
+import 'package:cv_flutter/resources/icon_resources.dart';
+import 'package:cv_flutter/widgets/menus/menu_widget.dart';
+import 'package:cv_flutter/widgets/sections/education_section_widget.dart';
+import 'package:cv_flutter/widgets/sections/experience_section_widget.dart';
+import 'package:cv_flutter/widgets/sections/profile_section_widget.dart';
+import 'package:cv_flutter/widgets/sections/project_section_widget.dart';
+import 'package:cv_flutter/widgets/sections/skill_section_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,92 +19,117 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  /// default screen
-  String title = "Florent Rousselle";
-  bool iconVisibility = false;
+  List<Widget> sectionWidgets() {
+    final HomeNotifier homeNotifier = ref.read(homeProvider);
+    return [
+      ProfileSectionWidget(listProfile: homeNotifier.listProfile),
+      ExperienceSectionWidget(listExperience: homeNotifier.listExperience),
+      ProjectSectionWidget(listProject: homeNotifier.listProject),
+      SkillSectionWidget(listSkill: homeNotifier.listSkill),
+      EducationSectionWidget(listEducation: homeNotifier.listEducation),
+    ];
+  }
 
   @override
   void initState() {
     super.initState();
     final HomeNotifier homeNotifier = ref.read(homeProvider);
-    homeNotifier.initData();
+    homeNotifier.initListener();
+    homeNotifier.loadData();
   }
 
-  /// construction de l'écran principal
+  /// build home screen
   @override
   Widget build(BuildContext context) {
     final HomeNotifier homeNotifier = ref.watch(homeProvider);
-    if (homeNotifier.isDataLoading()) {
-      return const LoaderWidget();
-    } else {
-      return LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-        if (constraints.maxWidth > 550) {
-          return webHomeScreenBuilder(homeNotifier, constraints.maxWidth < 750);
-        } else {
-          return mobileHomeScreenBuilder(homeNotifier);
-        }
-      });
-    }
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return _homeScreenBuilder(
+          homeNotifier,
+          isMobile: constraints.maxWidth < 800,
+        );
+      },
+    );
   }
 
-  Widget webHomeScreenBuilder(HomeNotifier homeNotifier, bool isLeftMenuSmall) {
-    ThemeNotifier themeNotifier = ref.read(themeProvider);
+  Widget _homeScreenBuilder(
+    HomeNotifier homeNotifier, {
+    bool isMobile = false,
+  }) {
     return Scaffold(
-      body: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          LeftMenuWidget(
-            context: context,
-            homeNotifier: homeNotifier,
-            themeNotifier: themeNotifier,
-            isSmall: isLeftMenuSmall,
-          ),
-          Expanded(
-            child: ScrollablePositionedList.separated(
-              itemScrollController: homeNotifier.scrollController,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                // key: homeNotifier.getInfo(index).key,
-                // onVisibilityChanged: (VisibilityInfo info) =>
-                // homeNotifier.visibilityChanged(info, index),
-                return homeNotifier.getScreen(index, homeNotifier, true);
-              },
-              separatorBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100.0),
-                child: Divider(
-                  color: Theme.of(context).appBarTheme.backgroundColor,
+      extendBody: true,
+      bottomNavigationBar: isMobile ? const MenuWidget(mobileMenu: true) : null,
+      body: SizedBox(
+        height: double.maxFinite,
+        width: double.maxFinite,
+        child: Stack(
+          children: [
+            // background
+            Positioned.fill(
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: RadialGradient(
+                    colors: [Color(0xffC3D9E9), Color(0xff97BDD8)],
+                    center: Alignment.center,
+                    radius: 1,
+                  ),
+                ),
+                child: SvgPicture.asset(
+                  IconResources.background,
+                  alignment: Alignment.center,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
 
-  Widget mobileHomeScreenBuilder(HomeNotifier homeNotifier) {
-    ThemeNotifier themeNotifier = ref.read(themeProvider);
-    return Scaffold(
-      appBar: AppBarWidget(
-        iconLink: homeNotifier.getInfo(homeNotifier.currentIndex).icon,
-        title: homeNotifier.getInfo(homeNotifier.currentIndex).title,
-        themeNotifier: themeNotifier,
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: homeNotifier.getScreen(
-              homeNotifier.currentIndex, homeNotifier, false),
+            // content
+            Positioned.fill(
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                spacing: 20.0,
+                children: [
+                  if (!isMobile) const MenuWidget(mobileMenu: false),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width / 25,
+                      ),
+                      child: ScrollablePositionedList.separated(
+                        padding: const EdgeInsets.only(
+                          top: 30.0,
+                          bottom: 150.0,
+                          left: 20.0,
+                          right: 20.0,
+                        ),
+                        physics: const BouncingScrollPhysics(),
+                        itemScrollController: homeNotifier.itemScrollController,
+                        itemCount: homeNotifier.getMenuItems(false).length,
+                        itemPositionsListener:
+                            homeNotifier.itemPositionsListener,
+                        itemBuilder: (context, index) {
+                          return sectionWidgets()[index];
+                        },
+                        separatorBuilder:
+                            (context, index) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 100.0,
+                              ),
+                              child: Divider(
+                                color:
+                                    Theme.of(
+                                      context,
+                                    ).appBarTheme.backgroundColor,
+                              ),
+                            ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
-      bottomNavigationBar: mobileNavigationBar(homeNotifier),
-    );
-  }
-
-  Widget mobileNavigationBar(HomeNotifier homeNotifier) {
-    return Container(
-      color: Theme.of(context).appBarTheme.backgroundColor,
-      child: BottomBarWidget(homeNotifier : homeNotifier),
     );
   }
 }

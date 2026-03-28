@@ -1,124 +1,128 @@
-import 'package:cv_flutter/models/airtable_info_model.dart';
-import 'package:cv_flutter/models/tables/air_table_data_education.dart';
-import 'package:cv_flutter/models/tables/air_table_data_experience.dart';
-import 'package:cv_flutter/models/tables/air_table_data_info.dart';
-import 'package:cv_flutter/models/tables/air_table_data_profil.dart';
-import 'package:cv_flutter/models/tables/air_table_data_skill.dart';
-import 'package:cv_flutter/resources/global_resources.dart';
-import 'package:cv_flutter/services/air_table_service.dart';
-import 'package:cv_flutter/widgets/datas/education_data_widget.dart';
-import 'package:cv_flutter/widgets/datas/experience_data_widget.dart';
-import 'package:cv_flutter/widgets/datas/info_data_widget.dart';
-import 'package:cv_flutter/widgets/datas/profil_data_widget.dart';
-import 'package:cv_flutter/widgets/datas/skill_data_widget.dart';
+import 'package:cv_flutter/models/educations/education_model.dart';
+import 'package:cv_flutter/models/experiences/experience_model.dart';
+import 'package:cv_flutter/models/profiles/profile_model.dart';
+import 'package:cv_flutter/models/projects/project_model.dart';
+import 'package:cv_flutter/models/skills/skill_model.dart';
+import 'package:cv_flutter/resources/data_resources.dart';
+import 'package:cv_flutter/resources/icon_resources.dart';
+import 'package:cv_flutter/widgets/menus/menu_item_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 final homeProvider = ChangeNotifierProvider((ref) {
   return HomeNotifier();
 });
 
 class HomeNotifier with ChangeNotifier {
-  List<AirtableDataEducation>? listEducation;
-  List<AirtableDataExperience>? listExperience;
-  List<AirtableDataInfo>? listInfo;
-  List<AirtableDataProfil>? listProfil;
-  List<AirtableDataSkill>? listSkill;
+  final ItemScrollController itemScrollController = ItemScrollController();
 
-  AirtableInfoModel profilInfo = AirtableInfoModel(
-    title: "Profil",
-    icon: Global.profilSvg,
-    key: const Key("profil"),
-  );
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
 
-  AirtableInfoModel experienceInfo = AirtableInfoModel(
-    title: "Expériences",
-    icon: Global.experienceSvg,
-    key: const Key("experience"),
-  );
+  int selectedIndexItem = 0;
 
-  AirtableInfoModel formationInfo = AirtableInfoModel(
-    title: "Formations",
-    icon: Global.formationSvg,
-    key: const Key("formation"),
-  );
+  List<ProfileModel> listProfile = <ProfileModel>[];
 
-  AirtableInfoModel skillInfo = AirtableInfoModel(
-    title: "Compétences",
-    icon: Global.skillSvg,
-    key: const Key("skill"),
-  );
+  List<ExperienceModel> listExperience = <ExperienceModel>[];
 
-  AirtableInfoModel projectInfo = AirtableInfoModel(
-    title: "Mes projets",
-    icon: Global.projectSvg,
-    key: const Key("project"),
-  );
+  List<ProjectModel> listProject = <ProjectModel>[];
 
-  final scrollController = ItemScrollController();
-  int currentIndex = 0;
+  List<SkillModel> listSkill = <SkillModel>[];
 
-  bool isCurrentIndexVisible = true;
+  List<EducationModel> listEducation = <EducationModel>[];
 
-  bool isDataLoading() =>
-      listEducation == null &&
-      listExperience == null &&
-      listInfo == null &&
-      listProfil == null &&
-      listSkill == null;
-
-  Future<void> initData() async {
-    listProfil = await AirTableService.getProfil();
-    listExperience = await AirTableService.getExperience();
-    listEducation = await AirTableService.getEducation();
-    listSkill = await AirTableService.getSkill();
-    listInfo = await AirTableService.getInfo();
-    notifyListeners();
+  List<Widget> getMenuItems(bool smallFormat) {
+    return <Widget>[
+      MenuItemWidget(
+        text: "Profil",
+        iconPath: IconResources.profile,
+        isSelected: selectedIndexItem == 0,
+        isMobileFormat: smallFormat,
+        onPressed: () {
+          scrollToIndex(0);
+        },
+      ),
+      MenuItemWidget(
+        text: "Expériences",
+        iconPath: IconResources.experience,
+        isSelected: selectedIndexItem == 1,
+        isMobileFormat: smallFormat,
+        onPressed: () {
+          scrollToIndex(1);
+        },
+      ),
+      MenuItemWidget(
+        text: "Mes projets",
+        iconPath: IconResources.project,
+        isSelected: selectedIndexItem == 2,
+        isMobileFormat: smallFormat,
+        onPressed: () {
+          scrollToIndex(2);
+        },
+      ),
+      MenuItemWidget(
+        text: "Compétences",
+        iconPath: IconResources.skill,
+        isSelected: selectedIndexItem == 3,
+        isMobileFormat: smallFormat,
+        onPressed: () {
+          scrollToIndex(3);
+        },
+      ),
+      MenuItemWidget(
+        text: "Formations",
+        iconPath: IconResources.formation,
+        isSelected: selectedIndexItem == 4,
+        isMobileFormat: smallFormat,
+        onPressed: () {
+          scrollToIndex(4);
+        },
+      ),
+    ];
   }
 
-  void visibilityChanged(VisibilityInfo info, int index) {
-    if (info.visibleFraction == 1) {
-      currentIndex = index;
-      notifyListeners();
-    }
-  }
-
-  void webGoToIndex(int index) {
-    scrollController.scrollTo(
+  void scrollToIndex(int index) {
+    itemScrollController.scrollTo(
       index: index,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeInOutCubic,
     );
+    selectedIndexItem = index;
     notifyListeners();
   }
 
-  void mobileGoToIndex(int index) {
-    currentIndex = index;
-    notifyListeners();
+  void initListener() {
+    itemPositionsListener.itemPositions.addListener(() {
+      final positions = itemPositionsListener.itemPositions.value;
+      if (positions.isNotEmpty) {
+        final index =
+            positions
+                .where((ItemPosition position) => position.itemTrailingEdge > 0)
+                .reduce(
+                  (ItemPosition min, ItemPosition position) =>
+                      position.itemLeadingEdge < min.itemLeadingEdge
+                          ? position
+                          : min,
+                )
+                .index;
+        if (selectedIndexItem != index) {
+          selectedIndexItem = index;
+          notifyListeners();
+        }
+      }
+    });
   }
 
-  Widget getScreen(int index, HomeNotifier homeNotifier, bool isWeb) {
-    Map<int, Widget> mapIndex = {
-      0: ProfilDataWidget(homeNotifier: homeNotifier, isWeb: isWeb),
-      1: ExperienceDataWidget(homeNotifier: homeNotifier, isWeb: isWeb),
-      2: EducationData(homeNotifier: homeNotifier, isWeb: isWeb),
-      3: SkillDataWidget(homeNotifier: homeNotifier, isWeb: isWeb),
-      4: InfoDataWidget(homeNotifier: homeNotifier, isWeb: isWeb),
-    };
-
-    return mapIndex[index] ?? const Center();
-  }
-
-  AirtableInfoModel getInfo(int index) {
-    Map<int, AirtableInfoModel> mapIndex = {
-      0: profilInfo,
-      1: experienceInfo,
-      2: formationInfo,
-      3: skillInfo,
-      4: profilInfo,
-    };
-
-    return mapIndex[index] ?? profilInfo;
+  void loadData() {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      listProfile = DataResources.listProfile;
+      listExperience = DataResources.listExperience;
+      listProject = DataResources.listProject;
+      listSkill = DataResources.listSkill;
+      listEducation = DataResources.listEducation;
+      notifyListeners();
+    });
   }
 }

@@ -19,10 +19,13 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  List<Widget> sectionWidgets() {
+  List<Widget> sectionWidgets(bool showNameAndPhoto) {
     final HomeNotifier homeNotifier = ref.read(homeProvider);
     return [
-      ProfileSectionWidget(listProfile: homeNotifier.listProfile),
+      ProfileSectionWidget(
+        listProfile: homeNotifier.listProfile,
+        showNameAndPhoto: showNameAndPhoto,
+      ),
       ExperienceSectionWidget(listExperience: homeNotifier.listExperience),
       ProjectSectionWidget(listProject: homeNotifier.listProject),
       SkillSectionWidget(listSkill: homeNotifier.listSkill),
@@ -107,7 +110,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         itemPositionsListener:
                             homeNotifier.itemPositionsListener,
                         itemBuilder: (context, index) {
-                          return sectionWidgets()[index];
+                          return sectionWidgets(isMobile)[index];
                         },
                         separatorBuilder:
                             (context, index) => Padding(

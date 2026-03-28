@@ -14,7 +14,7 @@ https://medium.com/@nayanbabariya/deploying-flutter-web-app-to-firebase-hosting-
 (ceci est une doc d'assistance)
 
 ### 1. Compiler
-$ flutter build web --wasp
+$ flutter build web --wasm
 
 ### 2. Lancer le serveur local pour vérification
 Installer serve : $ npm install -g serve

@@ -6,6 +6,7 @@ class CustomGlassmorphismContainerWidget extends StatelessWidget {
   final double width;
   final double height;
   final double radius;
+  final double blur;
 
   const CustomGlassmorphismContainerWidget({
     Key? key,
@@ -13,6 +14,7 @@ class CustomGlassmorphismContainerWidget extends StatelessWidget {
     this.width = double.infinity,
     this.height = double.infinity,
     this.radius = 12.0,
+    this.blur = 3.0,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class CustomGlassmorphismContainerWidget extends StatelessWidget {
       width: width,
       height: height,
       borderRadius: radius,
-      blur: 3,
+      blur: blur,
       alignment: Alignment.topCenter,
       border: 1,
       linearGradient: LinearGradient(

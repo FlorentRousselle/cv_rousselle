@@ -1,5 +1,6 @@
 import 'package:cv_flutter/notifiers/home_notifier.dart';
 import 'package:cv_flutter/resources/image_resources.dart';
+import 'package:cv_flutter/widgets/custom_glassmorphism_container_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glassmorphism/glassmorphism.dart';
@@ -15,29 +16,11 @@ class MenuWidget extends ConsumerWidget {
     return Padding(
       padding:
           mobileMenu ? const EdgeInsets.all(20.0) : const EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
-      child: GlassmorphicContainer(
+      child: CustomGlassmorphismContainerWidget(
         width: mobileMenu ? double.infinity : 250,
         height: mobileMenu ? 72 : double.maxFinite,
-        borderRadius: 20,
+        radius: 20,
         blur: 2,
-        alignment: Alignment.topCenter,
-        border: 1,
-        linearGradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.white.withValues(alpha: 0.35),
-            Colors.white.withValues(alpha: 0.3),
-          ],
-        ),
-        borderGradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.white.withValues(alpha: 0.5),
-            Colors.white.withValues(alpha: 0.1),
-          ],
-        ),
         child: Padding(
           padding: EdgeInsetsGeometry.symmetric(
             horizontal: mobileMenu ? 0 : 20,

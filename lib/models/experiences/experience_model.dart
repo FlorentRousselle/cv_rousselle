@@ -13,7 +13,7 @@ class ExperienceModel {
 
   bool get hasListActivity => listActivity.isNotEmpty;
 
-  bool get hasListInfoExperience => listActivity.isNotEmpty;
+  bool get hasListInfoExperience => listExperienceInfo.isNotEmpty;
 
   ExperienceModel({
     required this.title,

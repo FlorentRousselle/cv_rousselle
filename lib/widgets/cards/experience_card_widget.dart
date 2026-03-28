@@ -88,9 +88,9 @@ class ExperienceCardWidget extends StatelessWidget {
                           children: [
                             Row(
                               spacing: 30.0,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Flexible(
                                   child: Column(
@@ -103,8 +103,7 @@ class ExperienceCardWidget extends StatelessWidget {
                                         style: Theme.of(
                                           context,
                                         ).textTheme.headlineMedium?.copyWith(
-                                          color:
-                                              Theme.of(context).primaryColor,
+                                          color: Theme.of(context).primaryColor,
                                         ),
                                       ),
                                       Text(
@@ -120,7 +119,9 @@ class ExperienceCardWidget extends StatelessWidget {
                                 Image.asset(
                                   experience.companyImage,
                                   height: 50,
-                                  fit: BoxFit.fitHeight,
+                                  width: 80,
+                                  fit: BoxFit.contain,
+                                  alignment: Alignment.centerRight,
                                 ),
                               ],
                             ),

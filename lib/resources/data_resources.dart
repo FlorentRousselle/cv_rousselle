@@ -1,3 +1,4 @@
+import 'package:cv_flutter/models/educations/education_model.dart';
 import 'package:cv_flutter/models/experiences/experience_model.dart';
 import 'package:cv_flutter/models/experiences/experience_info_model.dart';
 import 'package:cv_flutter/models/profiles/profile_info_model.dart';
@@ -277,6 +278,46 @@ class DataResources {
       rating: 4,
       imageLink: ImageResources.git,
       category: "Stack technique",
+    ),
+  ];
+
+  /// education list
+  static List<EducationModel> listEducation = <EducationModel>[
+    // Supdeweb - master (2022)
+    EducationModel(
+      title: "Master développement mobile",
+      location: "Supdeweb, Paris (75016)",
+      year: 2022,
+      schoolImage: ImageResources.supdeweb,
+      listActivity: [
+        "Manager en stratégie et développement de projet digital",
+        "Diplôme sur 2 ans",
+        "Développement d’application mobile (Android, iOS, Multi-plateforme), UX Design, IOT, marketing informatique",
+      ],
+    ),
+    // IUT, Lens - licence pro (2018)
+    EducationModel(
+      title: "Lience professionnelle, D.I.O.C",
+      location: "IUT, Lens (62300)",
+      year: 2020,
+      schoolImage: ImageResources.iutLens,
+      listActivity: [
+        "Licence professionnelle, métiers de l’informatique conception, développement et test de logiciels",
+        "Diplôme sur 1 an",
+        "Développement d’applications web, bases de données, cybersécurité, Gestion de projet",
+      ],
+    ),
+    // IUT A, Lille - D.U.T Informatique (2018)
+    EducationModel(
+      title: "D.U.T Informatique",
+      location: "IUT A, Lille (59120)",
+      year: 2018,
+      schoolImage: ImageResources.iutLille,
+      listActivity: [
+        "Diplôme universitaire technologique, spécialité informatique",
+        "Diplôme sur 2 ans",
+        "Algorithmique et programmation, architecture système et Conception",
+      ],
     ),
   ];
 }

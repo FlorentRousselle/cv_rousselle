@@ -25,6 +25,7 @@ class ProjectCardWidget extends StatelessWidget {
             children: [
               Row(
                 spacing: 30.0,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -38,7 +39,9 @@ class ProjectCardWidget extends StatelessWidget {
                   Image.asset(
                     project.imageLink,
                     height: 50,
-                    fit: BoxFit.fitHeight,
+                    width: 80,
+                    fit: BoxFit.contain,
+                    alignment: Alignment.centerRight,
                   ),
                 ],
               ),

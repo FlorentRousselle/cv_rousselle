@@ -1,3 +1,4 @@
+import 'package:cv_flutter/models/educations/education_model.dart';
 import 'package:cv_flutter/models/experiences/experience_model.dart';
 import 'package:cv_flutter/models/profiles/profile_model.dart';
 import 'package:cv_flutter/models/projects/project_model.dart';
@@ -29,6 +30,8 @@ class HomeNotifier with ChangeNotifier {
   List<ProjectModel> listProject = <ProjectModel>[];
 
   List<SkillModel> listSkill = <SkillModel>[];
+
+  List<EducationModel> listEducation = <EducationModel>[];
 
   List<Widget> getMenuItems(bool smallFormat) {
     return <Widget>[
@@ -118,6 +121,7 @@ class HomeNotifier with ChangeNotifier {
       listExperience = DataResources.listExperience;
       listProject = DataResources.listProject;
       listSkill = DataResources.listSkill;
+      listEducation = DataResources.listEducation;
       notifyListeners();
     });
   }

@@ -1,6 +1,7 @@
 import 'package:cv_flutter/notifiers/home_notifier.dart';
 import 'package:cv_flutter/resources/icon_resources.dart';
 import 'package:cv_flutter/widgets/menus/menu_widget.dart';
+import 'package:cv_flutter/widgets/sections/education_section_widget.dart';
 import 'package:cv_flutter/widgets/sections/experience_section_widget.dart';
 import 'package:cv_flutter/widgets/sections/profile_section_widget.dart';
 import 'package:cv_flutter/widgets/sections/project_section_widget.dart';
@@ -25,7 +26,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ExperienceSectionWidget(listExperience: homeNotifier.listExperience),
       ProjectSectionWidget(listProject: homeNotifier.listProject),
       SkillSectionWidget(listSkill: homeNotifier.listSkill),
-      ProfileSectionWidget(listProfile: []),
+      EducationSectionWidget(listEducation: homeNotifier.listEducation),
     ];
   }
 
@@ -87,8 +88,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 mainAxisSize: MainAxisSize.max,
                 spacing: 20.0,
                 children: [
-                  if (!isMobile)
-                    const MenuWidget(mobileMenu: false),
+                  if (!isMobile) const MenuWidget(mobileMenu: false),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(

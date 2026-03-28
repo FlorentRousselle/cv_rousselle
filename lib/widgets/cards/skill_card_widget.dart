@@ -16,51 +16,48 @@ class SkillCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     int numberOfFilledHeart = skill.rating;
     int numberOfEmptyHeart = 5 - numberOfFilledHeart;
-    return IntrinsicHeight(
-      child: CustomGlassmorphismContainerWidget(
-        width: 250.0,
-        child: Padding(
-          padding: const EdgeInsetsGeometry.all(20.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            spacing: 8.0,
-            children: [
-              Image.asset(skill.imageLink, height: 50, fit: BoxFit.fitHeight),
-              Column(
+    return CustomGlassmorphismContainerWidget(
+      height: 100,
+      child: Padding(
+        padding: const EdgeInsetsGeometry.only(left: 20.0, right: 8.0),
+        child: Row(
+          spacing: 8.0,
+          children: [
+            Image.asset(skill.imageLink, height: 50, fit: BoxFit.fill),
+            Flexible(
+              child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 4.0,
                 children: [
-                  Flexible(
-                    child: Text(
-                      skill.title,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).secondaryHeaderColor,
-                      ),
+                  Text(
+                    skill.title,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).secondaryHeaderColor,
+                      height: 0,
                     ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Flexible(
-                    child: Wrap(
-                      alignment: WrapAlignment.start,
-                      direction: Axis.horizontal,
-                      children: [
-                        ...generateHeartIcon(
-                          context,
-                          filledHeart: true,
-                          numberOfHeart: numberOfFilledHeart,
-                        ),
-                        ...generateHeartIcon(
-                          context,
-                          filledHeart: false,
-                          numberOfHeart: numberOfEmptyHeart,
-                        ),
-                      ],
-                    ),
+                  Row(
+                    children: [
+                      ...generateHeartIcon(
+                        context,
+                        filledHeart: true,
+                        numberOfHeart: numberOfFilledHeart,
+                      ),
+                      ...generateHeartIcon(
+                        context,
+                        filledHeart: false,
+                        numberOfHeart: numberOfEmptyHeart,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

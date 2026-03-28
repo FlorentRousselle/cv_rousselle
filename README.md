@@ -1,6 +1,6 @@
 # cv_flutter
 
-Create your cv with airtable
+My CV - Florent Rousselle
 
 ## PAGE
 - profil "ProfilPage"
@@ -9,18 +9,6 @@ Create your cv with airtable
 - compétences "SkillPage"
 - infos 'InfoPage'
 
-## Commentaire
+## Comment déployer
 
-Projet agréable à réaliser pour ma part.
-Mise en ligne du projet pour en faire une web app et m'en servir à l'avenir.
-
-
-## Difficultés principales rencontrées
-
-Pas vraiment de difficulté rencontrée de mon côté.
-
-
-## Évolution ultérieures
-
-Déjà utilisateur de Flutter depuis 4 ans je souhaite continuer
-et découvrir les nouvelles mises à jour
+https://medium.com/@nayanbabariya/deploying-flutter-web-app-to-firebase-hosting-cac47636f140
